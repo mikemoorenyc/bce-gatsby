@@ -1,38 +1,42 @@
 import React from "react"
 import Layout from "../components/Layout"
 import LazyImg from "../components/LazyImg";
+import CopyArea from "../components/CopyArea";
 import {
   topHero,
   topInfo,
-  projectTag
+  projectTag,
+  topLinksClass
 } from "./styles/project.module.scss";
 import {
   posterContainer,
   posterImg,
   articleHeading,
-  tagLine
+  tagLine,
+  fontSans
 } from "../global-styles/utilities.module.scss"
 import { HtmlStrip } from "../utilities";
 import { Fragment } from "react";
 
 import { graphql } from "gatsby"
 
+
 export default function ProjectPost({ data }) {
     const {wpProject} = data
     const featuredImage = data.wpProject.featuredImage.node
     const {mediaDetails} = data.wpProject.featuredImage.node;
     const TopLinks = ({links}) => {
-      console.log(links)
+
       const lArray = links.split(/\r?\n/).map(l => l.split(",") )
       return (
-        <div>
+        <div className={`${topLinksClass} ${fontSans}`}>
           <h3>Links</h3>
           {
             lArray.map((l,i)=> {
               return (
-                <Fragment>
+                <Fragment key={i}>
                   {(i !== 0)? <Fragment>, </Fragment>: "" }
-                  <a href={l[1]}l>{l[0]}</a>
+                  <a href={l[1]}>{l[0]}</a>
                 </Fragment>
               )
             })
@@ -41,7 +45,7 @@ export default function ProjectPost({ data }) {
       )
     
     }   
-    console.log(wpProject.toplinks)
+    
   return (
   <Layout pageTitle={data.wpProject.title} activeMenu={"Projects"}>
     <div className={topHero}>
@@ -62,7 +66,7 @@ export default function ProjectPost({ data }) {
         <h1 className={`${articleHeading}`}>{wpProject.title}</h1>
         <h2 className={`${tagLine} ${projectTag}`}>{HtmlStrip(wpProject.excerpt)}</h2>
         {(wpProject.toplinks)? <TopLinks links={wpProject.toplinks} />: ""}
-        {wpProject.content}
+        <CopyArea copy={wpProject.content} />
       </div>
   </Layout>
   

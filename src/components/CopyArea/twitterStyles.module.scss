@@ -1,0 +1,63 @@
+@import "../../global-styles/global-variables.scss";
+.twitter-embed {
+    border-width: 1px; 
+    position:relative; 
+    padding: 16px;
+    .twitter-icon {
+        position:absolute;
+        right: 16px;
+        top: 16px;
+        width: 24px; 
+    }
+    .profile {
+        display:flex;
+        align-items: center;
+        padding-right: 36px;
+        margin-bottom: $gutter-width /2;
+    }
+    .profile-icon {
+        > img {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+        }
+    }
+    .profile-info {
+        margin-left: 8px;
+    }
+    h3.screen-name {
+        font-size:16px; 
+        font-weight: bold;
+    }
+    .user-name {
+        font-size: 14px;
+        line-height: 1;
+        display: block;
+    }
+    .tweet {
+        font-size: 16px;
+    }
+
+    .timestamp {
+        font-size: 12px;
+        margin-top: 4px;
+    }
+    hr {
+        border-top-width: 1px;
+        border-style: dashed;
+        margin: 8px 0; 
+    }
+   
+    .likes {
+        display: flex;
+        align-items: center;
+        svg {
+            width: 16px;
+            height: 16px;
+        }
+        span {
+            margin-left: 4px;
+            font-size: 12px;
+        }
+    }
+}

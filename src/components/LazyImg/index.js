@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React from "react";
 import { Fragment,useRef ,useState,useEffect} from "react";
 import {
     fakeImg,

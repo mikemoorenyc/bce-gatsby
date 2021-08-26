@@ -1,6 +1,6 @@
 @import "../../global-styles/global-variables.scss";
 .copyArea {
-    * {
+    > * {
         line-height: 1.5;
         margin-bottom: 1.5em; 
     }
@@ -23,5 +23,35 @@
       }
       h4 {
         font-size: 18px;
+      }
+      blockquote, .block-quote {
+        margin: 0 0 1.5em 0;
+        position: relative;
+        padding-left: 32px;
+        &:before {
+          display: block;
+          content:'\0022';
+          left: -8px;
+          top:0;
+          position: absolute;
+          font-family: $font-serif;
+          font-weight: bold;
+          font-size: 48px;
+          line-height: 1;
+        }
+        p {
+          margin-bottom:.5em;
+        }
+        @media(min-width:$dt-break) {
+          padding-left: 0;
+          &:before {
+            left:-40px;
+          }
+        }
+    
+      }
+      blockquote, blockquote p, .block-quote, .block-quote p {
+        font-style: oblique;
+        font-family: $font-sans;
       }
 }

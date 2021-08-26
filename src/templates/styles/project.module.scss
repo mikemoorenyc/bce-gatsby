@@ -12,3 +12,16 @@
 .project-tag {
     margin-top: 8px;
 }
+.top-links-class {
+    margin-top: 8px;
+    font-size: 14px;
+    * {
+        display:inline-block
+    }
+    h3 {
+        margin-right: 8px;
+        &::after {
+            content: ":"
+        }
+    }
+}
