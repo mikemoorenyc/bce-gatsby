@@ -1,0 +1,48 @@
+@import "../../global-styles/global-variables.scss";
+.picture {
+    svg {
+        position: relative;
+        width: 100%;
+        height: auto;
+        border-width: 1px;
+        box-shadow: 2px 2px 0 currentColor;
+    }
+}
+.like-block {
+ padding: 15px;
+ border-style: dashed;
+ border-width: 1px;
+ margin-bottom: 16px;
+ &:last-child {
+     margin-bottom: 0;
+ }   
+ > h2 {
+     margin-bottom: .5em;
+ }
+ > ul {
+
+    @media(max-width: ($t7 - 1px)) {
+      column-count: 2;
+      column-gap: 16px;
+    }
+
+    li {
+      margin-bottom:.5em;
+      font-size: .85em;
+      line-height: 1.2;
+
+      @media(min-width: $d-mq) {
+        display:inline-block;
+        margin: 0;
+        &:after {
+          content: ', ';
+        }
+        &:last-child {
+          &:after {
+            content:'';
+          }
+        }
+      }
+    }
+  }
+}

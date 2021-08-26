@@ -1,5 +1,14 @@
-$red: red;
-
-.mainBg {
-    background: red;
+@import "../../global-styles/global-variables.scss";
+.top-hero{
+    height: 56.25vw;
+    max-height: 50vh;
+    max-width: 950px;
+    margin: 0 auto;
+    margin-bottom: 24px;
+}
+.top-info {
+    margin: 0 $gutter-width 24px;
+}
+.project-tag {
+    margin-top: 8px;
 }

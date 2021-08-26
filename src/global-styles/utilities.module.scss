@@ -1,0 +1,258 @@
+  
+//
+// Utility classes
+// --------------------------------------------------
+@import "./global-variables.scss";
+
+// UTILITY MIXINS
+@mixin clearfix() {
+    &:before,
+    &:after {
+      content: ""; // 1
+      display: table; // 2
+    }
+    &:after {
+      clear: both;
+    }
+  }
+  @mixin center-block() {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  @mixin text-overflow() {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  @mixin before-fix() {
+    display: block;
+    content:'';
+  }
+  
+  @mixin bg-cover() {
+    background-size: cover;
+    background-position: top right;
+    background-repeat: no-repeat;
+  }
+  
+  @mixin ab-cover() {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
+  @mixin inline-centerer() {
+    letter-spacing: -4px;
+    > * {
+      display: inline-block;
+      letter-spacing:normal;
+      vertical-align: middle;
+    }
+  }
+  @mixin poster-img() {
+   position:relative;
+   overflow:hidden;
+   > img {
+     position: absolute;
+     left: 0;
+     top: 0;
+     width:100%;
+     height:100%;
+     object-fit:cover;
+     object-position: center center;
+     &.preload {
+       filter:blur(10px);
+       transform: scale(1.1);
+     }
+    }
+  }
+  .poster-img {
+    @include poster-img();
+  }
+  @mixin bg-stripe() {
+    background-color: transparent;
+    background-size: 16px 16px;
+    background-image: linear-gradient(45deg,
+      transparent 0%,
+      transparent 25%,
+      currentColor 25%,
+      currentColor 26%,
+      transparent 26%,
+      transparent 75%,
+      currentColor 75%,
+      currentColor 76%,
+      transparent 76%
+    );
+  }
+  
+  // Floats
+  // -------------------------
+  
+  .clearfix {
+    @include clearfix();
+  }
+  .center-block {
+    @include center-block();
+  }
+  .pull-right {
+    float: right !important;
+  }
+  .pull-left {
+    float: left !important;
+  }
+  
+  
+  .hide {
+    display: none !important;
+  }
+  .show {
+    display: block !important;
+  }
+  .invisible {
+    visibility: hidden;
+  }
+  
+  .hidden, .hide {
+    display: none !important;
+    visibility: hidden !important;
+  }
+  
+  // UTILITY CLASSES
+  .text-overflow  {
+    @include text-overflow();
+  }
+  .inline-centerer {
+    @include inline-centerer();
+  }
+  .ab-cover {
+    @include ab-cover();
+  }
+  
+  .above-line {
+    position:relative;
+    z-index:2;
+  }
+  .font-sans {
+    font-family: $font-sans;
+    * {
+      font-family: $font-sans;
+    }
+  }
+  .font-serif {
+    font-family: $font-serif;
+  }
+  
+  
+  
+  
+  .middle-center {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+  }
+  
+  
+  
+  // UTILITY PLACEHOLDER EXTENDERS
+  %clearfix {
+    @include clearfix();
+  }
+  %center-block {
+    @include center-block();
+  }
+  %text-overflow {
+    @include text-overflow();
+  }
+  %before-fix {
+    @include before-fix();
+  }
+  %bg-cover {
+    @include bg-cover();
+  }
+  %ab-cover {
+    @include ab-cover();
+  }
+  %inline-centerer {
+    @include inline-centerer();
+  }
+  
+  .stripe-hover {
+    &:hover {
+      @include bg-stripe();
+    }
+  }
+  
+  //HIDING
+  // MOBILE HIDE
+  
+  .mob-hide {
+    @media($dt-max) {
+      display: none !important;
+    }
+  }
+  
+  // DT HIDE
+  .dt-hide {
+    @media($dt) {
+      display: none !important;
+    }
+  }
+  
+  .before-block {
+   &:before {
+     display:block;
+     content:'';
+    }
+  }
+  .after-block {
+    &:after {
+      display:block;
+      content:'';
+    }
+  }
+  .article-heading {
+    font-size: 27px;
+    line-height: 1.1;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    @media(min-width: $dt-break) {
+      font-size: 42px;
+    }
+  }
+  .tag-line {
+    font-family: $font-serif;
+    font-weight: normal;
+    font-style: italic;
+  }
+
+///LAYOUT
+.content-centerer {
+  padding: 0 16px;
+}
+.bottom-margin {
+  margin-bottom: 24px; 
+}
+
+//Images
+.poster-container {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  width: 100%;
+}
+.poster-img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+  -o-object-position: center center;
+  object-position: center center;
+}

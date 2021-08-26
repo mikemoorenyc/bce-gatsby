@@ -1,13 +1,13 @@
 // Step 1: Import React
 import * as React from 'react'
 import { graphql, Link } from 'gatsby'
-import "../global-styles.scss"
+
 import Layout from '../components/Layout'
 
 // Step 2: Define your component
 const IndexPage = ({data}) => {
   return (
-    <Layout>
+    <Layout activeMenu={"Home"}>
       <main>
      
      <h1>Welcome to my Gatsby site!</h1>
@@ -15,8 +15,8 @@ const IndexPage = ({data}) => {
      <p>I'm making this by following the Gatsby Tutorial.</p>
      <ul>
        {
-         data.allWpProject.nodes.map(n => (
-           <li><Link to={`project/${n.slug}`}>{n.title}</Link></li>
+         data.allWpProject.nodes.map((n,i)=> (
+           <li key={i}><a href={`project/${n.slug}`}>{n.title}</a></li>
          ))
        }
      </ul>
@@ -26,8 +26,21 @@ const IndexPage = ({data}) => {
   )
 }
 export const query = graphql`query MyQuery {
-  allWpProject(limit: 4) {
+  allWpProject(sort: {fields: menuOrder, order: ASC}, limit: 3) {
     nodes {
+      dateGmt
+      excerpt
+      featuredImage {
+        node {
+          mediaDetails {
+            sizes {
+              sourceUrl
+              name
+            }
+          }
+        }
+      }
+      content
       title
       slug
     }

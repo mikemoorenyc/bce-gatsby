@@ -1,0 +1,13 @@
+@import "../../global-styles/utilities.module.scss";
+.fake-img {
+    display:block;
+    margin: 0 auto;
+    max-width: 100%;
+    position:relative;
+    width: 100%;
+    height: 0;
+    
+}
+.bg {
+    @include bg-stripe();
+}

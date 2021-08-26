@@ -10,7 +10,6 @@ module.exports = {
   plugins: [
     "gatsby-plugin-gatsby-cloud",
     `gatsby-plugin-react-helmet`,
-    `gatsby-plugin-sass`,
     {
       resolve: `gatsby-source-wordpress`,
       options: {
@@ -20,6 +19,12 @@ module.exports = {
          */
         url: process.env.WORDPRESS_GRAPH_URL,
       },
+    },
+    {
+      resolve: `gatsby-plugin-sass`,
+      options: {
+        implementation: require("node-sass")
+      }
     }
   ],
 };

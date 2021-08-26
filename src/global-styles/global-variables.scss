@@ -1,0 +1,36 @@
+$ts: 0.25s;
+
+$m4: 480px;
+$t7: 760px;
+$d9: (950px);
+$d-mq: $d9 + 48px + 16px;
+
+/*BREAK POINTS*/
+$dt-break: 801px;
+$dt-max-break: ($dt-break - 1px);
+$tab: 'min-width:401px';
+$dt: 'min-width: 1032px';
+$dt-max: 1280px;
+
+
+
+/* SITE COLORS */
+$body-bg: #fff;
+$main-color: #404041;
+$link-color: #bc812c;
+$link-color-hover: black;
+$white: #fafafa;
+$black: #212121;
+
+/*FONTS*/
+$font-family:  Helvetica, sans-serif;
+$font-serif: 'Georgia', 'Times New Roman', Times, serif;
+$font-sans: Arial,Helvetica,Helvetica Neue,sans-serif;
+$font-size-base: 14px;
+$line-height-base:  1.428571429;
+
+/*PADDING*/
+$header-top-padding: 72px;
+
+/*Gutters*/
+$gutter-width: 16px; 

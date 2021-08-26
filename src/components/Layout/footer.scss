@@ -1,0 +1,27 @@
+@import "../../global-styles/utilities.module.scss";
+@import "../../global-styles/global-variables.scss";
+
+.footer {
+
+    @include bg-stripe();
+  
+  
+    padding-top:48px;
+    padding-bottom: 48px;
+    border-top-width:1px;
+    margin-top: 80px;
+    .inner {
+      border-width: 1px;
+      padding: 16px;
+      background: $white;
+    
+      margin: 0 $gutter-width;
+      font-size: 12px;
+      line-height: 1.8;
+      ul.contact-footer {
+        margin-bottom: 12px;
+        column-count: 2;
+        column-gap: 16px;
+      }
+    }
+  }
