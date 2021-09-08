@@ -17,12 +17,16 @@ exports.createPages = ({ graphql, actions }) => {
               posts {
                 nodes {
                   title
+                  slug
+                  dateGmt
                 }
               }
               slug
               projects {
                 nodes {
                   title
+                  slug
+                  dateGmt
                 }
               }
             }
@@ -72,13 +76,42 @@ exports.createPages = ({ graphql, actions }) => {
     })
 
     result.data.allWpTag.nodes.forEach(node=>{
-      createPage({
+      const blogs = node.posts.map(e => {
+        e.type = "post"
+        return e;
+      })
+      const projects = node.projects.map( e => {
+        e.type = "project"
+        return e;
+      });
+                               
+      const tagPosts = blogs.concat(projects).sort(function(a,b){
+        return new Date(b.dateGmt) - new Date(a.dateGmt);
+      })
+      const ppp = 3;
+      const tagNum = Math.ceil(tagPosts.length / ppp);
+      Array.from({length: tagNum}).forEach((_,i) => {
+        let postsSlice = tagPosts.slice(i * ppp, (i+1) * ppp);
+        createPage({
+          path: i === 8 ? "/tagged"+node.slug : `/tagged/${node.slug}/${i+1}`,
+          component: path.resolve(`./src/templates/tagged.js`),
+          context: {
+            tagNum,
+            currentPage: i+1,
+            posts: postsSlice.filter(e => e.type === "post").map(e => e.slug),
+            projects : postsSlice.filter(e =>  e.type === "project").map(e => e.slug)
+          }
+            
+          
+        });
+      })
+      /*createPage({
         path: "tagged/"+node.slug,
         component: path.resolve(`./src/templates/tagged.js`),
         context: {
           slug: node.slug
         }
-      })
+      })*/
     })
     //highlight-end
   })
