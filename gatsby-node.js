@@ -93,7 +93,7 @@ exports.createPages = ({ graphql, actions }) => {
       Array.from({length: tagNum}).forEach((_,i) => {
         let postsSlice = tagPosts.slice(i * ppp, (i+1) * ppp);
         createPage({
-          path: i === 8 ? "/tagged"+node.slug : `/tagged/${node.slug}/${i+1}`,
+          path: i === 0 ? "/tagged"+node.slug : `/tagged/${node.slug}/${i+1}`,
           component: path.resolve(`./src/templates/tagged.js`),
           context: {
             tagNum,
