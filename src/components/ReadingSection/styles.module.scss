@@ -1,0 +1,11 @@
+@import "../../global-styles/global-variables.scss";
+
+.reading-section {
+    margin: 0 var(--gutter-width);
+    position: relative;
+    @media(min-width: $t7) {
+        max-width: 760px;
+        margin: 0 auto;
+        padding: 0 var(--gutter-width);
+    }
+}

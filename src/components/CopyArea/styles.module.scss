@@ -1,5 +1,6 @@
 @import "../../global-styles/global-variables.scss";
 .copyArea {
+
     > * {
         line-height: 1.5;
         margin-bottom: 1.5em; 
@@ -53,5 +54,41 @@
       blockquote, blockquote p, .block-quote, .block-quote p {
         font-style: oblique;
         font-family: $font-sans;
+      }
+      pre, code {
+        font-size: 14px;
+        font-family: Menlo,Monaco,"Courier New",Courier,monospace;
+      }
+      code {
+        border-width: 1px;
+        border-style: dotted;
+        padding: 0 4px;
+      }
+      pre {
+        position: relative;
+        padding: 1px;
+        background: currentColor;
+        margin-left:4px;
+        margin-right: 4px;
+        code {
+          color:var(--bg-white);
+          border-width:0;
+          display: block;
+          padding: 16px;
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+        }
+        &:before {
+          display: block;
+          content:'';
+          position: absolute;
+          left: -4px;
+          right: -4px;
+          bottom: -4px;
+          top: -4px;
+          border: 1px dashed currentColor;
+          pointer-events:none;
+        }
+    
       }
 }

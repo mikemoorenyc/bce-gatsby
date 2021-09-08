@@ -1,24 +1,29 @@
 import React from "react";
 import { Fragment } from "react";
+import parse from "html-react-parser";
 import {
     landingHeaderRule,
-    landingHeaderTitle
+    landingHeaderTitle,
+    excerpt
 } from "./styles.module.scss";
 import {
     articleHeading,
-    contentCenterer
+    contentCenterer,
+    gridLayout,
+    tagLine
 } from "../../global-styles/utilities.module.scss"
 
 
-export default function LandingHeader({pageTitle, content}) {
+export default function LandingHeader({pageTitle, copy}) {
+
     return (
         <Fragment>
         <div className="gl-mod landing-header  media-item">
-  <div className={contentCenterer}>
+  <div className={`${contentCenterer} ${gridLayout}`}>
     <h1 className={`${landingHeaderTitle} ${articleHeading}`}>{pageTitle}</h1>
 
     {
-        (content)? <div className="landing-header__excerpt tagline">{content}</div> : null
+        (copy)? <div className={`${excerpt} ${tagLine}`}>{parse(copy)}</div> : null
     }
     
    

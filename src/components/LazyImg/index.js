@@ -1,5 +1,5 @@
 import React from "react";
-import { Fragment,useRef ,useState,useEffect} from "react";
+import { Fragment,useRef ,useState,useLayoutEffect} from "react";
 import {
     fakeImg,
     bg
@@ -10,27 +10,24 @@ import {
 
 
 
-export default function LazyImg({srcSet,sourceUrl,sourceHeight, sourceWidth,alt, addClasses, isPoster}) {
+export default function LazyImg({srcSet,sourceUrl,sourceHeight, sourceWidth,altText, addClasses, isPoster}) {
     const fakeDom = useRef(null);
     const [inView, updateView] = useState(false);
-    const observer = new IntersectionObserver(onChange);
-    function onChange(changes){
-        changes.forEach(change => {
-            if(change.isIntersecting) {
-                updateView(true);
-                observer.disconnect(); 
-            }
-            
-        })
-    }
     
-    useEffect(()=>{
-       
+    
+    useLayoutEffect(()=>{
+        const observer = new IntersectionObserver(onChange);
+        function onChange(changes){
+            changes.forEach(change => {
+                if(change.isIntersecting) {
+                    updateView(true);
+                    observer.disconnect(); 
+                }
+            })
+        }
         observer.observe(fakeDom.current);
-        return () => {
-            if(!inView) {
-                observer.disconnect(); 
-            }
+        return () => {  
+            observer.disconnect(); 
         }
     },[])
 
@@ -40,7 +37,7 @@ export default function LazyImg({srcSet,sourceUrl,sourceHeight, sourceWidth,alt,
             (!inView) ?  <div ref={fakeDom} className={(isPoster)? `${posterImg} ${bg}` : `${fakeImg} ${bg} ${addClasses}`} style={{
                 paddingTop: (isPoster)?"" : ((sourceHeight/sourceWidth) * 100)+"%"
             }} /> : 
-                <img srcSet={srcSet} alt={alt} src={sourceUrl} className={addClasses || ""} />
+                <img srcSet={srcSet} alt={altText} src={sourceUrl} className={`${addClasses || ""} ${(isPoster)? posterImg : ""}`} />
             }
         </Fragment>
         

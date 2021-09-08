@@ -30,22 +30,32 @@
    transform: translateX(-50%);
    pointer-events: none;
    z-index: 9999;
+   @media(max-width: ($t7 - 1)) {
+     width: calc( 100% - (var(--gutter-width) * 2) );
+   }
    hr {
      display:none;
      float: left;
      background:rgba(red,.25);
      height: 100%;
+     &:first-child {
+      @media(max-width: ($t7 - 1)) {
+        display:block;
+        width: 100%;
+      }
+     }
    }
-   @include gridder(2, 16px);
+   
+   //@include gridder(2, 16px);
    @media(min-width: 402px) {
-    width: 400px
-  
+    //width: 400px
+    
    }
-   @media(min-width: $dt-break) {
-    width: 800px;
-    @include gridder(8,16px)
-  
+   @media (min-width: $t7) {
+    @include gridder(3,16px);
+    width: 760px;
    }
+   
    @media($dt) {
     width: 100%;
     @include gridder(12,24px);

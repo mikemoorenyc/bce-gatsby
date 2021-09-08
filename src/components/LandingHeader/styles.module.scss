@@ -10,8 +10,9 @@
     @media(min-width: $t7) {
       font-size: 36px;
       grid-row-start: 1;
-      grid-row-end: span 1;
-      grid-column-end: span 4;
+      grid-row-end: 2;
+      grid-column-start: 1;
+      grid-column-end: 4
     }
     @media(min-width:$d-mq) {
       font-size: 42px;
@@ -20,8 +21,13 @@
 .landing-header-rule {
     height: 1px;
     border-top-width:1px;
-    margin: 24px 0;
+    margin: var(--gutter-width) 0;
     @media(min-width:$d-mq) {
       margin:32px 0;
     }
+}
+.excerpt {
+  font-size: 14px; 
+  grid-column-start: 1;
+  grid-column-end: 3;
 }

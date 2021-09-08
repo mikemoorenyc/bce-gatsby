@@ -3,7 +3,7 @@
 
 body {
   color: #212121;
-  background-color: $white;
+  background-color: var(--bg-white);
   font-weight: normal;
   font-size: 18px;
   min-height: 100%;

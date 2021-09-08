@@ -1,6 +1,6 @@
 import { domToReact } from "html-react-parser";
-import React, { Fragment, useEffect, useState } from "react";
-import Svg from "../SVG"
+import React, {  Fragment, useEffect, useState , Suspense} from "react";
+
 import {
     twitterEmbed,
     twitterIcon,
@@ -18,11 +18,13 @@ import {
     noUnderline,
     fontSans
 } from "../../global-styles/utilities.module.scss"
+const Svg = React.lazy(()=>import("../SVG"));
+
 
 export default function TwitterBlock({node}) {
     let path = new URL(node.attribs["data-tweet-id"]).pathname.split("/"),
         id  = path[path.length -1];
-    console.log(id)
+
     const [tweetJSON, getTweetJSON] = useState(false);
     useEffect(()=>{
         fetch(`https://www.becreativeeveryday.com/get-tweet/?id=${id}&key=${process.env.GATSBY_TWITTER_KEY}`, {
@@ -32,24 +34,25 @@ export default function TwitterBlock({node}) {
     return response.json()
 })
 .then(data => {
-    console.log(data);
+
   getTweetJSON(data);
 })
 .catch((error) => {
   console.error('Error:', error);
 });
-    },[])
+    },[id])
     
-    let purl = (tweetJSON)? "https://twitter.com/"+tweetJSON.user.screen_name : `dddd`
+    let purl = (tweetJSON)? "https://twitter.com/"+tweetJSON.user.screen_name : `dddd`;
+    
     return <Fragment>
         {(!tweetJSON)?<blockquote>
             {domToReact(node.children[node.children.length - 1].children)}
         </blockquote> : 
             <div className={`${twitterEmbed} ${boxShadow}`}>
-                <div className={twitterIcon} ><Svg icon={"twitter"} /></div>
+                <div className={twitterIcon} ><Suspense fallback={<div />}><Svg icon={"twitter"} /></Suspense></div>
                 <div className={profile}>
                     <a href={purl} className={profileIcon}>
-                        <img src={tweetJSON.user.profile_image_url} />
+                        <img alt={tweetJSON.user.name} src={tweetJSON.user.profile_image_url} />
                     </a>
                     <div className={profileInfo}>
                         <h3 className={`${screenName}`}><a className={noUnderline} href={purl}>{tweetJSON.user.name}</a></h3>
@@ -57,13 +60,13 @@ export default function TwitterBlock({node}) {
                     </div>
                 </div>
                 <div className={tweet}>{tweetJSON.text}</div>
-                <a target="_blank" href={`https://twitter.com/${tweetJSON.user.screen_name}/status/${tweetJSON.id_str}`} className={`${timestamp} ${fontSans} ${noUnderline}`}>
+                <a  href={`https://twitter.com/${tweetJSON.user.screen_name}/status/${tweetJSON.id_str}`} className={`${timestamp} ${fontSans} ${noUnderline}`}>
                 {tweetJSON.created_at}
                 </a>
                 <hr />
                 <div className={likes}>
                     
-                       <Svg icon={"heart"} /> <span className={fontSans}>{tweetJSON.favorite_count}</span>
+                <Suspense fallback={<div />}> <Svg icon={"heart"} /> <span className={fontSans}>{tweetJSON.favorite_count}</span></Suspense>
                     
                 </div>
             </div>

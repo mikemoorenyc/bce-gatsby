@@ -1,0 +1,12 @@
+@import "../global-styles/global-variables.scss";
+.header {
+    font-size: 22px;
+    line-height: 1.7;
+     a{
+        display: inline-block;
+    }
+    @media (min-width: $t7) {
+        font-size: 30px 
+    }
+}
+

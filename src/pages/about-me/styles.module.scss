@@ -7,12 +7,32 @@
         border-width: 1px;
         box-shadow: 2px 2px 0 currentColor;
     }
+    grid-column-start: 3;
+    grid-column-end: 4;
+    grid-row-start: 1;
+    grid-row-end: 2;
+}
+.copyBlock {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 3
+}
+.about-layout {
+  grid-template-rows: auto 1fr;
+}
+.like-section {
+  grid-row-start: 2;
+  grid-row-end: 3;
+  grid-column-start: 3;
+  grid-column-end: 4;
 }
 .like-block {
  padding: 15px;
  border-style: dashed;
  border-width: 1px;
- margin-bottom: 16px;
+ margin-bottom: var(--gutter-width);
+
  &:last-child {
      margin-bottom: 0;
  }   
@@ -23,7 +43,7 @@
 
     @media(max-width: ($t7 - 1px)) {
       column-count: 2;
-      column-gap: 16px;
+      column-gap: var(--gutter-width);
     }
 
     li {

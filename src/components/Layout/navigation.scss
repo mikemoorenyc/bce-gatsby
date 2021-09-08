@@ -3,8 +3,7 @@
     right: 0;
     width:calc(100% - 56px);
     height: 100vh;
-    overflow-x:hidden;
-    overflow-y: auto;
+    
     -webkit-overflow-scrolling: touch;
     background-color:currentColor;
     padding-left: 24px;
@@ -14,6 +13,10 @@
     #{$show-menu} & {
       transform: translateX(0);
       transition-timing-function: ease-out;
+    }
+    @media (max-width: ($t7 - 1)) {
+      overflow-x:hidden;
+    overflow-y: auto;
     }
     > * {
       color:white;
@@ -40,18 +43,20 @@
  
     }
     @media(min-width:$t7) {
+
       position: static;
       width: auto;
       height: auto;
       background:none;
       transform: none;
+      padding: 0 var(--gutter-width);
       > * {
         color:currentColor;
       }
       .lockup {
         position: absolute;
         left:63px;
-  
+        display:none; 
         &.over-fold {
           display:none;
         }
@@ -72,14 +77,14 @@
       }
       .nav-items {
         position: absolute;
-        right: 24px;
+        right: var(--gutter-width);
         
         border-width:3px;
         box-shadow: 3px 3px 0 currentColor;
         padding: 0 4px;
         
-  
-        background:$white;
+        margin-right: 0;
+        background:var(--bg-white);
         .nav-item {
           display: inline-block;
           line-height: 1;

@@ -12,7 +12,10 @@ $tab: 'min-width:401px';
 $dt: 'min-width: 1032px';
 $dt-max: 1280px;
 
-
+:root {
+    --gutter-width: 16px;
+   --bg-white : #fafafa;
+}
 
 /* SITE COLORS */
 $body-bg: #fff;

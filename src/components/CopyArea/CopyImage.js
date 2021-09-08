@@ -10,7 +10,7 @@ import {
     fontSans
 } from "../../global-styles/utilities.module.scss"
 export default function CopyImage({node}) {
-    const classes = (node.attribs.class) ? node.attribs.class.split(" ")  : [];
+    const classes = node.attribs.class || "";
     let caption = node.children.filter(c => c.name === "figcaption")[0] || null;
     let img = node.children.filter(c => c.name === "img")[0] || null;
     const {
@@ -22,7 +22,7 @@ export default function CopyImage({node}) {
     } = img.attribs;
 
 
-    return <figure >
+    return <figure className={`${classes}`}>
         <div className={`${stdImg} ${boxShadow}`}><LazyImg sourceUrl={src} alt={alt} sourceHeight={height} sourceWidth={width} srcSet={srcset} /></div>
         {(caption)? <figcaption className={`${figcaption} ${fontSans}`}>{domToReact(caption.children)}</figcaption>: ""}
     </figure>

@@ -2,18 +2,24 @@ import React from "react"
 import Layout from "../components/Layout"
 import LazyImg from "../components/LazyImg";
 import CopyArea from "../components/CopyArea";
+import EndBullet from "../components/EndBullet";
+import TagList from "../components/TagList";
+import ReadingSection from "../components/ReadingSection";
+import { arraySplit } from "../utilities";
 import {
   topHero,
   topInfo,
   projectTag,
-  topLinksClass
+  topLinksClass,
+  whatILearned
 } from "./styles/project.module.scss";
 import {
   posterContainer,
   posterImg,
   articleHeading,
   tagLine,
-  fontSans
+  fontSans,
+  typeSmaller
 } from "../global-styles/utilities.module.scss"
 import { HtmlStrip } from "../utilities";
 import { Fragment } from "react";
@@ -21,15 +27,19 @@ import { Fragment } from "react";
 import { graphql } from "gatsby"
 
 
-export default function ProjectPost({ data }) {
-    const {wpProject} = data
-    const featuredImage = data.wpProject.featuredImage.node
-    const {mediaDetails} = data.wpProject.featuredImage.node;
+
+export default function ProjectPost({ data,pageContext }) {
+
+    const {currentProject} = data
+    console.log(data);
+    const featuredImage =(currentProject.featuredImage)? currentProject.featuredImage.node :{}
+    const {mediaDetails} = featuredImage ;
+    
     const TopLinks = ({links}) => {
 
       const lArray = links.split(/\r?\n/).map(l => l.split(",") )
       return (
-        <div className={`${topLinksClass} ${fontSans}`}>
+        <div className={`  ${topLinksClass} ${fontSans}`}>
           <h3>Links</h3>
           {
             lArray.map((l,i)=> {
@@ -45,36 +55,54 @@ export default function ProjectPost({ data }) {
       )
     
     }   
-    
+  
   return (
-  <Layout pageTitle={data.wpProject.title} activeMenu={"Projects"}>
-    <div className={topHero}>
+  <Layout pageTitle={currentProject.title} activeMenu={"Projects"}>
+    
       {
-        (wpProject.featuredImage) ?<div className={`${topHero} ${posterContainer}`}> <LazyImg 
+        (currentProject.featuredImage) ?<div className={topHero}><div className={`${topHero} ${posterContainer}`}> <LazyImg 
                                         sizes={mediaDetails.sizes} 
                                         srcSet={featuredImage.srcSet}
                                         isPoster={true} 
                                         sourceUrl={featuredImage.sourceUrl}
                                         sourceHeight={mediaDetails.height}
                                         sourceWidth={mediaDetails.width}
-                                        alt={featuredImage.altText}
+                                        altText={featuredImage.altText}
                                         addClasses={`${posterImg}`}
-                                        /> </div>: ""
+                                        /> </div></div>: ""
       }
-      </div>
+      
       <div className={topInfo}>
-        <h1 className={`${articleHeading}`}>{wpProject.title}</h1>
-        <h2 className={`${tagLine} ${projectTag}`}>{HtmlStrip(wpProject.excerpt)}</h2>
-        {(wpProject.toplinks)? <TopLinks links={wpProject.toplinks} />: ""}
-        <CopyArea copy={wpProject.content} />
+        <h1 className={`${articleHeading}`}>{currentProject.title}</h1>
+        <h2 className={`${tagLine} ${projectTag}`}>{HtmlStrip(currentProject.excerpt)}</h2>
+        {(currentProject.toplinks)? <TopLinks links={currentProject.toplinks} />: ""}
       </div>
+      <ReadingSection> 
+        <CopyArea copy={currentProject.content} />
+        <EndBullet />
+        {
+        (!currentProject.whatilearned)? "": <div className={`${whatILearned} ${fontSans}`}>
+        <h3 className={typeSmaller}>What I Learned</h3>
+        <ul className={typeSmaller}>
+        {
+          arraySplit(currentProject.whatilearned).map((e,i) => <li key={i}>{e}</li>)
+        }
+        </ul>
+      </div>
+      }
+       <TagList items={currentProject.tags.nodes} />
+      </ReadingSection>
+      
+      
+      
+      
   </Layout>
   
   )
 }
 export const query = graphql`
-  query($slug: String!) {
-    wpProject(slug: {eq: $slug}) {
+  query($slug: String!, $otherPosts: [String!] ) {
+    currentProject: wpProject(slug: {eq: $slug}) {
       content
       title
       whatilearned
@@ -101,6 +129,15 @@ export const query = graphql`
           sourceUrl
           srcSet
           altText
+        }
+      }
+    }
+    otherPosts: allWpProject(sort: {fields: date, order: DESC}
+      filter: {slug: {in: $otherPosts}}) {
+      edges {
+        node {
+          title
+          slug
         }
       }
     }

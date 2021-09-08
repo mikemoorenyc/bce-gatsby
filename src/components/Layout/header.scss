@@ -14,11 +14,7 @@ header {
   top: 0;
   width: 100%;
   height: 0;
-  @media(min-width:$m4) {
-    width: $m4;
-    left: calc(50% - #{($m4 / 2)});
-
-  }
+  
   @media(min-width:$t7 ){
     width: $t7;
     height: 0;
@@ -34,7 +30,7 @@ header {
    position: relative;
     border-width:1px;
     border-radius: 50%;
-    background:$white;
+   
     top: ($header-top-padding / 2);
     
 }
@@ -65,7 +61,7 @@ header {
       display:none;
     }
     position: absolute;
-    right: (16px - 8px) ;
+    right: calc(var(--gutter-width) - 8px)  ;
     width: 48px;
     height: 48px;
     &:before {
@@ -75,7 +71,7 @@ header {
       left:8px;
       top:8px;
       border-width: 3px;
-      background:$white;
+      background:var(--bg-white);
     }
     &:after {
       z-index:-1;
@@ -110,10 +106,13 @@ header {
     #{$show-menu} & {
         display:block; 
     }
+    @media(min-width: $t7) {
+      display:none !important; 
+    }
 }
 .main-logo {
-  position: fixed;
-  left: $gutter-width;
+  position: absolute;
+  left: var(--gutter-width);
   display:flex;
   align-items: center;
   top: ($header-top-padding / 2);
@@ -125,6 +124,9 @@ header {
   }
   .top-tagline {
     display: none;
+    @media (min-width:$t7) {
+      display: block;
+    }
   }
 }
 .logo-text {

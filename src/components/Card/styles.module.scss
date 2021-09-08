@@ -1,0 +1,42 @@
+@import "../../global-styles/global-variables.scss";
+
+.card {
+    position:relative; 
+    cursor:pointer; 
+    border-width: 2px; 
+    background: var(--bg-white);
+    word-wrap: break-word;
+    box-shadow: 2px 2px 0 currentColor;
+   
+    transition: all .1s;
+  
+ 
+    outline: 1px solid transparent;
+
+    &:hover {
+        transform: translate(-2px, -2px);
+        box-shadow: 4px 4px 0 currentColor;
+        h2 {
+            text-decoration: underline;
+        }
+    }
+     h2 {
+         font-size: 20px;
+         line-height: 1.1;
+         margin-bottom: .2em;
+     }
+    
+}
+.textArea {
+    padding: 14px; 
+    line-height: 1.2;
+}
+.kicker-style {
+    font-size: 10px;
+    text-transform: uppercase;
+}
+.imgContainer {
+    position:relative;
+    border-bottom-width: 1px;
+    padding-top: percentage((9/16));
+}
