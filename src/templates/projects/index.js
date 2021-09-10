@@ -41,12 +41,12 @@ const ProjectsPage= ({data}) => {
   export default ProjectsPage
 
 
-  export const query = graphql`query projectsQuery {
+  export const query = graphql`query projectsQuery($skip: Int!, $limit: Int!) {
     wpPage(slug: {eq: "projects"}) {
         content
         title
       }
-      allWpProject(sort: {fields: menuOrder, order: ASC}) {
+      allWpProject(sort: {fields: menuOrder, order: ASC},limit: $limit, skip: $skip) {
         nodes {
           excerpt
           slug,

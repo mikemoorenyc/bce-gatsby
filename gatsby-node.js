@@ -38,64 +38,94 @@ exports.createPages = ({ graphql, actions }) => {
               }
             }
           }
-    }
+          wp {
+            readingSettings {
+              postsPerPage
+            }
+          }
+          
+          
+          
+        }
   `).then(result => {
     //highlight-start
+    const ppp = result.data.wp.readingSettings.postsPerPage
+    
+    const landingPaginator = (posts, url, template) => {
+      const numPages = Math.ceil(posts.length / ppp);
+      Array.from({ length: numPages }).forEach((_, i) => {
+        createPage({
+          path: i === 0 ? `/${url}/` : `/${url}/${i + 1}`,
+          component: path.resolve(template),
+          context: {
+            limit: ppp,
+            skip: i * ppp,
+            numPages,
+            currentPage: i + 1,
+          },
+        })
+      })
+    }
+
+    //PROJECT PAGES
     const projects = result.data.allWpProject.nodes
     const end = projects.length - 1;
     projects.forEach((node,i) => {
       let prevPost=(i !== 0) ? i - 1 : end;
       let nextPost = (i !== end) ? i + 1 : 0;
       createPage({
-        path: "project/"+node.slug,
+        path: "projects/"+node.slug,
         component: path.resolve(`./src/templates/project-post.js`),
         context: {
-          // This is the $slug variable
-          // passed to blog-post.js
           slug: node.slug,
-          otherPosts : (projects.length > 1) ? [projects[prevPost].slug,projects[nextPost].slug] : []
-          
+          otherPosts : (projects.length > 1) ? [projects[prevPost].slug,projects[nextPost].slug] : []          
         },
       })
     })
+    landingPaginator(result.data.allWpPost.edges,"blog","./src/templates/blog-landing.js");
+    landingPaginator(projects,"projects","./src/templates/projects/index.js");
     //BLOG LANDING w/ Pagination 
-    const posts = result.data.allWpPost.edges
-    const postsPerPage = 3
-    const numPages = Math.ceil(posts.length / postsPerPage)
+   /* const posts = result.data.allWpPost.edges
+    
+    const numPages = Math.ceil(posts.length / ppp)
     Array.from({ length: numPages }).forEach((_, i) => {
       createPage({
         path: i === 0 ? `/blog` : `/blog/${i + 1}`,
         component: path.resolve("./src/templates/blog-landing.js"),
         context: {
-          limit: postsPerPage,
-          skip: i * postsPerPage,
+          limit: ppp,
+          skip: i * ppp,
           numPages,
           currentPage: i + 1,
         },
       })
-    })
-
+    }) */
+    //TAG PAGES w/ Pagination
     result.data.allWpTag.nodes.forEach(node=>{
-      const blogs = node.posts.map(e => {
+      
+      
+      let blogs = node.posts.nodes.map(e => {
         e.type = "post"
         return e;
       })
-      const projects = node.projects.map( e => {
+      let projects = node.projects.nodes.map( e => {
         e.type = "project"
         return e;
       });
                                
-      const tagPosts = blogs.concat(projects).sort(function(a,b){
+      let tagPosts = blogs.concat(projects).sort(function(a,b){
         return new Date(b.dateGmt) - new Date(a.dateGmt);
       })
-      const ppp = 3;
-      const tagNum = Math.ceil(tagPosts.length / ppp);
+      
+      let tagNum = Math.ceil(tagPosts.length / ppp);
       Array.from({length: tagNum}).forEach((_,i) => {
         let postsSlice = tagPosts.slice(i * ppp, (i+1) * ppp);
         createPage({
-          path: i === 0 ? "/tagged"+node.slug : `/tagged/${node.slug}/${i+1}`,
+          path: i === 0 ? "/tagged/"+node.slug : `/tagged/${node.slug}/${i+1}`,
           component: path.resolve(`./src/templates/tagged.js`),
+          
           context: {
+            slug: node.slug,
             tagNum,
             currentPage: i+1,
             posts: postsSlice.filter(e => e.type === "post").map(e => e.slug),
@@ -105,13 +135,8 @@ exports.createPages = ({ graphql, actions }) => {
           
         });
       })
-      /*createPage({
-        path: "tagged/"+node.slug,
-        component: path.resolve(`./src/templates/tagged.js`),
-        context: {
-          slug: node.slug
-        }
-      })*/
+      
+ 
     })
     //highlight-end
   })

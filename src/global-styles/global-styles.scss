@@ -79,7 +79,9 @@ body {
   button {
     cursor: pointer;
   }
-  
+  *:focus {
+    outline: 3px dashed currentColor
+  }
   
   .mw-800 {
     @media(min-width:800px) {

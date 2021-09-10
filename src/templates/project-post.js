@@ -31,7 +31,7 @@ import { graphql } from "gatsby"
 export default function ProjectPost({ data,pageContext }) {
 
     const {currentProject} = data
-    console.log(data);
+
     const featuredImage =(currentProject.featuredImage)? currentProject.featuredImage.node :{}
     const {mediaDetails} = featuredImage ;
     

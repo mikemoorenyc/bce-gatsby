@@ -19,7 +19,7 @@ import {
 
 export default function Card(props) {
     const {title, link, kicker, desc, srcSet, altText, sourceUrl, externalLink, extraClasses} = props
-    console.log(props);
+    
 
     const [downTime, setDownTime] = useState(0);
 
