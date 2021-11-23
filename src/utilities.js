@@ -1,13 +1,16 @@
-import parse from "html-react-parser"
 import CopyImage from "./components/CopyArea/CopyImage";
-import TwitterBlock from "./components/CopyArea/TwitterBlock";
-import React from "react";
 import InternaLink from "./components/InternalLink";
-const HtmlStrip = function(htmlString) {
-    let d = document.createElement("div");
-    d.innerHTML = htmlString;
-    return d.innerText;
+import React from "react";
+import TwitterBlock from "./components/CopyArea/TwitterBlock";
+import parse from "html-react-parser"
+
+const HtmlStrip = function(string) {
+
+    return string.replace(/(<([^>]+)>)/gi, "")
+    
 }
+
+
 const arraySplit = function(string, splitValue = /\r?\n/) {
     return string.split(splitValue);
 }
@@ -16,7 +19,7 @@ const copyParse = function(copy) {
     function Remove() {
         return null;
     }
-    let prep = document.createElement("div");
+    /*let prep = document.createElement("div");
     prep.innerHTML = copy;
     let tweets = prep.querySelectorAll(".wp-block-embed-twitter");
     tweets.forEach(function(e) {
@@ -33,7 +36,7 @@ const copyParse = function(copy) {
             e.appendChild(i);
         }
         
-    });
+    });*/
     const checkClass = function(classList) {
         if(!classList) {
             return false; 
@@ -49,9 +52,9 @@ const copyParse = function(copy) {
         return isInClass.length > 0;
 
     }
-    return parse(prep.innerHTML, {
+    return parse(copy, {
         replace: domNode => {
-            if(domNode.name === "a" && domNode.attribs["data-type"] == "page") {
+            if(domNode.name === "a" && domNode.attribs["data-type"] === "page") {
                 return <InternaLink node={domNode} />
             }
             if(domNode.name === "script") {
@@ -69,9 +72,9 @@ const copyParse = function(copy) {
             }
             if(domNode.attribs && domNode.attribs.class && domNode.attribs["class"].indexOf("wp-block-embed-twitter") > -1) {
                 return <TwitterBlock node={domNode} />
-            }
+            } 
         }
     })
 }
 
-export {copyParse, HtmlStrip,arraySplit}
+export {copyParse, arraySplit, HtmlStrip}

@@ -1,18 +1,20 @@
-import React from "react";
+
+
 import { Fragment } from "react";
+import React from "react";
 import parse from "html-react-parser";
-import {
-    landingHeaderRule,
-    landingHeaderTitle,
-    excerpt
-} from "./styles.module.scss";
+
 import {
     articleHeading,
     contentCenterer,
     gridLayout,
     tagLine
 } from "../../global-styles/utilities.module.scss"
-
+import {
+    excerpt,
+    landingHeaderRule,
+    landingHeaderTitle
+} from "./styles.module.scss";
 
 export default function LandingHeader({pageTitle, copy}) {
 

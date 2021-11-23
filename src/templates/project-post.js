@@ -1,36 +1,43 @@
 import React from "react"
-import Layout from "../components/Layout"
-import LazyImg from "../components/LazyImg";
+
 import CopyArea from "../components/CopyArea";
 import EndBullet from "../components/EndBullet";
-import TagList from "../components/TagList";
+import { Fragment } from "react";
+
+import Layout from "../components/Layout"
+import LazyImg from "../components/LazyImg";
+import MorePosts from "../components/MorePosts";
+
 import ReadingSection from "../components/ReadingSection";
-import { arraySplit } from "../utilities";
+import SmallHeader from "../components/SmallHeader";
+import TagList from "../components/TagList";
+import { HtmlStrip } from "../utilities";
+
 import {
+  projectTag,
   topHero,
   topInfo,
-  projectTag,
   topLinksClass,
   whatILearned
 } from "./styles/project.module.scss";
+
 import {
+  articleHeading,
+  fontSans,
   posterContainer,
   posterImg,
-  articleHeading,
   tagLine,
-  fontSans,
   typeSmaller
 } from "../global-styles/utilities.module.scss"
-import { HtmlStrip } from "../utilities";
-import { Fragment } from "react";
 
+
+
+import { arraySplit } from "../utilities";
 import { graphql } from "gatsby"
-
-
 
 export default function ProjectPost({ data,pageContext }) {
 
-    const {currentProject} = data
+    const {currentProject,otherPosts} = data
 
     const featuredImage =(currentProject.featuredImage)? currentProject.featuredImage.node :{}
     const {mediaDetails} = featuredImage ;
@@ -55,18 +62,25 @@ export default function ProjectPost({ data,pageContext }) {
       )
     
     }   
-  
+    const defaultImg = (currentProject.featuredImage) ? featuredImage.localFile.childImageSharp.fluid.src : null
   return (
-  <Layout pageTitle={currentProject.title} activeMenu={"Projects"}>
+    
+  <Layout 
+    
+    pageTitle={currentProject.title} activeMenu={"Projects"}
+    headerDescription={HtmlStrip(currentProject.excerpt)}
+    headerImg={defaultImg}
+    headerLink={currentProject.link}
+  >
     
       {
         (currentProject.featuredImage) ?<div className={topHero}><div className={`${topHero} ${posterContainer}`}> <LazyImg 
                                         sizes={mediaDetails.sizes} 
-                                        srcSet={featuredImage.srcSet}
+                                        srcSet={featuredImage.localFile.childImageSharp.fluid.srcSet}
                                         isPoster={true} 
-                                        sourceUrl={featuredImage.sourceUrl}
-                                        sourceHeight={mediaDetails.height}
-                                        sourceWidth={mediaDetails.width}
+                                        sourceUrl={defaultImg}
+                                        sourceHeight={featuredImage.localFile.childImageSharp.fixed.height}
+                                        sourceWidth={featuredImage.localFile.childImageSharp.fixed.width}
                                         altText={featuredImage.altText}
                                         addClasses={`${posterImg}`}
                                         /> </div></div>: ""
@@ -82,7 +96,7 @@ export default function ProjectPost({ data,pageContext }) {
         <EndBullet />
         {
         (!currentProject.whatilearned)? "": <div className={`${whatILearned} ${fontSans}`}>
-        <h3 className={typeSmaller}>What I Learned</h3>
+        <SmallHeader size={3} copy={"What I learned"} />
         <ul className={typeSmaller}>
         {
           arraySplit(currentProject.whatilearned).map((e,i) => <li key={i}>{e}</li>)
@@ -93,7 +107,7 @@ export default function ProjectPost({ data,pageContext }) {
        <TagList items={currentProject.tags.nodes} />
       </ReadingSection>
       
-      
+      <MorePosts posts={otherPosts.edges.map(e => e.node)} title={"More Projects"} />
       
       
   </Layout>
@@ -107,6 +121,7 @@ export const query = graphql`
       title
       whatilearned
       toplinks
+      link
       tags {
         nodes {
           slug
@@ -129,6 +144,19 @@ export const query = graphql`
           sourceUrl
           srcSet
           altText
+          localFile {
+            childImageSharp {
+              fixed {
+                src
+                width
+                height
+              }
+              fluid {
+                srcSet
+                src
+              }
+            }
+          }
         }
       }
     }
@@ -138,6 +166,15 @@ export const query = graphql`
         node {
           title
           slug
+          link
+          excerpt
+          featuredImage {
+            node {
+              srcSet
+              altText
+              sourceUrl
+            }
+          }
         }
       }
     }

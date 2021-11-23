@@ -9,7 +9,9 @@ module.exports = {
   },
   plugins: [
     "gatsby-plugin-gatsby-cloud",
-    `gatsby-plugin-react-helmet`,
+    
+    
+
     {
       resolve: `gatsby-source-wordpress`,
       options: {
@@ -18,8 +20,14 @@ module.exports = {
          * Example : 'https://www.example-site.com/graphql'
          */
         url: process.env.WORDPRESS_GRAPH_URL,
+        html: {
+          useGatsbyImage: false ,
+        }
       },
     },
+    `gatsby-plugin-react-helmet`,
+    "gatsby-transformer-sharp",
+    `gatsby-plugin-sharp`,
     {
       resolve: `gatsby-plugin-sass`,
       options: {

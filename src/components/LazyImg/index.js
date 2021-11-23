@@ -1,14 +1,15 @@
 import React from "react";
-import { Fragment,useRef ,useState,useLayoutEffect} from "react";
+
+import { Fragment, useLayoutEffect, useRef, useState } from "react";
 import {
-    fakeImg,
-    bg
+    bg,
+    fakeImg
 } from "./styles.module.scss";
+
+
 import {
     posterImg
 } from "../../global-styles/utilities.module.scss"
-
-
 
 export default function LazyImg({srcSet,sourceUrl,sourceHeight, sourceWidth,altText, addClasses, isPoster}) {
     const fakeDom = useRef(null);
@@ -37,7 +38,7 @@ export default function LazyImg({srcSet,sourceUrl,sourceHeight, sourceWidth,altT
             (!inView) ?  <div ref={fakeDom} className={(isPoster)? `${posterImg} ${bg}` : `${fakeImg} ${bg} ${addClasses}`} style={{
                 paddingTop: (isPoster)?"" : ((sourceHeight/sourceWidth) * 100)+"%"
             }} /> : 
-                <img srcSet={srcSet} alt={altText} src={sourceUrl} className={`${addClasses || ""} ${(isPoster)? posterImg : ""}`} />
+                <img srcSet={srcSet}  alt={altText || sourceUrl} src={sourceUrl} className={`${addClasses || ""} ${(isPoster)? posterImg : ""}`} />
             }
         </Fragment>
         

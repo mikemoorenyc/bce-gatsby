@@ -1,38 +1,34 @@
 // Step 2: Define your component
+
 import * as React from 'react'
-import { Suspense } from 'react'
-import Layout from '../../components/Layout'
-import { graphql } from "gatsby"
+
+
 import LandingHeader from '../../components/LandingHeader'
-import Card from "../../components/Card"
-import {
-  contentCenterer,
-  gridLayout,
-  fontSans,
-  noUnderline
-} from "../../global-styles/utilities.module.scss"
-import {
-  card,
-  cardContainer
-} from "./styles.module.scss";
+import Layout from '../../components/Layout'
+import BigCardList from '../../components/BigCardList'
+
+
+import { graphql } from "gatsby"
+import { HtmlStrip } from '../../utilities'
+
+
 
 const Svg = React.lazy(()=>import("../../components/SVG"))
 const ProjectsPage= ({data}) => {
+  
     const {wpPage} = data,
         {nodes} = data.allWpProject;
 
-    
+        
     return (
-      <Layout activeMenu={"Projects"} pageTitle={wpPage.title}>
+      <Layout activeMenu={"Projects"} 
+      pageTitle={wpPage.title} 
+      headerLink={wpPage.link}
+      headerDescription={HtmlStrip(wpPage.content)}
+      >
           <LandingHeader pageTitle={wpPage.title} copy={wpPage.content} />
-        <div className={`${cardContainer} ${contentCenterer} ${gridLayout}`} >
-            {
-                nodes.map(e => {
-                    let img = (e.featuredImage)? e.featuredImage.node: {};
-               return  <Card key={e.slug} extraClasses={card} kicker={"fake kicker"} title={e.title} desc={e.excerpt} link={`/project/${e.slug}`} {...img}/>
-                     })
-            }
-        </div>
+          <BigCardList posts={nodes} />
+        
       </Layout>
  
     )
@@ -45,12 +41,14 @@ const ProjectsPage= ({data}) => {
     wpPage(slug: {eq: "projects"}) {
         content
         title
+        link
       }
       allWpProject(sort: {fields: menuOrder, order: ASC},limit: $limit, skip: $skip) {
         nodes {
           excerpt
           slug,
           title,
+          link
           featuredImage {
             node {
               srcSet
@@ -62,3 +60,5 @@ const ProjectsPage= ({data}) => {
       }
   }
   `
+
+ 

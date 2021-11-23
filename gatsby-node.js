@@ -9,6 +9,7 @@ exports.createPages = ({ graphql, actions }) => {
               title
               uri
               slug
+              link
             }
           }
           allWpTag(filter: {count: {gt: 0}}) {
@@ -19,6 +20,7 @@ exports.createPages = ({ graphql, actions }) => {
                   title
                   slug
                   dateGmt
+                  link
                 }
               }
               slug
@@ -27,15 +29,15 @@ exports.createPages = ({ graphql, actions }) => {
                   title
                   slug
                   dateGmt
+                  link
                 }
               }
             }
           }
           allWpPost(sort: {fields: date, order: DESC} ){
-            edges {
-              node {
-                slug
-              }
+            nodes {
+              slug
+              link
             }
           }
           wp {
@@ -50,6 +52,8 @@ exports.createPages = ({ graphql, actions }) => {
   `).then(result => {
     //highlight-start
     const ppp = result.data.wp.readingSettings.postsPerPage
+    const projects = result.data.allWpProject.nodes
+    const posts = result.data.allWpPost.nodes
     
     const landingPaginator = (posts, url, template) => {
       const numPages = Math.ceil(posts.length / ppp);
@@ -66,10 +70,29 @@ exports.createPages = ({ graphql, actions }) => {
         })
       })
     }
+    const singlePageMaker = (posts,template,urlPath) => {
+      const end = posts.length - 1;
+      
+      posts.forEach((node,i) => {
+        let prevPost=(i !== 0) ? i - 1 : end;
+        let nextPost = (i !== end) ? i + 1 : 0;
+        createPage({
+          path: node.link,
+          component: path.resolve(template),
+        context: {
+          slug: node.slug,
+          otherPosts : (posts.length > 1) ? [posts[prevPost].slug,posts[nextPost].slug] : []          
+        }
+        })
+      })
+    }
+    singlePageMaker(posts, "./src/templates/blogs/blog-single.js","blogs");
+    singlePageMaker(projects,"./src/templates/project-post.js","projects")
+    // Blog pages 
 
     //PROJECT PAGES
-    const projects = result.data.allWpProject.nodes
-    const end = projects.length - 1;
+    
+    /*const end = projects.length - 1;
     projects.forEach((node,i) => {
       let prevPost=(i !== 0) ? i - 1 : end;
       let nextPost = (i !== end) ? i + 1 : 0;
@@ -81,8 +104,8 @@ exports.createPages = ({ graphql, actions }) => {
           otherPosts : (projects.length > 1) ? [projects[prevPost].slug,projects[nextPost].slug] : []          
         },
       })
-    })
-    landingPaginator(result.data.allWpPost.edges,"blog","./src/templates/blog-landing.js");
+    })*/
+    landingPaginator(posts,"blog","./src/templates/blogs/blog-landing.js");
     landingPaginator(projects,"projects","./src/templates/projects/index.js");
     //BLOG LANDING w/ Pagination 
    /* const posts = result.data.allWpPost.edges
@@ -140,4 +163,19 @@ exports.createPages = ({ graphql, actions }) => {
     })
     //highlight-end
   })
+}
+
+
+exports.onCreateWebpackConfig = helper => {
+  const { stage, actions, getConfig } = helper
+  if (stage === "develop" || stage === 'build-javascript') {
+    const config = getConfig()
+    const miniCssExtractPlugin = config.plugins.find(
+      plugin => plugin.constructor.name === "MiniCssExtractPlugin"
+    )
+    if (miniCssExtractPlugin) {
+      miniCssExtractPlugin.options.ignoreOrder = true
+    }
+    actions.replaceWebpackConfig(config)
+  }
 }

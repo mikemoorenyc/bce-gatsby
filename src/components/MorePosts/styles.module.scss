@@ -1,0 +1,10 @@
+@import "../../global-styles/global-variables.scss";
+
+.mp-container {
+    margin-top: var(--gutter-width);
+}
+.slim-card {
+    &:not(:first-child) {
+        margin-top: calc(var(--gutter-width) / 2)
+    }
+}

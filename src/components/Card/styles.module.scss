@@ -1,12 +1,18 @@
 @import "../../global-styles/global-variables.scss";
 
 .card {
+    --widths: 2px;
+    &.slim {
+        
+        --widths: 1px; 
+        display:flex; 
+    }
     position:relative; 
     cursor:pointer; 
-    border-width: 2px; 
+    border-width: var(--widths); 
     background: var(--bg-white);
     word-wrap: break-word;
-    box-shadow: 2px 2px 0 currentColor;
+    box-shadow: var(--widths) var(--widths) 0 currentColor;
    
     transition: all .1s;
   
@@ -14,22 +20,30 @@
     outline: 1px solid transparent;
 
     &:hover, &:focus-within {
-        transform: translate(-2px, -2px);
-        box-shadow: 4px 4px 0 currentColor;
-        h2 {
+        transform: translate(calc(-1 * var(--widths) ), calc(-1 * var(--widths) ));
+        box-shadow: calc((var(--widths) * 2)) calc((var(--widths) * 2)) 0 currentColor;
+        .h2 {
             text-decoration: underline;
         }
     }
-     h2 {
-         font-size: 20px;
-         line-height: 1.1;
-         margin-bottom: .2em;
-     }
+     
     
+}
+.h2 {
+    font-size: 18px;
+    line-height: 1.1;
+    margin-bottom: .2em;
+    .slim & {
+        font-size: 16px; 
+    }
 }
 .textArea {
     padding: 14px; 
     line-height: 1.2;
+    .slim & {
+        font-size: 14px;
+        flex: 1;
+    }
 }
 .kicker-style {
     font-size: 10px;
@@ -39,4 +53,9 @@
     position:relative;
     border-bottom-width: 1px;
     padding-top: percentage((9/16));
+    .slim & {
+        width: calc(8px * 10);
+  
+        padding: 0;
+    }
 }

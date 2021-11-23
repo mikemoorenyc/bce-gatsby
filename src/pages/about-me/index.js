@@ -1,23 +1,29 @@
 // Step 2: Define your component
+
 import * as React from 'react'
-import Layout from '../../components/Layout'
-import { graphql } from "gatsby"
-import LandingHeader from '../../components/LandingHeader'
+
+
+
 import CopyArea from '../../components/CopyArea'
+import LandingHeader from '../../components/LandingHeader'
+import Layout from '../../components/Layout'
+import { arraySplit } from '../../utilities'
+import { graphql } from "gatsby"
+
+
 import {
-  contentCenterer,
+  aboutLayout,
+  copyBlock,
+  likeBlock,
+  likeSection,
+  picture
+} from "./styles.module.scss";
+import {
   bottomMargin,
+  contentCenterer,
   fontSans,
   gridLayout
 } from "../../global-styles/utilities.module.scss"
-import {
-  picture, 
-  likeBlock,
-  copyBlock,
-  likeSection,
-  aboutLayout
-} from "./styles.module.scss";
-import { arraySplit } from '../../utilities'
 
 const LikeBlock = ({list, title}) => {
   return (

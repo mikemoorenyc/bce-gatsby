@@ -1,22 +1,27 @@
 // Step 2: Define your component
+
 import * as React from 'react'
-import { Suspense } from 'react'
-import Layout from '../../components/Layout'
-import { graphql } from "gatsby"
-import LandingHeader from '../../components/LandingHeader'
 import CopyArea from '../../components/CopyArea'
-import {
-  contentCenterer,
-  gridLayout,
-  fontSans,
-  noUnderline
-} from "../../global-styles/utilities.module.scss"
+import LandingHeader from '../../components/LandingHeader'
+import Layout from '../../components/Layout'
 import {
   copyLayout,
   socialLinks
 } from "./styles.module.scss";
+import {
+  contentCenterer,
+  fontSans,
+  gridLayout,
+  noUnderline
+} from "../../global-styles/utilities.module.scss"
+
+
+
+
 import { arraySplit } from '../../utilities'
-const Svg = React.lazy(()=>import("../../components/SVG"))
+import { graphql } from "gatsby"
+
+import Svg from "../../components/SVG"
 const ContactPage = ({data}) => {
     const {title,content,socialmedialink} = data.wpPage
 
@@ -24,7 +29,7 @@ const ContactPage = ({data}) => {
       let item = arraySplit(e,",");
       return <li key={i}>
         <a className={`${fontSans} ${noUnderline}`}href={item[1]}>
-        <Suspense key={i} fallback={<div/>}><Svg icon={item[0].toLowerCase().trim()}/></Suspense>
+        <Svg icon={item[0].toLowerCase().trim()}/>
         {item[2]}
         </a>
       </li>   

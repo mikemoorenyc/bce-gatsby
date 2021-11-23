@@ -1,0 +1,13 @@
+@import "../../global-styles/global-variables.scss";
+.card {
+    margin-bottom: var(--gutter-width);
+    @media(min-width: $t7) {
+        margin: 0;
+    }
+}
+.cardContainer {
+    padding: 0 var(--gutter-width);
+    @media(min-width: $t7) {
+        gap: var(--gutter-width);
+    }
+}

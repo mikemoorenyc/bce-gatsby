@@ -1,20 +1,24 @@
 // Step 1: Import React
-import * as React from 'react'
-import { graphql, Link } from 'gatsby'
-import Card from '../components/Card'
 
+import * as React from 'react'
+
+import { Link, graphql } from 'gatsby'
+
+import Card from '../components/Card'
 import Layout from '../components/Layout'
+
 import { copyParse } from '../utilities'
-import {
-  contentCenterer
-} from "../global-styles/utilities.module.scss"
 import {
   header
 } from "./home.module.scss";
+import {
+  contentCenterer
+} from "../global-styles/utilities.module.scss"
+
 
 // Step 2: Define your component
 const IndexPage = ({data}) => {
-  console.log(data);
+  
   return (
     <Layout activeMenu={"Home"}>
       <div className={`${header} ${contentCenterer}`}>{copyParse(data.wpPage.content)}</div>
@@ -25,7 +29,7 @@ const IndexPage = ({data}) => {
           
                {
                 data.allWpProject.nodes.map((n,i)=> (
-                  <Card {...n} key={i} link={"/project/"+n.slug} />
+                  <Card {...n} key={i}  />
                 ))
               }
           
@@ -64,6 +68,7 @@ export const query = graphql`query MyQuery {
       content
       title
       slug
+      link
     }
   }
   allWpPost(sort: {fields: date, order: ASC}, limit: 2) {

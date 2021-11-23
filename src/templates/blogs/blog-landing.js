@@ -1,6 +1,6 @@
-import React from "react";
-import { graphql, Link } from "gatsby";
+import { Link, graphql } from "gatsby";
 
+import React from "react";
 
 export default function BlogLanding({data,pageContext}) {
     console.log(pageContext);

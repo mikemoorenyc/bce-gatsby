@@ -1,48 +1,65 @@
-import React from "react"
-import { useStaticQuery, graphql, Link } from "gatsby"
-import { Helmet } from "react-helmet"
 import "../../global-styles/global-styles.scss";
-import { Fragment, useState, useRef, useEffect } from "react";
-import Svg from "../SVG"
+
+import { Fragment, useEffect, useRef, useState } from "react";
+import { Link, graphql, useStaticQuery } from "gatsby"
+
+import { Helmet } from "react-helmet"
 import GridLines from "../GridLines";
+import React from "react"
+import Svg from "../SVG"
+
 import {
-    mainContentContainer ,
-    spinner,
-    navOpener,
-    showMenu,
-    scrim,
-    nav,
-    lockup,
-    title,
-    topLogo,
-    topTagline,
-    navItems, 
-    navItem,
     active,
+    contactFooter,
+    copyright,
     footer,
     inner,
-    contactFooter,
-    mainLogo,
+    lockup,
     logoText,
-    copyright
+    mainContentContainer,
+    mainLogo,
+    nav,
+    navItem,
+    navItems,
+    navOpener,
+    scrim,
+    showMenu,
+    spinner,
+    title,
+    topLogo,
+    topTagline
 } from "./styles.module.scss"
 import {
-    beforeBlock,
     afterBlock,
-    middleCenter,
+    beforeBlock,
+    contentCenterer,
     fontSans,
-    contentCenterer
-
+    middleCenter
 } from "../../global-styles/utilities.module.scss"
 
-export default function Layout({pageTitle, headerMeta, children, activeMenu}) {
+export default function Layout({pageTitle, headerDescription,headerImg,headerLink, children, activeMenu}) {
     const data = useStaticQuery(
         graphql`
           query {
+            siteIcon: wpPage(isFrontPage: {eq: true}) {
+                id
+                featuredImage {
+                  node {
+                    localFile {
+                      childImageSharp {
+                        fluid {
+                          src
+                        }
+                      }
+                    }
+                  }
+                }
+              }
             wp {
                 allSettings {
                   generalSettingsDescription
                   generalSettingsTitle
+                  generalSettingsCanonUrl
                 }
               }
               wpMenu(name: {eq: "Main Menu"}) {
@@ -67,8 +84,7 @@ export default function Layout({pageTitle, headerMeta, children, activeMenu}) {
 
     const headerCheck = useRef(null);
     const [hideHeader, updateHeaderState] = useState(false);
-    const [favIconColor, updateFaviconColor] = useState("black");
-    
+    const [favIconColor, updateFaviconColor] = useState("rgba(0,0,0,0)");
     useEffect(()=>{
         const colors = ["red", "green", "blue", "purple","orange","bubblegum","brown","black"];
         
@@ -87,15 +103,42 @@ export default function Layout({pageTitle, headerMeta, children, activeMenu}) {
         return () => {
             observer.disconnect();
         }
-    },[updateFaviconColor])
-  
+    },[updateFaviconColor]);
+    
+    function Head() {
+
+        let headImg = headerImg || ((data.siteIcon && data.siteIcon.featuredImage)? data.siteIcon.featuredImage.node.localFile.childImageSharp.fluid.src : null) ;
+        let headDesc = headerDescription || desc;
+        let headTitle = pageTitle || theTitle;
+        let headLink = data.wp.allSettings.generalSettingsCanonUrl+(headerLink || "")
+        return <Helmet>
+        <title>{(!pageTitle)? theTitle : `${pageTitle} - ${theTitle}`}</title>
+       
+        <link rel="icon" href={`data:image/svg+xml;utf8,%3Csvg id='FavLogo' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cstyle%3E%23FavLogo %7Bfill: white;stroke:${favIconColor};%7D%3C/style%3E%3Ccircle cx='16' cy='16' r='15.5'/%3E%3Ccircle cx='16' cy='16' r='10.5' stroke-dasharray='3.5,2.5'/%3E%3C/svg%3E`} />
+
+        <meta name="description" content={headDesc} />
+        <meta property="og:url" content={headLink} />
+        <meta  property="og:type" content="article" />
+        <meta  property="og:title" content={headTitle}/>
+        <meta  property="og:image" content={headImg} />
+        <meta  property="og:image:alt" content={headDesc}/>
+        <meta property="og:description" content={headDesc} />
+        <meta  property="twitter:url" content={headLink} />
+        <meta  property="twitter:title" content={headTitle} />
+        <meta  property="twitter:description" content={headDesc} />
+        <meta  property="twitter:image" content={headImg} />
+        <meta property="twitter:image:alt" content={headDesc} />
+        <meta  property="twitter:card" content={(headerImg) ? "summary_large_image" : "summary"} /> 
+        <link  rel="canonical" href={headLink} />
+        
+        
+    </Helmet>
+    }
+
     return (
         <Fragment>
-        <Helmet>
-            <title>{(!pageTitle)? theTitle : `${pageTitle} - ${theTitle}`}</title>
-            <meta name="description" content={desc} />
-            <link rel="icon" href={`data:image/svg+xml;utf8,%3Csvg id='FavLogo' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cstyle%3E%23FavLogo %7Bfill: white;stroke:${favIconColor};%7D%3C/style%3E%3Ccircle cx='16' cy='16' r='15.5'/%3E%3Ccircle cx='16' cy='16' r='10.5' stroke-dasharray='3.5,2.5'/%3E%3C/svg%3E`} />
-        </Helmet>
+            
+        <Head />
         <div id="header-test"></div>
         <header id="top-header" role="presentation"  className={`${(menuOpen)?showMenu :""}`}>
             <div className={mainLogo}>
@@ -129,7 +172,7 @@ export default function Layout({pageTitle, headerMeta, children, activeMenu}) {
                     {
                     data.wpMenu.menuItems.nodes.map(n => (
                         <div className={`${navItem} ${(n.label === activeMenu)?active : ""}`} key={n.id}>
-                            <a onClick={hamburgerClick} href={n.url}>{n.label}</a></div>
+                            <Link onClick={hamburgerClick} to={n.url}>{n.label}</Link></div>
                       ))
                     }
 

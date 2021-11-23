@@ -1,6 +1,7 @@
-import React from "react"
-import { useStaticQuery,graphql } from "gatsby";
+import { graphql, useStaticQuery } from "gatsby";
+
 import { Link } from "gatsby";
+import React from "react"
 
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);

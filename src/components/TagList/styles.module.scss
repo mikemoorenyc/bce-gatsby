@@ -1,0 +1,28 @@
+@import "../../global-styles/global-variables.scss";
+
+.tags {
+    margin-top: var(--gutter-width);
+}
+.accessHeader {
+    width: 0;
+    height: 0;
+    overflow:hidden; 
+    visibility: hidden;
+}
+.li {
+    display:inline-block;
+    margin: 0 8px 8px 0;
+}
+.tagLink {
+    display:block;
+    font-size: 12px; 
+    border-style:dotted;
+    border-width: 1px;
+    padding: 4px 8px; 
+    box-shadow: 1px 1px 0 currentColor;
+    transition: all .1s;
+    &:hover {
+        transform: translate(-1px,-1px);
+        box-shadow: 2px 2px 0 currentColor;
+    }
+}
