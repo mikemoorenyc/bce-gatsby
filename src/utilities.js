@@ -76,5 +76,11 @@ const copyParse = function(copy) {
         }
     })
 }
+const truncateString = function(str, num) {
+    if (str.length <= num) {
+      return str
+    }
+    return str.slice(0, num) + '...'
+}
 
-export {copyParse, arraySplit, HtmlStrip}
+export {truncateString, copyParse, arraySplit, HtmlStrip}

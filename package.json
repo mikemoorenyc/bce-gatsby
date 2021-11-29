@@ -20,7 +20,7 @@
     "gatsby-plugin-react-helmet": "^4.12.0",
     "gatsby-plugin-sass": "^4.12.0",
     "gatsby-plugin-sharp": "^3.13.0",
-    "gatsby-source-wordpress": "^5.12.0",
+    "gatsby-source-wordpress": "^5.14.2",
     "gatsby-transformer-sharp": "^3.12.0",
     "html-react-parser": "^1.2.8",
     "node-sass": "^6.0.1",

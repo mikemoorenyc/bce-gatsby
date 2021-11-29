@@ -4,7 +4,7 @@ import React, { useState } from "react"
 
 import * as styles from "./styles.module.scss";
 
-import { HtmlStrip } from "../../utilities"
+import { HtmlStrip, truncateString } from "../../utilities"
 import LazyImg from "../LazyImg";
 import { Link } from "gatsby";
 import { navigate, } from "gatsby"
@@ -55,12 +55,7 @@ export default function Card(props) {
         navigate(link);
     }
   
-    function truncateString(str, num) {
-        if (str.length <= num) {
-          return str
-        }
-        return str.slice(0, num) + '...'
-      }
+    
     return <div role="presentation" onMouseDown={cardClick} onMouseUp={cardClick} className={`${card} ${(styleMod)? styles[styleMod]: ""} ${extraClasses}  `}>
         {
             (!sourceUrl)?"":

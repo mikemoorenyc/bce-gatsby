@@ -71,7 +71,9 @@ header {
       left:8px;
       top:8px;
       border-width: 3px;
-      background:var(--bg-white);
+      #{$show-menu} & {
+        background: var(--bg-white);
+      }
     }
     &:after {
       z-index:-1;
