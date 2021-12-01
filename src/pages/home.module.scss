@@ -12,7 +12,7 @@
 .home-section {
     padding-top: var(--gutter-width);
     &:last-child {
-        padding-top: calc(var(--gutter-width) * 2)
+        padding-top: calc(var(--gutter-width) * 2.5)
     }
 }
 .section-heading {
@@ -34,6 +34,11 @@
         }
     }
 }
+.home-tag {
+    line-height: 1.2;
+    font-size: .85em;
+    margin-top: .25em;
+}
 .project-item {
     &:not(:first-child) {
         margin-top: calc(var(--gutter-width) * 2 ) ;
@@ -49,21 +54,14 @@
             text-decoration: none;
         }
     }
-    .project-tag {
-        line-height: 1.2;
-        font-size: .85em;
-        margin-top: .25em;
-    }
+    
     .project-btn {
         display: inline-block;
         margin-top: var(--half-gutter);
-        font-size: 14px;
-        font-weight: bold;
-        line-height: 1;
+        
         padding: 8px 10px 7px 10px;
-        border-width: 2px;
-        white-space: nowrap;
-        box-shadow: 2px 2px 0 currentColor;
+        
+        
         span {
             display: inline-block;
             vertical-align: middle;
@@ -81,3 +79,4 @@
     font-size: .75em;
     font-weight: bold;
 }
+

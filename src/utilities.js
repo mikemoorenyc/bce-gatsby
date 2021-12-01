@@ -5,6 +5,9 @@ import TwitterBlock from "./components/CopyArea/TwitterBlock";
 import parse from "html-react-parser"
 
 const HtmlStrip = function(string) {
+    if(!string) {
+        return "";
+    }
 
     return string.replace(/(<([^>]+)>)/gi, "")
     

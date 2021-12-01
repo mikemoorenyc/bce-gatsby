@@ -71,19 +71,12 @@ header {
       left:8px;
       top:8px;
       border-width: 3px;
+      box-shadow: 3px 3px 0 currentColor;
       #{$show-menu} & {
         background: var(--bg-white);
       }
     }
-    &:after {
-      z-index:-1;
-      position: absolute;
-      height:calc(100% - 16px);
-      right: 5px;
-      top: 11px;
-      width: calc(100% - 16px);
-      border-width: 0 3px 3px 0;
-    }
+   
     > span {
       display: block;
       width: 18px;

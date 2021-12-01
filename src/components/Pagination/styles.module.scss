@@ -1,0 +1,40 @@
+.pagination-container {
+    margin: calc(var(--gutter-width) * 2) var(--gutter-width) 0;
+    display: flex;
+    justify-content: center;
+}
+.pagination-button {
+    width: calc(var(--gutter-width) * 8);
+    display: flex;
+    align-items: center;
+    padding: 4px 6px;
+    justify-content: flex-end;
+    
+    > span {
+        display: inline-block;
+    }
+    svg {
+        width: 14px;
+        height: 14px;
+        margin-left: 6px;
+    }
+    &:nth-child(2) {
+        margin: 0 0 0 8px;
+    }
+    &.prevButton {
+        justify-content: flex-start;
+        > span:nth-child(1) {
+            order:2;
+        }
+        > span:nth-child(2) {
+            order: 1;
+        }
+        svg {
+            margin: 0 6px 0 0;
+            transform: rotate(180deg);
+        }
+    }
+    &.single-btn{
+        justify-content: center;
+    }
+}

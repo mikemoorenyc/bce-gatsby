@@ -5,6 +5,7 @@ import * as React from 'react'
 import { Link, graphql } from 'gatsby'
 import Layout from '../components/Layout'
 import LazyImg from '../components/LazyImg'
+import BlogItem from "../components/BlogItem"
 import Svg from '../components/SVG'
 import { copyParse,HtmlStrip,truncateString } from '../utilities'
 import {
@@ -13,16 +14,20 @@ import {
   sectionHeading,
   projectThumb,
   projectItem,
-  projectTag,
+  homeTag,
   projectBtn,
-  seeAllContainer
+  seeAllContainer,
+  blogItem,
+  blogMeta,
+  blogReadMore
 } from "./home.module.scss";
 import {
   contentCenterer,
   posterContainer,
   tagLine,
   noUnderline,
-  fontSans
+  fontSans,
+  buttonStyling
 } from "../global-styles/utilities.module.scss"
 
 
@@ -50,8 +55,8 @@ const IndexPage = ({data}) => {
                       {(thumb)? <LazyImg isPoster={true} sourceUrl={thumb.src} srcSet={thumb.srcSet}/> : "" }
                     </Link>
                     <h3><Link to={n.link}>{n.title}</Link></h3>
-                    {(n.excerpt) ? <div className={`${projectTag} ${tagLine}`}>{truncateString(HtmlStrip(n.excerpt),75)}</div> : null}
-                    <Link className={`${projectBtn} ${fontSans} ${noUnderline}`} to={n.link}><span>View Project</span><span><Svg icon={"arrow"}/></span></Link>
+                    {(n.excerpt) ? <div className={`${homeTag} ${tagLine}`}>{truncateString(HtmlStrip(n.excerpt),75)}</div> : null}
+                    <Link className={`${projectBtn} ${buttonStyling} ${fontSans} ${noUnderline}`} to={n.link}><span>View Project</span><span><Svg icon={"arrow"}/></span></Link>
                   </article>
                 })
               }
@@ -63,9 +68,18 @@ const IndexPage = ({data}) => {
 
       {(hpBlogs)? <div className={` ${homeSection} ${contentCenterer}`}>
       <h2 className={sectionHeading}><span>Writing</span></h2>
+      <div>
       {
-              hpBlogs.nodes.map((n,i) => (<div key={n.databaseId}>{n.title}<br/>{n.data}</div>))
+              hpBlogs.nodes.map((n,i) => {
+                return <BlogItem 
+                  key={n.databaseId}
+                  {...n}
+                
+                />
+              })
             }
+            </div>
+          <div className={`${seeAllContainer}`}><Link className={`${fontSans}`} to={"/blog"}>See all writing</Link></div>
       </div> : null}
     
      
@@ -105,13 +119,13 @@ export const query = graphql`query MyQuery {
       databaseId
     }
   }
-  hpBlogs : allWpPost(sort: {fields: date, order: ASC}, limit: 2) {
+  hpBlogs : allWpPost(sort: {fields: date, order: DESC}, limit: 2) {
     nodes {
       title
       slug
       link
-      date
       databaseId
+      excerpt
     }
   }
   wpPage(slug: {eq: "home"}) {
@@ -123,3 +137,7 @@ export const query = graphql`query MyQuery {
 // Step 3: Export your component
 export default IndexPage
 
+/*<article className={blogItem} key={n.databaseId}>
+<h3><Link to={n.link} className={noUnderline}>{n.title}</Link></h3>
+<div className={blogMeta}> {(n.excerpt) ? <div className={` ${tagLine}`}>{truncateString(HtmlStrip(n.excerpt),75)}</div> : null} <Link className={`${blogReadMore} ${fontSans}`} to={n.link}>Read More</Link></div>
+</article> */

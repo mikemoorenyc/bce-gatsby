@@ -1,0 +1,25 @@
+.blog-item {
+    &:not(:last-child) {
+        padding-bottom: var(--gutter-width);
+        margin-bottom: var(--gutter-width);
+        border-bottom-width: 1px;
+        border-style: dashed;
+    }
+}
+.blog-meta {
+    line-height: 1.2;
+    font-size: .85em;
+    margin-top: .25em;
+    > * {
+        display: inline;
+    }
+}
+.blog-excerpt {
+    margin-left: 4px;
+}
+.blog-read-more {
+    
+    font-weight: bold;
+    display: inline-block;
+    font-size: .85em;
+}

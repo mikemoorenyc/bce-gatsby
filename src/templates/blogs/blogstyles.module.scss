@@ -1,0 +1,14 @@
+
+.blog-item-padding {
+    padding-left: var(--gutter-width);
+    padding-right: var(--gutter-width);
+}
+.blog-tagline {
+    margin-top: var(--half-gutter); 
+}
+.blog-hero {
+    margin-top: var(--gutter-width)
+}
+.blog-copy {
+    margin-top: calc(var(--gutter-width) * 1.5)
+}

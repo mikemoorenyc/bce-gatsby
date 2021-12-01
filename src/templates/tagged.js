@@ -2,8 +2,8 @@ import React from "react";
 import { graphql } from "gatsby";
 
 import LandingHeader from "../components/LandingHeader";
-import Layout from "../components/Layout"
-
+import Layout from "../components/Layout";
+import Pagination from "../components/Pagination"
 import BigCardList from "../components/BigCardList";
 
 
@@ -31,14 +31,12 @@ export default function TaggedPage({data,pageContext}) {
   return <Layout pageTitle={tagTitle}> <div>
     <LandingHeader pageTitle={tagTitle}  />
     <BigCardList posts={allPosts} />
+
+    <Pagination 
+                  prevLink={(currentPage > 1) ? `/tagged/${pageContext.slug}/${prevNumber}` : null}
+                  nextLink={(currentPage < tagNum) ?`/tagged/${pageContext.slug}/${currentPage+1}`: null}
+                />
     
-    {
-      (currentPage > 1) ? <a href={`/tagged/${pageContext.slug}/${prevNumber}`}>Previous</a> : ""
-    }
-    <br/>
-    {
-      (currentPage < tagNum) ? <a href={`/tagged/${pageContext.slug}/${currentPage+1}`}>Next</a> : ""
-    }
   </div>
   </Layout>
 

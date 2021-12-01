@@ -55,7 +55,7 @@
     padding-top: percentage((9/16));
     .slim & {
         width: calc(8px * 10);
-  
+        border-width: 0 1px 0 0;
         padding: 0;
     }
 }

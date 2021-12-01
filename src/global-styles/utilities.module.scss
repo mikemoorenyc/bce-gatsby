@@ -203,7 +203,7 @@
     }
   }
   .article-heading {
-    font-size: 27px;
+    font-size: 26px;
     line-height: 1.1;
     overflow-wrap: break-word;
     word-wrap: break-word;
@@ -215,6 +215,7 @@
     font-family: $font-serif;
     font-weight: normal;
     font-style: italic;
+    line-height: 1.2;
   }
 
   ////TYPE
@@ -273,4 +274,15 @@
   -o-object-position: center center;
   object-position: center center;
 }
-
+.thin-box {
+  border-width: 1px; 
+  box-shadow: 2px 2px 0 currentColor;
+}
+.button-styling {
+  box-shadow: 2px 2px 0 currentColor;
+  border-width: 2px;
+  white-space: nowrap;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 1;
+}
