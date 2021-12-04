@@ -7,7 +7,7 @@ import { Helmet } from "react-helmet"
 import GridLines from "../GridLines";
 import React from "react"
 import Svg from "../SVG"
-
+import ColorModeToggle from "../ColorModeToggle";
 import {
     active,
     contactFooter,
@@ -77,6 +77,13 @@ export default function Layout({pageTitle, headerDescription,headerImg,headerLin
     function hamburgerClick(e) {
     
         changeOpenState(!menuOpen);
+        hamburgerDOM.current.blur();
+    }
+    const hamburgerDOM = useRef(null);
+    const updateColorMode = (color) => {
+        updateFaviconColor(color);
+        let dmSet = (color === "white") ? "yes" : "no" 
+        localStorage.setItem("dark_mode", dmSet);
     }
     const [menuOpen, changeOpenState] = useState(false);
     const theTitle = data.wp.allSettings.generalSettingsTitle,
@@ -84,13 +91,24 @@ export default function Layout({pageTitle, headerDescription,headerImg,headerLin
 
     const headerCheck = useRef(null);
     const [hideHeader, updateHeaderState] = useState(false);
-    const [favIconColor, updateFaviconColor] = useState("rgba(0,0,0,0)");
+    const [favIconColor, updateFaviconColor] = useState(null);
+    const colors = ["red", "green", "blue", "purple","orange","MediumVioletRed","brown","black"]
+    const colorPicker = () => colors[Math.floor(Math.random() * colors.length)]
     useEffect(()=>{
-        const colors = ["red", "green", "blue", "purple","orange","bubblegum","brown","black"];
-        
-        let newColor = colors[Math.floor(Math.random() * colors.length)];
-        document.body.style.color = newColor;
-        updateFaviconColor(newColor);
+        //Is dark mode currently set? 
+        let dm = localStorage.getItem("dark_mode");
+        let colormodeInit = () => {
+            //DarkMode currently set to yes or user defaults to dark mode
+            if(dm === "yes" || (!dm && (window.matchMedia && 
+                window.matchMedia('(prefers-color-scheme: dark)').matches)) ) {
+                updateColorMode("white");
+                return; 
+            }
+            //Switch to color mode
+            
+            updateColorMode(colorPicker() )
+        }
+        colormodeInit();
         const observer = new IntersectionObserver(function(changes){
             if(changes[0].isIntersecting) {
                 updateHeaderState(false)
@@ -114,7 +132,7 @@ export default function Layout({pageTitle, headerDescription,headerImg,headerLin
         return <Helmet>
         <title>{(!pageTitle)? theTitle : `${pageTitle} - ${theTitle}`}</title>
        
-        <link rel="icon" href={`data:image/svg+xml;utf8,%3Csvg id='FavLogo' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cstyle%3E%23FavLogo %7Bfill: white;stroke:${favIconColor};%7D%3C/style%3E%3Ccircle cx='16' cy='16' r='15.5'/%3E%3Ccircle cx='16' cy='16' r='10.5' stroke-dasharray='3.5,2.5'/%3E%3C/svg%3E`} />
+        <link rel="icon" href={`data:image/svg+xml;utf8,%3Csvg id='FavLogo' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cstyle%3E%23FavLogo %7Bfill: none;stroke:${favIconColor};%7D%3C/style%3E%3Ccircle cx='16' cy='16' r='15.5'/%3E%3Ccircle cx='16' cy='16' r='10.5' stroke-dasharray='3.5,2.5'/%3E%3C/svg%3E`} />
 
         <meta name="description" content={headDesc} />
         <meta property="og:url" content={headLink} />
@@ -130,7 +148,7 @@ export default function Layout({pageTitle, headerDescription,headerImg,headerLin
         <meta property="twitter:image:alt" content={headDesc} />
         <meta  property="twitter:card" content={(headerImg) ? "summary_large_image" : "summary"} /> 
         <link  rel="canonical" href={headLink} />
-        
+        <body style={(!favIconColor) ? "color: var(--dark-base)" : `color: ${favIconColor}`} className={(favIconColor === "white") ? "dark-mode" : ""} />
         
     </Helmet>
     }
@@ -175,14 +193,12 @@ export default function Layout({pageTitle, headerDescription,headerImg,headerLin
                             <Link onClick={hamburgerClick} to={n.url}>{n.label}</Link></div>
                       ))
                     }
-
+                    <ColorModeToggle colorPicker={colorPicker} currentColor={favIconColor} switchFunction={updateColorMode} />
                 </div>
-                <div id="color-mode-switcher" className="color-mode-switcher before-block after-block" >
-                    <button data-colormode="<?= $colormode;?>" title="<?= $cmode_title;?>" id="color-mode-button" className="slider before-block after-block ">Switch color mode</button>
-                </div>
+                
 
             </nav>
-            <button onClick={(e)=>{e.preventDefault();hamburgerClick()}}  id="nav-opener" className={`${navOpener} ${beforeBlock} ${afterBlock}`}>
+            <button ref={hamburgerDOM} onClick={(e)=>{e.preventDefault();hamburgerClick()}}  id="nav-opener" className={`${navOpener} ${beforeBlock} ${afterBlock}`}>
                 <span className={middleCenter}><Svg icon={(menuOpen)? "x" : "menu"} /></span>     
             </button>
         </header>

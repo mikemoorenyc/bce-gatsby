@@ -15,7 +15,8 @@ $dt-max: 1280px;
 :root {
     --gutter-width: 16px;
     --bg-white : #fafafa;
-    --half-gutter: calc(var(--gutter-width) / 2) 
+    --half-gutter: calc(var(--gutter-width) / 2) ;
+    --dark-base : #212121;
 }
 
 /* SITE COLORS */

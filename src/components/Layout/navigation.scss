@@ -14,6 +14,9 @@
       transform: translateX(0);
       transition-timing-function: ease-out;
     }
+    body:global(.dark-mode) & {
+      background-color: var(--dark-base);
+    }
     @media (max-width: ($t7 - 1)) {
       overflow-x:hidden;
     overflow-y: auto;
@@ -85,6 +88,7 @@
         
         margin-right: 0;
         background:var(--bg-white);
+        
         .nav-item {
           display: inline-block;
           line-height: 1;

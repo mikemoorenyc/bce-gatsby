@@ -11,7 +11,7 @@ import {
 } from "../../global-styles/utilities.module.scss";
 
 export default function MorePosts({posts,title}) {
-    console.log(posts);
+    
 
     return <div className={` ${mpContainer} ${contentCenterer}`}>
         <SmallHeader copy={title || "More posts"} />
