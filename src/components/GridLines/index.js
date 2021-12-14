@@ -5,7 +5,7 @@ import {
 
 export default function GridLines() {
     return(
-        <div className={gridLines} >
+        <div className={gridLines} style={{display:"none"}}>
   <hr/>
   <hr/>
   <hr/>

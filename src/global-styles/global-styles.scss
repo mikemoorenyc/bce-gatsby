@@ -105,4 +105,10 @@ body, p {
 h1,h2,h3,h4,h5,h6 {
   font-family: $font-sans;
   line-height: 1.2;
+  @media(min-width: $t7) {
+    font-size: 1.2em;
+  }
+  @media(min-width: $d-mq) {
+    font-size: 2em;
+  }
 }

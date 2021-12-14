@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Link } from 'gatsby';
+import { Fragment } from 'react';
 import {
     blogItem,
     blogMeta,
@@ -12,12 +13,20 @@ import {
     noUnderline,
     tagLine
 } from "../../global-styles/utilities.module.scss";
-export default ({title,link,excerpt,extraClasses}) => {
+const BlogCopy = ({title,link,excerpt}) => {
+    return <Fragment>
+        <h3><Link to={link} className={noUnderline}>{title}</Link></h3>
+   <div className={blogMeta}> {(excerpt) ? <div className={`${blogExcerpt} ${tagLine}`}>{truncateString(HtmlStrip(excerpt),75)}</div> : null} <Link className={`${blogReadMore} ${fontSans}`} to={link}>Read More</Link></div>
+    </Fragment>
+}
+const BlogItem = ({title,link,excerpt,extraClasses}) => {
     return <article className={`${blogItem} ${extraClasses || ""}`} >
         <div>
+        <BlogCopy title={title} link={link} excerpt={excerpt} />
   
-    <h3><Link to={link} className={noUnderline}>{title}</Link></h3>
-   <div className={blogMeta}> {(excerpt) ? <div className={`${blogExcerpt} ${tagLine}`}>{truncateString(HtmlStrip(excerpt),75)}</div> : null} <Link className={`${blogReadMore} ${fontSans}`} to={link}>Read More</Link></div>
         </div>
   </article>
 }
+
+
+export {BlogItem, BlogCopy}

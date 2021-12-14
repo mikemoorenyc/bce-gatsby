@@ -15,7 +15,8 @@
       grid-column-end: 4
     }
     @media(min-width:$d-mq) {
-      font-size: 42px;
+      font-size: 48px;
+      grid-column-end: 10;
     }
 }
 .landing-header-rule {
@@ -30,4 +31,8 @@
   font-size: 14px; 
   grid-column-start: 1;
   grid-column-end: 3;
+  @media(min-width: $d-mq) {
+    font-size: 1em; 
+    grid-column-end: 10;
+  }
 }

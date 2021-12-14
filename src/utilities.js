@@ -85,5 +85,19 @@ const truncateString = function(str, num) {
     }
     return str.slice(0, num) + '...'
 }
+const timeConvert = (hour,min) => {
+    let hr = (hour>12) ? hour-12 : ((hour === 0) ? 12 : hour ),
+        ampm = (hour > 11) ? "PM" : "AM",
+        minutes = ((min < 10) ? "0":"")+min
+    return `${hr}:${minutes} ${ampm}`
+}
+const monthConvert = (num) => {
+ 
+          return ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][num]
 
-export {truncateString, copyParse, arraySplit, HtmlStrip}
+}
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+export {numberWithCommas,monthConvert, timeConvert, truncateString, copyParse, arraySplit, HtmlStrip}

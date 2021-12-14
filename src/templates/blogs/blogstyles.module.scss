@@ -1,7 +1,12 @@
-
+@import "../../global-styles/global-variables.scss";
+@import "../../global-styles/utilities.module.scss";
 .blog-item-padding {
     padding-left: var(--gutter-width);
     padding-right: var(--gutter-width);
+    @media(min-width: $t7) {
+        padding-left: 0;
+        padding-right: 0;
+    }
 }
 .blog-tagline {
     margin-top: var(--half-gutter); 
@@ -11,4 +16,35 @@
 }
 .blog-copy {
     margin-top: calc(var(--gutter-width) * 1.5)
+}
+.blog-item-inner {
+    @media(min-width: $t7) {
+        @include content-centerer();
+        @include grid-layout();
+    }
+}
+.blog-landing-copy {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    &.landing-full-width {
+        grid-column-end: 4;
+    
+    }
+    @media(min-width: $d-mq) {
+        grid-column-end: 8;
+        &.landing-full-width {
+            grid-column-end: 13;
+        }
+    }
+}
+.blog-landing-image {
+    @media(min-width: $d-mq) {
+        grid-column-end: 13;
+        grid-column-start: 8;
+    }
+}
+.blog-single-headline {
+    @media(min-width: $t7) {
+        margin-top: var(--gutter-width)
+    }
 }

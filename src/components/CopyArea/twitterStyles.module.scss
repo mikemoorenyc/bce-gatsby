@@ -4,6 +4,9 @@
     padding: var(--half-gutter) calc(var(--gutter-width) - 4px) calc(var(--gutter-width) - 4px);
     box-shadow: 2px 2px 0 currentColor;
     font-size: 13px;
+    max-width: 550px;
+    margin-left: auto;
+    margin-right: auto;
 }
 .top-content {
     display: flex;

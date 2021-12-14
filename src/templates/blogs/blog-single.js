@@ -11,7 +11,8 @@ import LazyImg from "../../components/LazyImg";
 import {
     blogTagline,
     blogHero,
-    blogCopy
+    blogCopy,
+    blogSingleHeadline
 } from "./blogstyles.module.scss";
 import {
     articleHeading,
@@ -25,7 +26,6 @@ export default function BlogSingle({data}) {
         currentPost,
         otherPosts
     } = data; 
-    console.log(currentPost)
     const featuredImage =(currentPost.featuredImage)? currentPost.featuredImage.node :{}
     const {mediaDetails} = featuredImage ;
     const excerpt = HtmlStrip(currentPost.excerpt);
@@ -38,7 +38,7 @@ export default function BlogSingle({data}) {
         headerLink={currentPost.link}
     >
         <ReadingSection>
-            <h1 className={articleHeading}>{currentPost.title}</h1>
+            <h1 className={`${blogSingleHeadline} ${articleHeading}`}>{currentPost.title}</h1>
             <div className={`${blogTagline} ${tagLine}`}>{excerpt}</div>
             {(currentPost.featuredImage)?
             <div className={`${blogHero} ${thinBox} ${posterContainer}`} style={{paddingTop: "56.25%"}}>
@@ -56,8 +56,9 @@ export default function BlogSingle({data}) {
             :null}
             <div className={blogCopy}><CopyArea copy={currentPost.content} /><EndBullet /></div>
             <TagList items={currentPost.tags.nodes} />
+            <MorePosts posts={otherPosts.edges.map(e => e.node)} title={"More writing"} />
         </ReadingSection>
-        <MorePosts posts={otherPosts.edges.map(e => e.node)} title={"More writing"} />
+        
 
 
 

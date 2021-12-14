@@ -18,7 +18,9 @@ import {
   topHero,
   topInfo,
   topLinksClass,
-  whatILearned
+  whatILearned,
+  topSection,
+  topInfoContainer
 } from "./styles/project.module.scss";
 
 import {
@@ -72,9 +74,9 @@ export default function ProjectPost({ data,pageContext }) {
     headerImg={defaultImg}
     headerLink={currentProject.link}
   >
-    
+    <div className={topSection}>
       {
-        (currentProject.featuredImage) ?<div className={topHero}><div className={`${topHero} ${posterContainer}`}> <LazyImg 
+        (currentProject.featuredImage) ?<div className={`${topHero} ${posterContainer}`}> <LazyImg 
                                         sizes={mediaDetails.sizes} 
                                         srcSet={featuredImage.localFile.childImageSharp.fluid.srcSet}
                                         isPoster={true} 
@@ -83,17 +85,22 @@ export default function ProjectPost({ data,pageContext }) {
                                         sourceWidth={featuredImage.localFile.childImageSharp.fixed.width}
                                         altText={featuredImage.altText}
                                         addClasses={`${posterImg}`}
-                                        /> </div></div>: ""
+                                        /> </div>: ""
       }
-      
-      <div className={topInfo}>
-        <h1 className={`${articleHeading}`}>{currentProject.title}</h1>
-        <h2 className={`${tagLine} ${projectTag}`}>{HtmlStrip(currentProject.excerpt)}</h2>
-        {(currentProject.toplinks)? <TopLinks links={currentProject.toplinks} />: ""}
+        <div className={topInfoContainer}>
+        <div className={topInfo}>
+          <h1 className={`${articleHeading}`}>{currentProject.title}</h1>
+          <h2 className={`${tagLine} ${projectTag}`}>{HtmlStrip(currentProject.excerpt)}</h2>
+          
+        </div>
+        </div>
       </div>
+      
       <ReadingSection> 
+      
         <CopyArea copy={currentProject.content} />
         <EndBullet />
+        
         {
         (!currentProject.whatilearned)? "": <div className={`${whatILearned} ${fontSans}`}>
         <SmallHeader size={3} copy={"What I learned"} />
@@ -104,10 +111,12 @@ export default function ProjectPost({ data,pageContext }) {
         </ul>
       </div>
       }
+      {(currentProject.toplinks)? <TopLinks links={currentProject.toplinks} />: ""}
        <TagList items={currentProject.tags.nodes} />
+       <MorePosts posts={otherPosts.edges.map(e => e.node)} title={"More Projects"} />
       </ReadingSection>
       
-      <MorePosts posts={otherPosts.edges.map(e => e.node)} title={"More Projects"} />
+      
       
       
   </Layout>

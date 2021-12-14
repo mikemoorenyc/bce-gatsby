@@ -5,6 +5,7 @@ const EndBullet = () => <hr style={{
     width: "1em",
     height: "1em",
     borderWidth: "1px",
+    borderStyle: "dashed",
     borderRadius: "50%"
 }} />
 

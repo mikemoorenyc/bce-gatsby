@@ -10,8 +10,7 @@ import {
 export default ({currentColor, switchFunction,colorPicker}) => {
     //const [dm,updateDM] = useState(currentColor === "white")
     const btnEl = useRef(null);
-    console.log(currentColor)
-    console.log(dm);
+    
     let dm = currentColor === "white",
         colorClass = (dm) ? darkMode : "",
         label = (dm) ? "Switch to color mode" : "Switch to dark mode",

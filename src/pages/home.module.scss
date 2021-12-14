@@ -1,4 +1,5 @@
 @import "../global-styles/global-variables.scss";
+@import "../global-styles/utilities.module.scss";
 .header {
     font-size: 22px;
     line-height: 1.7;
@@ -6,48 +7,90 @@
         display: inline-block;
     }
     @media (min-width: $t7) {
-        font-size: 30px 
+        font-size: 30px ;
+        padding-bottom: .5em;
+        
+    }
+    @media(min-width: $d-mq) {
+        font-size: 42px;
+    }
+    > div {
+        @media(min-width:$t7) {
+            grid-column-start: 1;
+            grid-column-end: 4;
+        }
+        @media(min-width: $d-mq) {
+            grid-column-end: 13;
+        }
     }
 }
 .home-section {
     padding-top: var(--gutter-width);
     &:last-child {
-        padding-top: calc(var(--gutter-width) * 2.5)
+        padding-top: calc(var(--gutter-width) * 2.5);
+        @media(min-width:$t7) {
+            padding-top: calc(var(--gutter-width) * 1.5);
+        }
     }
 }
 .section-heading {
     font-size: .85em;
-    margin-bottom: var(--half-gutter);    
+    margin-bottom: var(--gutter-width);   
+    border-bottom-width: 1px; 
+    padding-bottom: .25em;
+    @media (min-width: $d-mq) {
+        font-size: 1.2em;
+        margin-bottom: var(--gutter-width)
+    }
     span {
-        display:inline-block;
-        position: relative;
-        padding-bottom: 4px;
-        &:before {
-            display: block;
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            width: 100%;
-            height: 3px;
-            background: currentColor;
-        }
+        display:block;
     }
 }
 .home-tag {
     line-height: 1.2;
     font-size: .85em;
     margin-top: .25em;
+    @media(min-width: $d-mq) {
+        font-size: 1.2em;
+    }
 }
 .project-item {
+    @media(min-width:$t7) {
+        @include grid-layout();
+        padding-left: 0;
+        padding-right: 0;
+    }
     &:not(:first-child) {
         margin-top: calc(var(--gutter-width) * 2 ) ;
+        @media(min-width: $t7) {
+            margin-top: calc(var(--gutter-width) * 1.5 ) ;
+        }
     }
     .project-thumb {
         border-width: 1px;
         box-shadow: 2px 2px 0 currentColor;
         margin-bottom: var(--half-gutter);
         display: block;
+        grid-column-start: 2;
+        grid-column-end: 4;
+        @media(min-width: $t7) {
+            margin-bottom: 0;
+        }
+        @media(min-width:$d-mq) {
+            grid-column-end: 13;
+            grid-column-start: 6;
+        }
+    }
+    .project-copy {
+        grid-column-start: 1;
+        grid-column-end: 2;
+        grid-row-start: 1;
+        @media(min-width: $t7) {
+            padding-top: var(--half-gutter);
+        }
+        @media(min-width: $d-mq) {
+            grid-column-end: 6;
+        }
     }
     h3 {
         a {
@@ -59,24 +102,50 @@
         display: inline-block;
         margin-top: var(--half-gutter);
         
-        padding: 8px 10px 7px 10px;
+        padding: .5em (12em / 16 ) (8em / 16) (12em / 16);
         
-        
+        @media(min-width:$t7) {
+            margin-top: var(--gutter-width);
+        }
+        @media(min-width:$d-mq) {
+            font-size: 22px;
+            border-width: (2em / 16);
+            box-shadow: (2em / 16) (2em / 16) 0 currentColor; 
+        }
         span {
             display: inline-block;
             vertical-align: middle;
         }
         svg {
-            width: 14px;
-            height: 14px;
-            margin-left: 6px;
+            width: (14em / 16);
+            height: (14em / 16);
+            margin-left: (6em / 16);
+            transition: transform .15s;
+
+        }
+        &:hover {
+            svg {
+                transform: translateX(4px)
+            }
+        }
+        &:active {
+            position:relative;
+            box-shadow: none;
+            transform: translate(1px,1px);
         }
     }
 }
+
 .see-all-container {
     margin-top: var(--gutter-width);
 
     font-size: .75em;
     font-weight: bold;
+    @media(min-width: $t7) {
+        text-align: right;
+    }
+    @media(min-width: $d-mq) {
+        font-size: 1em;
+    }
 }
 

@@ -52,16 +52,16 @@
     
    }
    @media (min-width: $t7) {
-    @include gridder(3,16px);
+    @include gridder(3,24px);
     width: 760px;
    }
    
-   @media($dt) {
-    width: 100%;
+   @media(min-width:$d-mq) {
+    width: $dt-width;
     @include gridder(12,24px);
    }
    @media(min-width: $dt-max) {
-     width: $dt-max;
+     //width: $dt-max;
    }
    /*
    background-position: center top;

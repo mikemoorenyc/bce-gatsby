@@ -88,6 +88,9 @@
         
         margin-right: 0;
         background:var(--bg-white);
+        top: $header-center;
+        transform: translateY(-50%);
+        margin-top:0;
         
         .nav-item {
           display: inline-block;

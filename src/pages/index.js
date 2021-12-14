@@ -5,7 +5,7 @@ import * as React from 'react'
 import { Link, graphql } from 'gatsby'
 import Layout from '../components/Layout'
 import LazyImg from '../components/LazyImg'
-import BlogItem from "../components/BlogItem"
+import {BlogItem} from "../components/BlogItem"
 import Svg from '../components/SVG'
 import { copyParse,HtmlStrip,truncateString } from '../utilities'
 import {
@@ -14,6 +14,7 @@ import {
   sectionHeading,
   projectThumb,
   projectItem,
+  projectCopy,
   homeTag,
   projectBtn,
   seeAllContainer,
@@ -27,7 +28,8 @@ import {
   tagLine,
   noUnderline,
   fontSans,
-  buttonStyling
+  buttonStyling,
+  gridLayout
 } from "../global-styles/utilities.module.scss"
 
 
@@ -40,11 +42,11 @@ const IndexPage = ({data}) => {
 
   return (
     <Layout activeMenu={"Home"}>
-      <div className={`${header} ${contentCenterer}`}>{copyParse(data.wpPage.content)}</div>
+      <div className={`${header} ${contentCenterer} ${gridLayout}`}><div>{copyParse(data.wpPage.content)}</div></div>
      
-      {(hpProjects.nodes)? <div className={` ${homeSection} ${contentCenterer}`}>
-        <h2 className={sectionHeading}><span>Projects</span></h2>
-        <div>
+      {(hpProjects.nodes)? <div className={` ${homeSection}`}>
+        <h2 className={sectionHeading}><span className={`${contentCenterer}`}>Projects</span></h2>
+        <div className={` ${contentCenterer}`}>
           
                {
                 hpProjects.nodes.map((n,i)=> {
@@ -54,21 +56,24 @@ const IndexPage = ({data}) => {
                     <Link to={n.link} className={`${projectThumb} ${posterContainer}`} style={{paddingTop: "56.625%"}}>
                       {(thumb)? <LazyImg isPoster={true} sourceUrl={thumb.src} srcSet={thumb.srcSet}/> : "" }
                     </Link>
-                    <h3><Link to={n.link}>{n.title}</Link></h3>
-                    {(n.excerpt) ? <div className={`${homeTag} ${tagLine}`}>{truncateString(HtmlStrip(n.excerpt),75)}</div> : null}
-                    <Link className={`${projectBtn} ${buttonStyling} ${fontSans} ${noUnderline}`} to={n.link}><span>View Project</span><span><Svg icon={"arrow"}/></span></Link>
+                    <div className={projectCopy}>
+                      <h3><Link to={n.link}>{n.title}</Link></h3>
+                      {(n.excerpt) ? <div className={`${homeTag} ${tagLine}`}>{truncateString(HtmlStrip(n.excerpt),75)}</div> : null}
+                      <Link className={`${projectBtn} ${buttonStyling} ${fontSans} ${noUnderline}`} to={n.link}><span>View Project</span><span><Svg icon={"arrow"}/></span></Link>
+                    </div>
+                    
                   </article>
                 })
               }
           
         </div>
-        <div className={`${seeAllContainer}`}><Link className={`${fontSans}`} to={"/projects"}>See all projects</Link></div>
+        <div className={`${seeAllContainer}  ${contentCenterer}`}><Link className={`${fontSans}`} to={"/projects"}>See all projects</Link></div>
         
       </div>:null}
 
-      {(hpBlogs)? <div className={` ${homeSection} ${contentCenterer}`}>
-      <h2 className={sectionHeading}><span>Writing</span></h2>
-      <div>
+      {(hpBlogs)? <div className={` ${homeSection} `}>
+      <h2 className={sectionHeading}><span className={`${contentCenterer}`}>Writing</span></h2>
+      <div className={`${contentCenterer}`}>
       {
               hpBlogs.nodes.map((n,i) => {
                 return <BlogItem 
@@ -79,7 +84,7 @@ const IndexPage = ({data}) => {
               })
             }
             </div>
-          <div className={`${seeAllContainer}`}><Link className={`${fontSans}`} to={"/blog"}>See all writing</Link></div>
+          <div className={`${seeAllContainer} ${contentCenterer}`}><Link className={`${fontSans}`} to={"/blog"}>See all writing</Link></div>
       </div> : null}
     
      
@@ -90,7 +95,7 @@ const IndexPage = ({data}) => {
   )
 }
 export const query = graphql`query MyQuery {
-  hpProjects : allWpProject(sort: {fields: menuOrder, order: ASC}, limit: 3) {
+  hpProjects : allWpProject(filter: {categories: {nodes: {elemMatch: {slug: {eq: "home-page"}}}}},sort: {fields: menuOrder, order: ASC}) {
     nodes {
       dateGmt
       excerpt
@@ -119,7 +124,7 @@ export const query = graphql`query MyQuery {
       databaseId
     }
   }
-  hpBlogs : allWpPost(sort: {fields: date, order: DESC}, limit: 2) {
+  hpBlogs : allWpPost(filter: {categories: {nodes: {elemMatch: {slug: {eq: "home-page"}}}}},sort: {fields: date, order: DESC}) {
     nodes {
       title
       slug

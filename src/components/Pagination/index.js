@@ -4,7 +4,6 @@ import Svg from "../SVG"
 import {
     paginationContainer,
     prevButton,
-    nextButton,
     paginationButton,
     singleBtn
 } from "./styles.module.scss";
@@ -17,7 +16,7 @@ import {
 
 
 
-export default ({prevLink, nextLink}) => {
+const Pagination = ({prevLink, nextLink}) => {
     if (!prevLink && !nextLink) {
         return null; 
     }
@@ -35,7 +34,9 @@ export default ({prevLink, nextLink}) => {
         <Btn text={"Previous"} link={prevLink} btnClass={`${prevButton} `}/>
         : null}
         {(nextLink)? 
-        <Btn text={"Next"} link={nextLink} btnClass={nextButton}/>
+        <Btn text={"Next"} link={nextLink} btnClass={""}/>
         : null}
-    </div>
+    </div>  
     )}
+
+export default Pagination;

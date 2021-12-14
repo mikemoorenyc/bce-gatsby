@@ -1,3 +1,4 @@
+@import "../../global-styles/global-variables.scss";
 .blog-item {
     &:not(:last-child) {
         padding-bottom: var(--gutter-width);
@@ -13,9 +14,13 @@
     > * {
         display: inline;
     }
+    @media(min-width: $d-mq) {
+        font-size: 1em;
+        margin-top: var(--half-gutter);
+    }
 }
 .blog-excerpt {
-    margin-left: 4px;
+    margin-right: 4px;
 }
 .blog-read-more {
     

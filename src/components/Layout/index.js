@@ -2,7 +2,7 @@ import "../../global-styles/global-styles.scss";
 
 import { Fragment, useEffect, useRef, useState } from "react";
 import { Link, graphql, useStaticQuery } from "gatsby"
-
+import { arraySplit } from "../../utilities";
 import { Helmet } from "react-helmet"
 import GridLines from "../GridLines";
 import React from "react"
@@ -11,7 +11,6 @@ import ColorModeToggle from "../ColorModeToggle";
 import {
     active,
     contactFooter,
-    copyright,
     footer,
     inner,
     lockup,
@@ -27,7 +26,8 @@ import {
     spinner,
     title,
     topLogo,
-    topTagline
+    topTagline,
+    socialFooter
 } from "./styles.module.scss"
 import {
     afterBlock,
@@ -55,6 +55,16 @@ export default function Layout({pageTitle, headerDescription,headerImg,headerLin
                   }
                 }
               }
+            socialLinks: wpPage(slug: {eq: "contact-me"}) {
+                content
+                title
+                socialmedialink
+            }
+            contactEmail: allWpUserRole {
+                nodes {
+                  name
+                }
+              }
             wp {
                 allSettings {
                   generalSettingsDescription
@@ -74,6 +84,7 @@ export default function Layout({pageTitle, headerDescription,headerImg,headerLin
           }
         `
     )
+   
     function hamburgerClick(e) {
     
         changeOpenState(!menuOpen);
@@ -82,6 +93,7 @@ export default function Layout({pageTitle, headerDescription,headerImg,headerLin
     const hamburgerDOM = useRef(null);
     const updateColorMode = (color) => {
         updateFaviconColor(color);
+        localStorage.setItem("current_color", color);
         let dmSet = (color === "white") ? "yes" : "no" 
         localStorage.setItem("dark_mode", dmSet);
     }
@@ -148,6 +160,25 @@ export default function Layout({pageTitle, headerDescription,headerImg,headerLin
         <meta property="twitter:image:alt" content={headDesc} />
         <meta  property="twitter:card" content={(headerImg) ? "summary_large_image" : "summary"} /> 
         <link  rel="canonical" href={headLink} />
+
+        <style type="text/css">{`
+        .lazy-gradient {
+            background-color: transparent;
+            background-size: 16px 16px;
+            background-image: linear-gradient(45deg,
+            transparent 0%,
+            transparent 25%,
+            ${favIconColor} 25%,
+            ${favIconColor} 26%,
+            transparent 26%,
+            transparent 75%,
+            ${favIconColor} 75%,
+            ${favIconColor} 76%,
+            transparent 76%
+    );
+        }
+    `}</style>
+
         <body style={(!favIconColor) ? "color: var(--dark-base)" : `color: ${favIconColor}`} className={(favIconColor === "white") ? "dark-mode" : ""} />
         
     </Helmet>
@@ -207,18 +238,33 @@ export default function Layout({pageTitle, headerDescription,headerImg,headerLin
                 <div ref={headerCheck} style={{width: "100%", height: "1px"}}/>
                     {children}
             </main>
-            <footer className={`${footer} ${fontSans}`}>
+            <footer className={`${footer} ${fontSans} lazy-gradient`}>
                 <div className={`${inner} ${contentCenterer}`}>
-                    <ul className={`${contactFooter} `}>
+                    <div><b>Menu</b>
+                    <ul className={`${socialFooter} `}>
                         {
                             data.wpMenu.menuItems.nodes.map(n => (
                                 <li key={n.id}><Link to={n.url}>{n.label}</Link></li>
                              ))
                          }
                     </ul>
-                    <div className="copyright">
-                        &copy;{new Date().getFullYear()} Mike Moore
                     </div>
+                    {
+                        (data.socialLinks && data.socialLinks.socialmedialink) ?<div>
+                           <div> <b>Email &amp; Social</b>
+                            <ul className={socialFooter}>
+                                {
+                                    arraySplit(data.socialLinks.socialmedialink).map((e,i)=> {
+                                        let item = arraySplit(e,",");
+                                        return <li key={i}>
+                                            <a href={item[1]} target="_blank" rel="noreferrer noopener">{item[0]}</a> 
+                                        </li>
+                                    })
+                                }
+                            </ul>
+                        </div></div> : null
+                    }
+                    
                 
                 </div>
             </footer>

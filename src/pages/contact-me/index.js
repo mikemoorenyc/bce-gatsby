@@ -28,7 +28,7 @@ const ContactPage = ({data}) => {
     const social = arraySplit(socialmedialink).map((e,i)=> {
       let item = arraySplit(e,",");
       return <li key={i}>
-        <a className={`${fontSans} ${noUnderline}`}href={item[1]}>
+        <a target="_blank" rel="noreferrer noopener" className={`${fontSans} ${noUnderline}`}href={item[1].trim()}>
         <Svg icon={item[0].toLowerCase().trim()}/>
         {item[2]}
         </a>

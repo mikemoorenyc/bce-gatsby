@@ -13,7 +13,8 @@ import {
 
 import {
     boxShadow,
-    fontSans
+    fontSans,
+    thinBox
 } from "../../global-styles/utilities.module.scss"
 
 export default function CopyImage({node}) {
@@ -34,6 +35,10 @@ export default function CopyImage({node}) {
                       }
                       fluid {
                         srcSet
+                      }
+                      original {
+                        width
+                        height
                       }
                     }
                   }
@@ -67,20 +72,19 @@ export default function CopyImage({node}) {
         return null; 
     }
     const {childImageSharp} = theImg[0].localFile;
+    console.log(childImageSharp);
     const {
         
         alt
     } = img.attribs;  
    const {
-        width,
-        height,
         src
     } = childImageSharp.fixed
     const {srcSet} = childImageSharp.fluid
-
+    const{width,height} = childImageSharp.original
 
     return <figure className={`${classes}`}>
-        <div className={`${stdImg} ${boxShadow}`}><LazyImg sourceUrl={src} alt={alt} sourceHeight={height} sourceWidth={width} srcSet={srcSet} /></div>
+        <div className={`${stdImg} `}><LazyImg sourceUrl={src} alt={alt} sourceHeight={height} sourceWidth={width+2} srcSet={srcSet} addClasses={thinBox} /></div>
         {(caption)? <figcaption className={`${figcaption} ${fontSans}`}>{domToReact(caption.children)}</figcaption>: ""}
     </figure>
 } 

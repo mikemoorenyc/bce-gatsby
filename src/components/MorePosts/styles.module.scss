@@ -2,9 +2,23 @@
 
 .mp-container {
     margin-top: var(--gutter-width);
+    
 }
 .slim-card {
     &:not(:first-child) {
-        margin-top: calc(var(--gutter-width) / 2)
+        @media(max-width: ($t7 - 1px)) {
+            margin-top: calc(var(--gutter-width) / 2)
+        }
+    }
+    @media(min-width: $t7) {
+        margin: 0;
+        width: calc(50% - ( var(--gutter-width) / 4 ))
+    }
+    
+}
+.post-items-container {
+    @media(min-width: $t7) {
+        display: flex;
+        justify-content: space-between;
     }
 }
