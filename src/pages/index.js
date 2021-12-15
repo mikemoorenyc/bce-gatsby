@@ -59,7 +59,7 @@ const IndexPage = ({data}) => {
                     <div className={projectCopy}>
                       <h3><Link to={n.link}>{n.title}</Link></h3>
                       {(n.excerpt) ? <div className={`${homeTag} ${tagLine}`}>{truncateString(HtmlStrip(n.excerpt),75)}</div> : null}
-                      <Link className={`${projectBtn} ${buttonStyling} ${fontSans} ${noUnderline}`} to={n.link}><span>View Project</span><span><Svg icon={"arrow"}/></span></Link>
+                      <Link className={`${projectBtn} ${buttonStyling} ${fontSans} ${noUnderline}`} to={n.link}><span>View project</span><span><Svg icon={"arrow"}/></span></Link>
                     </div>
                     
                   </article>

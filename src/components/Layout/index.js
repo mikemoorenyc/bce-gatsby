@@ -4,7 +4,7 @@ import { Fragment, useEffect, useRef, useState } from "react";
 import { Link, graphql, useStaticQuery } from "gatsby"
 import { arraySplit } from "../../utilities";
 import { Helmet } from "react-helmet"
-import GridLines from "../GridLines";
+//import GridLines from "../GridLines";
 import React from "react"
 import Svg from "../SVG"
 import ColorModeToggle from "../ColorModeToggle";
@@ -104,7 +104,7 @@ export default function Layout({pageTitle, headerDescription,headerImg,headerLin
     const headerCheck = useRef(null);
     const [hideHeader, updateHeaderState] = useState(false);
     const [favIconColor, updateFaviconColor] = useState(null);
-    const colors = ["red", "green", "blue", "purple","orange","MediumVioletRed","brown","black"]
+    const colors = ["DarkRed", "darkGreen", "darkslateblue", "purple","orangered","saddlebrown","black"]
     const colorPicker = () => colors[Math.floor(Math.random() * colors.length)]
     useEffect(()=>{
         //Is dark mode currently set? 
@@ -163,23 +163,15 @@ export default function Layout({pageTitle, headerDescription,headerImg,headerLin
 
         <style type="text/css">{`
         .lazy-gradient {
-            background-color: transparent;
-            background-size: 16px 16px;
-            background-image: linear-gradient(45deg,
-            transparent 0%,
-            transparent 25%,
-            ${favIconColor} 25%,
-            ${favIconColor} 26%,
-            transparent 26%,
-            transparent 75%,
-            ${favIconColor} 75%,
-            ${favIconColor} 76%,
-            transparent 76%
-    );
+            background-image: linear-gradient(45deg, ${favIconColor} 5.56%, transparent 5.56%, transparent 50%, ${favIconColor} 50%, ${favIconColor} 55.56%, transparent 55.56%, transparent 100%);
+background-size: 12.73px 12.73px;
+    
         }
+        body {
+                color: ${(!favIconColor) ? "var(--dark-base)" : favIconColor}
     `}</style>
 
-        <body style={(!favIconColor) ? "color: var(--dark-base)" : `color: ${favIconColor}`} className={(favIconColor === "white") ? "dark-mode" : ""} />
+    <body className={(favIconColor === "white") ? "dark-mode" : ""} />
         
     </Helmet>
     }
@@ -271,9 +263,11 @@ export default function Layout({pageTitle, headerDescription,headerImg,headerLin
         </div>
 
         {
-           (process.env.GATSBY_SHOW_GRID === "yes") ? <GridLines /> : ""
+          // (process.env.GATSBY_SHOW_GRID === "yes") ? <GridLines /> : ""
         }
         
         </Fragment>
     )
 }
+
+//<body style={(!favIconColor) ? "color: var(--dark-base)" : `color: ${favIconColor}`} className={(favIconColor === "white") ? "dark-mode" : ""} />

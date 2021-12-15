@@ -27,7 +27,10 @@ const ProjectsPage= ({data}) => {
       headerDescription={HtmlStrip(wpPage.content)}
       >
           <LandingHeader pageTitle={wpPage.title} copy={wpPage.content} />
-          <BigCardList posts={nodes} />
+          <BigCardList posts={nodes.map(e => {
+            e.ctaText = "View project"
+            return e; 
+          } )} />
         
       </Layout>
  
@@ -49,13 +52,7 @@ const ProjectsPage= ({data}) => {
           slug,
           title,
           link
-          featuredImage {
-            node {
-              srcSet
-              altText
-              sourceUrl
-            }
-          }
+          ...featuredImageProject
         }
       }
   }

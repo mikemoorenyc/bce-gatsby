@@ -9,7 +9,7 @@ module.exports = {
   },
   plugins: [
     "gatsby-plugin-gatsby-cloud",
-    
+    "gatsby-plugin-webpack-bundle-analyser-v2",
     
 
     {

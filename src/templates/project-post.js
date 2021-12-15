@@ -37,6 +37,7 @@ import {
 import { arraySplit } from "../utilities";
 import { graphql } from "gatsby"
 
+
 export default function ProjectPost({ data,pageContext }) {
 
     const {currentProject,otherPosts} = data
@@ -113,7 +114,11 @@ export default function ProjectPost({ data,pageContext }) {
       }
       {(currentProject.toplinks)? <TopLinks links={currentProject.toplinks} />: ""}
        <TagList items={currentProject.tags.nodes} />
-       <MorePosts posts={otherPosts.edges.map(e => e.node)} title={"More Projects"} />
+       <MorePosts posts={otherPosts.edges.map(e => {
+         let post = e.node;
+         post.ctaText = "View project"
+         return post;
+       })} title={"More Projects"} />
       </ReadingSection>
       
       
@@ -124,7 +129,7 @@ export default function ProjectPost({ data,pageContext }) {
   )
 }
 export const query = graphql`
-  query($slug: String!, $otherPosts: [String!] ) {
+query($slug: String!, $otherPosts: [String!] ) {
     currentProject: wpProject(slug: {eq: $slug}) {
       content
       title
@@ -138,36 +143,7 @@ export const query = graphql`
         }
       }
       excerpt
-      featuredImage {
-        node {
-          mediaDetails {
-            sizes {
-              sourceUrl
-              height
-              width
-              name
-            }
-            width
-          height
-          }
-          sourceUrl
-          srcSet
-          altText
-          localFile {
-            childImageSharp {
-              fixed {
-                src
-                width
-                height
-              }
-              fluid {
-                srcSet
-                src
-              }
-            }
-          }
-        }
-      }
+      ...featuredImageProject
     }
     otherPosts: allWpProject(sort: {fields: date, order: DESC}
       filter: {slug: {in: $otherPosts}}) {
@@ -177,13 +153,7 @@ export const query = graphql`
           slug
           link
           excerpt
-          featuredImage {
-            node {
-              srcSet
-              altText
-              sourceUrl
-            }
-          }
+          ...featuredImageProject
         }
       }
     }

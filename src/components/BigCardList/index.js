@@ -14,11 +14,12 @@ import {
   } from "../../global-styles/utilities.module.scss"
 
 export default function BigCardList({posts}) {
+    
     return <div className={`${cardContainer} ${contentCenterer} ${gridLayout}`}>
         {
                 posts.map(e => {
-                    let img = (e.featuredImage)? e.featuredImage.node: {};
-               return  <Card key={e.slug} extraClasses={card} kicker={e.kicker} title={e.title} desc={e.excerpt} link={e.link} {...img}/>
+                  
+               return  <Card key={e.slug} ctaText={e.ctaText || "View post"} featuredImage={e.featuredImage} extraClasses={card} kicker={e.kicker} title={e.title} desc={e.excerpt} link={e.link} />
                      })
             }
     </div>

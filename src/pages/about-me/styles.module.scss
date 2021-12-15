@@ -54,22 +54,20 @@
  }
  > ul {
 
-    @media(max-width: ($t7 - 1px)) {
-      column-count: 2;
-      column-gap: var(--gutter-width);
-    }
+    
 
     li {
-      margin-bottom:.5em;
+      
       font-size: .85em;
       line-height: 1.2;
-
-      @media(min-width: $d-mq) {
-        display:inline-block;
+      display:inline-block;
         margin: 0 4px 0 0;
         &:not(:last-child):after {
           content: ',';
         }
+
+      @media(min-width: $d-mq) {
+        
         
       }
     }

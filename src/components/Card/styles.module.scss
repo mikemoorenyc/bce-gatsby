@@ -2,11 +2,8 @@
 
 .card {
     --widths: 2px;
-    &.slim {
-        
-        --widths: 1px; 
-        display:flex; 
-    }
+    $hover-state:&;
+    
     position:relative; 
     cursor:pointer; 
     border-width: var(--widths); 
@@ -23,39 +20,73 @@
     &:hover, &:focus-within {
         transform: translate(calc(-1 * var(--widths) ), calc(-1 * var(--widths) ));
         box-shadow: calc((var(--widths) * 2)) calc((var(--widths) * 2)) 0 currentColor;
+        $hover-state: &;
         .h2 {
             text-decoration: underline;
         }
+        svg {
+            transform: translateX(4px)
+        }
     }
+    //Make flex correctly
+    display:flex;
+    flex-direction: column;
+    &.slim {
+        
+        --widths: 1px; 
+       // flex-direction: row;
+    }
+    .h2 {
+        font-size: 18px;
+        line-height: 1.1;
+        margin-bottom: .2em;
+        .slim & {
+            font-size: 16px; 
+        }
+    }
+    
+    .kicker-style {
+        font-size: 10px;
+        text-transform: uppercase;
+    }
+    
+    
+    
      
     
-}
-.h2 {
-    font-size: 18px;
-    line-height: 1.1;
-    margin-bottom: .2em;
-    .slim & {
-        font-size: 16px; 
-    }
 }
 .textArea {
     padding: 14px; 
     line-height: 1.2;
+    flex: 1;
     .slim & {
         font-size: 14px;
         flex: 1;
+        padding: 12px 12px 8px 12px;
     }
 }
-.kicker-style {
-    font-size: 10px;
-    text-transform: uppercase;
+.cta-text {
+    padding: 0 14px 10px 14px;
+    font-weight: bold; 
+    font-size: .75em;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    svg {
+        width: 16px;
+        height: 16px;
+        margin-left: 4px;
+        transition: transform .10s;
+        
+    }
+   
 }
 .imgContainer {
     position:relative;
     border-bottom-width: 1px;
     padding-top: percentage((9/16));
     .slim & {
-        width: calc(8px * 10);
+        width: calc((100% / 8) * 2);
         border-width: 0 1px 0 0;
         padding: 0;
     }

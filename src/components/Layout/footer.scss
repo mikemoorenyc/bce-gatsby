@@ -16,6 +16,7 @@
       background: var(--bg-white);
     
       margin: 0 var(--gutter-width);
+      display:flex;
       @media(min-width: $t7) {
      
         margin: 0 auto; 
@@ -25,6 +26,7 @@
       font-size: 12px;
       line-height: 1.8;
       > div {
+        flex: 1;
         &:not(:last-child) {
           margin-bottom: var(--gutter-width);
         }

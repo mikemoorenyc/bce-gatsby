@@ -70,10 +70,7 @@ export default function BlogSingle({data}) {
 export const query = graphql`
   query($slug: String!, $otherPosts: [String!] ) {
     currentPost: wpPost(slug: {eq: $slug}) {
-      content
-      title
-
-      link
+      ...postData
       tags {
         nodes {
           slug
@@ -81,36 +78,7 @@ export const query = graphql`
         }
       }
       excerpt
-      featuredImage {
-        node {
-          mediaDetails {
-            sizes {
-              sourceUrl
-              height
-              width
-              name
-            }
-            width
-          height
-          }
-          sourceUrl
-          srcSet
-          altText
-          localFile {
-            childImageSharp {
-              fixed {
-                src
-                width
-                height
-              }
-              fluid {
-                srcSet
-                src
-              }
-            }
-          }
-        }
-      }
+      ...featuredImagePost
     }
     otherPosts: allWpPost(sort: {fields: date, order: DESC}
       filter: {slug: {in: $otherPosts}}) {
@@ -120,13 +88,7 @@ export const query = graphql`
           slug
           link
           excerpt
-          featuredImage {
-            node {
-              srcSet
-              altText
-              sourceUrl
-            }
-          }
+          ...featuredImagePost
         }
       }
     }
