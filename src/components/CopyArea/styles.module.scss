@@ -112,3 +112,14 @@
     
       }
 }
+.dl-button {
+  font-size: .75em;
+  display:inline-block;
+  svg {
+    width: 16px;
+    height: 16px;
+    display:inline-block;
+    margin-left: 4px;
+    vertical-align:middle;
+  }
+}

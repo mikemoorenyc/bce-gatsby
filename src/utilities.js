@@ -3,7 +3,7 @@ import InternaLink from "./components/InternalLink";
 import React from "react";
 import TwitterBlock from "./components/CopyArea/TwitterBlock";
 import parse from "html-react-parser"
-
+import DownloadBlock from "./components/CopyArea/DownloadBlock"
 const HtmlStrip = function(string) {
     if(!string) {
         return "";
@@ -70,8 +70,8 @@ const copyParse = function(copy) {
             if(domNode.attribs && domNode.attribs.class && domNode.attribs["class"].indexOf("wp-block-image") > -1) {
                 return <CopyImage node={domNode} />
             }
-            if(domNode.attribs && domNode.attribs.class && domNode.attribs["class"].indexOf("twitter-tweet") > -1) {
-                
+            if(domNode.attribs && domNode.attribs.class && domNode.attribs["class"].indexOf("wp-block-file") > -1) {
+                return <DownloadBlock node={domNode} />
             }
             if(domNode.attribs && domNode.attribs.class && domNode.attribs["class"].indexOf("wp-block-embed-twitter") > -1) {
                 return <TwitterBlock node={domNode} />
