@@ -5,6 +5,7 @@ import { Link, graphql, useStaticQuery } from "gatsby"
 import { arraySplit } from "../../utilities";
 import { Helmet } from "react-helmet";
 import GridLines from "../GridLines";
+import parse from "html-react-parser"
 
 import React from "react"
 import Svg from "../SVG"
@@ -190,7 +191,7 @@ background-size: 12.73px 12.73px;
                     <div className={topLogo}>
                     <a className={"no-underline"}  href="/"><span className={`${title} ${fontSans}`}>{theTitle}</span></a> 
                     </div>
-                    <div className={`${topTagline} `}><a className={"no-underline"} href="/">{desc}</a></div>
+                    <div className={`${topTagline} `}><a className={"no-underline"} href="/">{parse(desc)}</a></div>
                 </div>
             </div>
             
@@ -209,13 +210,13 @@ background-size: 12.73px 12.73px;
                             </span>
                          </a>
                     </div>
-                    <div className={topTagline}><a href="/">{desc}</a></div>
+                    <div className={topTagline}><a href="/">{parse(desc)}</a></div>
                 </div>
                 <div className={navItems}>
                     {
                     data.wpMenu.menuItems.nodes.map(n => (
                         <div className={`${navItem} ${(n.label === activeMenu)?active : ""}`} key={n.id}>
-                            <Link onClick={hamburgerClick} to={n.url}>{n.label}</Link></div>
+                            <Link onClick={hamburgerClick} to={n.url}>{parse(n.label)}</Link></div>
                       ))
                     }
                     <ColorModeToggle colorPicker={colorPicker} currentColor={favIconColor} switchFunction={updateColorMode} />
@@ -238,7 +239,7 @@ background-size: 12.73px 12.73px;
                     <ul className={`${socialFooter} `}>
                         {
                             data.wpMenu.menuItems.nodes.map(n => (
-                                <li key={n.id}><Link to={n.url}>{n.label}</Link></li>
+                                <li key={n.id}><Link to={n.url}>{parse(n.label)}</Link></li>
                              ))
                          }
                     </ul>
