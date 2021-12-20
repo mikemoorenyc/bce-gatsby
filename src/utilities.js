@@ -4,6 +4,7 @@ import React from "react";
 import TwitterBlock from "./components/CopyArea/TwitterBlock";
 import parse from "html-react-parser"
 import DownloadBlock from "./components/CopyArea/DownloadBlock"
+import ButtonBlocks from "./components/CopyArea/ButtonBlocks"
 const HtmlStrip = function(string) {
     if(!string) {
         return "";
@@ -19,6 +20,7 @@ const arraySplit = function(string, splitValue = /\r?\n/) {
 }
 
 const copyParse = function(copy) {
+    console.log(copy);
     function Remove() {
         return null;
     }
@@ -69,6 +71,9 @@ const copyParse = function(copy) {
             }
             if(domNode.attribs && domNode.attribs.class && domNode.attribs["class"].indexOf("wp-block-image") > -1) {
                 return <CopyImage node={domNode} />
+            }
+            if(domNode.attribs && domNode.attribs.class && domNode.attribs["class"].indexOf("wp-block-buttons") > -1) {
+                return <ButtonBlocks node={domNode} />
             }
             if(domNode.attribs && domNode.attribs.class && domNode.attribs["class"].indexOf("wp-block-file") > -1) {
                 return <DownloadBlock node={domNode} />
