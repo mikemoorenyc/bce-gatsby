@@ -3,8 +3,9 @@ import "../../global-styles/global-styles.scss";
 import { Fragment, useEffect, useRef, useState } from "react";
 import { Link, graphql, useStaticQuery } from "gatsby"
 import { arraySplit } from "../../utilities";
-import { Helmet } from "react-helmet"
-//import GridLines from "../GridLines";
+import { Helmet } from "react-helmet";
+import GridLines from "../GridLines";
+
 import React from "react"
 import Svg from "../SVG"
 import ColorModeToggle from "../ColorModeToggle";
@@ -36,6 +37,7 @@ import {
     fontSans,
     middleCenter
 } from "../../global-styles/utilities.module.scss"
+
 
 export default function Layout({pageTitle, headerDescription,headerImg,headerLink, children, activeMenu}) {
     const data = useStaticQuery(
@@ -263,7 +265,7 @@ background-size: 12.73px 12.73px;
         </div>
 
         {
-          // (process.env.GATSBY_SHOW_GRID === "yes") ? <GridLines /> : ""
+           (process.env.GATSBY_IS_DEV === "yes") ? <GridLines /> : ""
         }
         
         </Fragment>
