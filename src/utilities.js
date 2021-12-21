@@ -20,7 +20,6 @@ const arraySplit = function(string, splitValue = /\r?\n/) {
 }
 
 const copyParse = function(copy) {
-    console.log(copy);
     function Remove() {
         return null;
     }
