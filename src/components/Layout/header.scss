@@ -84,10 +84,11 @@ header {
       top:8px;
       border-width: 3px;
       box-shadow: 3px 3px 0 currentColor;
-      #{$show-menu} & {
+      background: var(--bg-white);
+     /* #{$show-menu} & {
         background: var(--bg-white);
         
-      }
+      }*/
     }
    
     > span {
