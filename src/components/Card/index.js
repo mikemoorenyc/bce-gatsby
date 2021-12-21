@@ -8,7 +8,7 @@ import { HtmlStrip, truncateString } from "../../utilities"
 import LazyImg from "../LazyImg";
 import { Link } from "gatsby";
 import { navigate, } from "gatsby"
-import SVG from "../SVG";
+import Svg from "../SVG";
 
 import {
     fontSans,
@@ -62,7 +62,7 @@ export default function Card(props) {
     const {featuredImage,title, link, kicker, desc,  externalLink, extraClasses, styleMod} = props
     const ctaText = props.ctaText || "View post"; 
 
-    const CTA = () => <div className={`${fontSans} ${styles.ctaText}`}><span>{ctaText}</span><SVG icon={"arrow"} /></div>
+    const Cta = () => <div className={`${fontSans} ${styles.ctaText}`}><span>{ctaText}</span><Svg icon={"arrow"} /></div>
 
     const [downTime, setDownTime] = useState(0);
 
@@ -97,7 +97,7 @@ export default function Card(props) {
         {(desc)?<div className={`${tagLine}`}>{truncateString(HtmlStrip(desc),75)}</div>: null}
        
         </div>
-         <CTA />
+         <Cta />
 
     </div>
 }

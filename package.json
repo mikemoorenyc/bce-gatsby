@@ -28,7 +28,8 @@
     "react-dom": "^17.0.1",
     "react-helmet": "^6.1.0",
     "sass": "^1.38.0",
-    "sharp": "^0.29.1"
+    "sharp": "^0.29.1",
+    "immer": ">=9.0.6"
   },
   "devDependencies": {
     "eslint-plugin-simple-import-sort": "^7.0.0",

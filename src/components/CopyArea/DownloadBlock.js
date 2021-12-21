@@ -1,12 +1,12 @@
 import React from "react";
 import SmallButton from "../SmallButton";
-import SVG from "../SVG"
+import Svg from "../SVG"
 import {
     dlButton
 } from "./styles.module.scss";
 
 
-export default ({node}) => {
+const DownloadBlock =  ({node}) => {
     let href=null
     node.children.forEach(e => {
         if(e.name === "a" && e.attribs && e.attribs.href) {
@@ -16,5 +16,6 @@ export default ({node}) => {
     });
     let cut = href.split("/")
     
-    return <SmallButton extraClasses={dlButton} href={href}><span>{cut[cut.length - 1]}<SVG icon={"download"} /></span></SmallButton>
+    return <SmallButton extraClasses={dlButton} href={href}><span>{cut[cut.length - 1]}<Svg icon={"download"} /></span></SmallButton>
 }
+export default DownloadBlock;

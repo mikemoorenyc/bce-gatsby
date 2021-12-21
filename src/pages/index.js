@@ -18,9 +18,6 @@ import {
   homeTag,
   projectBtn,
   seeAllContainer,
-  blogItem,
-  blogMeta,
-  blogReadMore
 } from "./home.module.scss";
 import {
   contentCenterer,

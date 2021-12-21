@@ -12,7 +12,6 @@ import Svg from "../SVG"
 import ColorModeToggle from "../ColorModeToggle";
 import {
     active,
-    contactFooter,
     footer,
     inner,
     lockup,

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef} from "react";
-import SVG from "../../components/SVG"
+import Svg from "../../components/SVG"
 import {
     container,
     slider,
@@ -7,7 +7,7 @@ import {
     fakeLabel
 } from "./styles.module.scss"
 
-export default ({currentColor, switchFunction,colorPicker}) => {
+const ColorModeToggle = ({currentColor, switchFunction,colorPicker}) => {
     //const [dm,updateDM] = useState(currentColor === "white")
     const btnEl = useRef(null);
     
@@ -27,8 +27,9 @@ export default ({currentColor, switchFunction,colorPicker}) => {
                 <button ref={btnEl} onClick={btnClick} style={{color: bgColor}}  arial-label={label} className={`${slider} ${colorClass}`}>
                     <span className={fakeLabel}>{label}</span>
                    
-                        <SVG role="presentation" icon={(!dm) ? "moon" : "sun"} />
+                        <Svg role="presentation" icon={(!dm) ? "moon" : "sun"} />
                     
                 </button>
             </div>
 }
+export default ColorModeToggle;

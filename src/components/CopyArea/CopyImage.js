@@ -12,7 +12,6 @@ import {
 } from "./imageStyles.module.scss";
 
 import {
-    boxShadow,
     fontSans,
     thinBox
 } from "../../global-styles/utilities.module.scss"
@@ -67,7 +66,7 @@ export default function CopyImage({node}) {
     if (!img) {
         return null; 
     }
-    const theImg = data.allImgs.nodes.filter(e => e.databaseId == getdbId(img.attribs.class))
+    const theImg = data.allImgs.nodes.filter(e => e.databaseId === getdbId(img.attribs.class))
     if(theImg.length < 1) {
         return null; 
     }

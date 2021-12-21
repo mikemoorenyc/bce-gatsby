@@ -1,12 +1,12 @@
 import React from "react";
 import SmallButton from "../SmallButton";
-import SVG from "../SVG"
+import Svg from "../SVG"
 import {
     dlButton
 } from "./styles.module.scss";
 
 
-export default ({node}) => {
+const ButtonBlocks = ({node}) => {
     const btns = node.children.filter(e => e.attribs && e.attribs.class && e.attribs.class.includes("wp-block-button"));
     
     return <div>
@@ -20,10 +20,11 @@ export default ({node}) => {
                 {attribs} = link;
                 return <SmallButton extraClasses={dlButton} key={i} href={(attribs.href||null)} external={attribs.target && attribs.target==="_blank" }>
                     <span>{link.children[0].data}</span>
-                    {(e.attribs.class.includes("download"))? <SVG icon="download" /> : ""}
+                    {(e.attribs.class.includes("download"))? <Svg icon="download" /> : ""}
                     </SmallButton>
                 
             })
         }
     </div>
 }
+export default ButtonBlocks;

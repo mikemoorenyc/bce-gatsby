@@ -13,7 +13,7 @@ import { HtmlStrip } from '../../utilities'
 
 
 
-const Svg = React.lazy(()=>import("../../components/SVG"))
+
 const ProjectsPage= ({data}) => {
   
     const {wpPage} = data,

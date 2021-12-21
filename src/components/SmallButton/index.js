@@ -1,11 +1,11 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { Link } from "gatsby";
 
 
 import {fontSans, noUnderline} from "../../global-styles/utilities.module.scss"
 import {tagLink} from "./styles.module.scss";
 
-export default ({href,external,children, extraClasses}) => {
+const SmallButton = ({href,external,children, extraClasses}) => {
     if(!href) {
         return false; 
     }
@@ -21,3 +21,4 @@ export default ({href,external,children, extraClasses}) => {
 
 
 }
+export default SmallButton

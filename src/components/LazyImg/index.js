@@ -2,7 +2,6 @@ import React from "react";
 
 import { Fragment, useLayoutEffect, useRef, useState } from "react";
 import {
-    bg,
     fakeImg,
     notLoaded
 } from "./styles.module.scss";
