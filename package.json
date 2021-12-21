@@ -29,7 +29,9 @@
     "react-helmet": "^6.1.0",
     "sass": "^1.38.0",
     "sharp": "^0.29.1",
-    "immer": ">=9.0.6"
+    "immer": ">=9.0.6",
+    "object-path": ">=0.11.8",
+    "trim": ">=0.0.3"
   },
   "devDependencies": {
     "eslint-plugin-simple-import-sort": "^7.0.0",
