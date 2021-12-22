@@ -101,7 +101,7 @@ export default function Layout({pageTitle, headerDescription,headerImg,headerLin
     }
     const [menuOpen, changeOpenState] = useState(false);
     const theTitle = data.wp.allSettings.generalSettingsTitle,
-          desc = data.wp.allSettings.generalSettingsDescription
+          desc = parse(data.wp.allSettings.generalSettingsDescription)
 
     const headerCheck = useRef(null);
     const [hideHeader, updateHeaderState] = useState(false);
