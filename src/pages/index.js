@@ -41,7 +41,7 @@ const IndexPage = ({data}) => {
     <Layout activeMenu={"Home"}>
       <div className={`${header} ${contentCenterer} ${gridLayout}`}><div>{copyParse(data.wpPage.content)}</div></div>
      
-      {(hpProjects.nodes)? <div className={` ${homeSection}`}>
+      {(hpProjects.nodes.length)? <div className={` ${homeSection}`}>
         <h2 className={sectionHeading}><span className={`${contentCenterer}`}>Projects</span></h2>
         <div className={` ${contentCenterer}`}>
           
@@ -68,7 +68,7 @@ const IndexPage = ({data}) => {
         
       </div>:null}
 
-      {(hpBlogs)? <div className={` ${homeSection} `}>
+      {(hpBlogs.nodes.length)? <div className={` ${homeSection} `}>
       <h2 className={sectionHeading}><span className={`${contentCenterer}`}>Writing</span></h2>
       <div className={`${contentCenterer}`}>
       {
