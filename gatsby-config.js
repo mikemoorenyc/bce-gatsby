@@ -27,7 +27,12 @@ module.exports = {
     },
     `gatsby-plugin-react-helmet`,
     "gatsby-transformer-sharp",
-    `gatsby-plugin-sharp`,
+    {
+      resolve: `gatsby-plugin-sharp`,
+      options: {
+        defaultQuality: (process.env.NODE_ENV === 'production') ? 90 : 50
+      }
+    },
     {
       resolve: `gatsby-plugin-sass`,
       options: {
