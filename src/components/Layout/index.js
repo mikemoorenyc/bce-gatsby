@@ -144,7 +144,7 @@ export default function Layout({pageTitle, headerDescription,headerImg,headerLin
         let headTitle = pageTitle || theTitle;
         let headLink = data.wp.allSettings.generalSettingsCanonUrl+(headerLink || "")
         return <Helmet>
-        <title>{(!pageTitle)? theTitle : `${pageTitle} - ${theTitle}`}</title>
+        <title>{(!pageTitle)? `${theTitle} | ${desc}` : `${pageTitle} | ${theTitle} | ${desc}`}</title>
        
         <link rel="icon" href={`data:image/svg+xml;utf8,%3Csvg id='FavLogo' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cstyle%3E%23FavLogo %7Bfill: none;stroke:${favIconColor};%7D%3C/style%3E%3Ccircle cx='16' cy='16' r='15.5'/%3E%3Ccircle cx='16' cy='16' r='10.5' stroke-dasharray='3.5,2.5'/%3E%3C/svg%3E`} />
 
