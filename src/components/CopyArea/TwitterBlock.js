@@ -90,9 +90,11 @@ export default function TwitterBlock({node}) {
     
     useLayoutEffect(()=> {
         const observer = new IntersectionObserver(onChange);
+        const blockObverserver = domParse.current
         function onChange(changes){
             changes.forEach(change => {
                 if(change.isIntersecting) {
+                    observer.unobserve(blockObverserver);
                     observer.disconnect(); 
                     fetch(`${process.env.GATSBY_TWEET_URL}?id=${tweetId}`, {
                         method: 'GET', // or 'PUT'
@@ -108,8 +110,9 @@ export default function TwitterBlock({node}) {
                 }
             })
         }
-        observer.observe(domParse.current);
+        observer.observe(blockObverserver);
         return () => {  
+            observer.unobserve(blockObverserver);
             observer.disconnect(); 
         }
     },[tweetId])

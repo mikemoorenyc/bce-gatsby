@@ -1,5 +1,5 @@
 import React from "react"
-
+import { getSrc } from "gatsby-plugin-image";
 import CopyArea from "../components/CopyArea";
 import EndBullet from "../components/EndBullet";
 import { Fragment } from "react";
@@ -7,7 +7,6 @@ import { Fragment } from "react";
 import Layout from "../components/Layout"
 import LazyImg from "../components/LazyImg";
 import MorePosts from "../components/MorePosts";
-import getImgSrc from "../getImgSrc";
 import ReadingSection from "../components/ReadingSection";
 import SmallHeader from "../components/SmallHeader";
 import TagList from "../components/TagList";
@@ -44,6 +43,8 @@ export default function ProjectPost({ data,pageContext }) {
 
     const featuredImage =(currentProject.featuredImage)? currentProject.featuredImage.node : null
 
+  
+
     const TopLinks = ({links}) => {
 
       const lArray = links.split(/\r?\n/).map(l => l.split(",") )
@@ -72,7 +73,7 @@ export default function ProjectPost({ data,pageContext }) {
     
     pageTitle={currentProject.title} activeMenu={"Projects"}
     headerDescription={HtmlStrip(currentProject.excerpt)}
-    headerImg={(featuredImage)? getImgSrc(featuredImage.databaseId) : null }
+    headerImg={(featuredImage)? getSrc(featuredImage.localFile) : null }
     headerLink={currentProject.link}
   >
     <div className={topSection}>

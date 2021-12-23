@@ -17,6 +17,11 @@ fragment featuredImagePost on WpPost {
     featuredImage{
       node {
         databaseId
+        localFile {
+          childImageSharp {
+            gatsbyImageData
+          }
+        }
       }
     }
   }
@@ -26,6 +31,11 @@ fragment featuredImageProject on WpProject {
     featuredImage{
       node {
         databaseId
+        localFile {
+          childImageSharp {
+            gatsbyImageData
+          }
+        }
       }
     }
   }

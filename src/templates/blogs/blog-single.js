@@ -8,7 +8,7 @@ import EndBullet from "../../components/EndBullet";
 import TagList from "../../components/TagList";
 import MorePosts from "../../components/MorePosts";
 import LazyImg from "../../components/LazyImg";
-import getImgSrc from "../../getImgSrc";
+import {getSrc} from "gatsby-plugin-image"
 import {
     blogTagline,
     blogHero,
@@ -34,7 +34,7 @@ export default function BlogSingle({data}) {
         pageTitle={currentPost.title} 
         activeMenu={"Writing"}
         headerDescription={excerpt}
-        headerImg={(currentPost.featuredImage) ? getImgSrc(currentPost.featuredImage.node.databaseId) : null}
+        headerImg={(currentPost.featuredImage) ? getSrc(currentPost.featuredImage.node.localFile) : null}
         headerLink={currentPost.link}
     >
         <ReadingSection>

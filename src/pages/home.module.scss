@@ -137,8 +137,8 @@
 }
 
 .see-all-container {
-    margin-top: var(--gutter-width);
-
+    margin-top: calc(var(--gutter-width) * 1.25 );
+    
     font-size: .75em;
     font-weight: bold;
     @media(min-width: $t7) {

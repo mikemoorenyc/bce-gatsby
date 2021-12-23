@@ -13,27 +13,42 @@ import {
 const LazyLayout = ({addClasses,isPoster,imgData}) => {
     const {width,height,images} = imgData.localFile.childImageSharp.gatsbyImageData;
     const {altText} = imgData;
-    const {src,srcSet} = images.fallback;
+ 
+    
+    const {srcSet,src} = images.fallback
+    const {sources} = images; 
+
+    let webpSources = null;
+
+    if(sources && sources.length) {
+        webpSources = sources.filter(e=> e.type === "image/webp"); 
+    }
+    webpSources = (webpSources.length) ? webpSources[0] : null; 
     
     const fakeDom = useRef(null);
     const [inView, updateView] = useState(false);
     const [imageLoaded,updateLoaded] = useState(false);
     useLayoutEffect(()=>{
-        
+        if(imageLoaded) {
+            return;
+        }
+        const domObserver = fakeDom.current
         const observer = new IntersectionObserver(onChange);
         function onChange(changes){
             changes.forEach(change => {
                 if(change.isIntersecting) {
                     updateView(true);
+                    observer.unobserve(domObserver)
                     observer.disconnect(); 
                 }
             })
         }
-        observer.observe(fakeDom.current);
+        observer.observe(domObserver);
         if(fakeDom) {
             
         }
         return () => {  
+            observer.unobserve(domObserver);
             observer.disconnect(); 
         }
     },[])
@@ -48,12 +63,18 @@ const LazyLayout = ({addClasses,isPoster,imgData}) => {
         
     }
     {
-        (inView) ? <img onLoad={()=>{updateLoaded(true)}} srcSet={srcSet}  alt={altText} src={src} className={`${(!imageLoaded) ? notLoaded : ""} ${addClasses || ""} ${(isPoster)? posterImg : ""}`} style={{width: "100%",maxWidth: (!isPoster)? width : null }}/> : null
+        (inView) ? (
+            <picture>
+                {(webpSources)?<source srcSet={webpSources.srcSet} type="image/webp" />: null}
+                <source srcSet={srcSet} type="image/webp" />
+                <img onLoad={()=>{updateLoaded(true)}}  alt={altText} src={src} className={`${(!imageLoaded) ? notLoaded : ""} ${addClasses || ""} ${(isPoster)? posterImg : ""}`} style={{width: "100%",maxWidth: (!isPoster)? width : null }}/> 
+            </picture>
+        ) : null
     }
 </Fragment>
 }
 export default function LazyImg(props) {
-    const {databaseId, altText, addClasses, isPoster} = props;
+    const {databaseId} = props;
     const data = useStaticQuery(
         graphql`
           query {
@@ -80,6 +101,7 @@ export default function LazyImg(props) {
         return null; 
     }
     theImg = theImg[0]
+    
 
     return <LazyLayout imgData={theImg} {...props} />; 
     /*return (
