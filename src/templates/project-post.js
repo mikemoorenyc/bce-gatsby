@@ -7,7 +7,7 @@ import { Fragment } from "react";
 import Layout from "../components/Layout"
 import LazyImg from "../components/LazyImg";
 import MorePosts from "../components/MorePosts";
-
+import getImgSrc from "../getImgSrc";
 import ReadingSection from "../components/ReadingSection";
 import SmallHeader from "../components/SmallHeader";
 import TagList from "../components/TagList";
@@ -42,9 +42,8 @@ export default function ProjectPost({ data,pageContext }) {
 
     const {currentProject,otherPosts} = data
 
-    const featuredImage =(currentProject.featuredImage)? currentProject.featuredImage.node :{}
-    const {mediaDetails} = featuredImage ;
-    
+    const featuredImage =(currentProject.featuredImage)? currentProject.featuredImage.node : null
+
     const TopLinks = ({links}) => {
 
       const lArray = links.split(/\r?\n/).map(l => l.split(",") )
@@ -65,26 +64,24 @@ export default function ProjectPost({ data,pageContext }) {
       )
     
     }   
-    const defaultImg = (currentProject.featuredImage) ? featuredImage.localFile.childImageSharp.fluid.src : null
+    
+    
   return (
     
   <Layout 
     
     pageTitle={currentProject.title} activeMenu={"Projects"}
     headerDescription={HtmlStrip(currentProject.excerpt)}
-    headerImg={defaultImg}
+    headerImg={(featuredImage)? getImgSrc(featuredImage.databaseId) : null }
     headerLink={currentProject.link}
   >
     <div className={topSection}>
       {
         (currentProject.featuredImage) ?<div className={`${topHero} ${posterContainer}`}> <LazyImg 
-                                        sizes={mediaDetails.sizes} 
-                                        srcSet={featuredImage.localFile.childImageSharp.fluid.srcSet}
+                                        
                                         isPoster={true} 
-                                        sourceUrl={defaultImg}
-                                        sourceHeight={featuredImage.localFile.childImageSharp.fixed.height}
-                                        sourceWidth={featuredImage.localFile.childImageSharp.fixed.width}
-                                        altText={featuredImage.altText}
+                                        databaseId={featuredImage.databaseId}
+                                 
                                         addClasses={`${posterImg}`}
                                         /> </div>: ""
       }

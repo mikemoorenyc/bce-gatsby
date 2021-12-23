@@ -65,13 +65,10 @@ export default function BlogLanding({data,pageContext}) {
                       {(node.featuredImage && wideView)?
                       <Link to={node.link} className={` ${blogLandingImage} ${thinBox} ${posterContainer}`} style={{paddingTop: "56.25%"}}>
                           <LazyImg 
-                sizes={node.featuredImage.node.mediaDetails.sizes} 
-                srcSet={node.featuredImage.node.localFile.childImageSharp.fluid.srcSet}
+                {...node.featuredImage.node} 
+                
                 isPoster={true} 
-                sourceUrl={node.featuredImage.node.sourceUrl}
-                sourceHeight={node.featuredImage.node.localFile.childImageSharp.fixed.height}
-                sourceWidth={node.featuredImage.node.localFile.childImageSharp.fixed.width}
-                altText={node.featuredImage.node.altText}
+           
                 addClasses={`${posterImg}`}
                 />
                       </Link>
@@ -106,32 +103,7 @@ export const query = graphql`
             excerpt
             featuredImage {
               node {
-                mediaDetails {
-                  sizes {
-                    sourceUrl
-                    height
-                    width
-                    name
-                  }
-                  width
-                height
-                }
-                sourceUrl
-                srcSet
-                altText
-                localFile {
-                  childImageSharp {
-                    fixed {
-                      src
-                      width
-                      height
-                    }
-                    fluid {
-                      srcSet
-                      src
-                    }
-                  }
-                }
+                databaseId  
               }
             }
           }

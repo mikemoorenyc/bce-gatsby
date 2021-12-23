@@ -47,11 +47,10 @@ const IndexPage = ({data}) => {
           
                {
                 hpProjects.nodes.map((n,i)=> {
-                  let thumb = (n.featuredImage) ? n.featuredImage.node.localFile.childImageSharp.fluid : null; 
-                  
+              
                   return <article key={n.databaseId} className={projectItem}>
                     <Link to={n.link} className={`${projectThumb} ${posterContainer}`} style={{paddingTop: "56.625%"}}>
-                      {(thumb)? <LazyImg isPoster={true} sourceUrl={thumb.src} srcSet={thumb.srcSet}/> : "" }
+                      {(n.featuredImage)? <LazyImg isPoster={true} databaseId={n.featuredImage.node.databaseId}/> : "" }
                     </Link>
                     <div className={projectCopy}>
                       <h3><Link to={n.link}>{n.title}</Link></h3>
@@ -98,6 +97,7 @@ export const query = graphql`query MyQuery {
       excerpt
       featuredImage {
         node {
+          databaseId
           mediaDetails {
             sizes {
               sourceUrl

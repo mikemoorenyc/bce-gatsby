@@ -11,6 +11,9 @@ import SmallHeader from "../SmallHeader";
 
 export default function MorePosts({posts,title}) {
  
+    if(!posts.length) {
+        return null;
+    }
     return <div className={` ${mpContainer} `}>
         <SmallHeader copy={title || "More posts"} />
         <div className={postItemsContainer}>

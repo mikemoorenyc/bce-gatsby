@@ -8,6 +8,7 @@ import EndBullet from "../../components/EndBullet";
 import TagList from "../../components/TagList";
 import MorePosts from "../../components/MorePosts";
 import LazyImg from "../../components/LazyImg";
+import getImgSrc from "../../getImgSrc";
 import {
     blogTagline,
     blogHero,
@@ -26,15 +27,14 @@ export default function BlogSingle({data}) {
         currentPost,
         otherPosts
     } = data; 
-    const featuredImage =(currentPost.featuredImage)? currentPost.featuredImage.node :{}
-    const {mediaDetails} = featuredImage ;
+    
     const excerpt = HtmlStrip(currentPost.excerpt);
-    const defaultImg = (currentPost.featuredImage) ? featuredImage.localFile.childImageSharp.fluid.src : null
+    
     return <Layout
         pageTitle={currentPost.title} 
         activeMenu={"Writing"}
         headerDescription={excerpt}
-        headerImg={defaultImg}
+        headerImg={(currentPost.featuredImage) ? getImgSrc(currentPost.featuredImage.node.databaseId) : null}
         headerLink={currentPost.link}
     >
         <ReadingSection>
@@ -43,13 +43,9 @@ export default function BlogSingle({data}) {
             {(currentPost.featuredImage)?
             <div className={`${blogHero} ${thinBox} ${posterContainer}`} style={{paddingTop: "56.25%"}}>
                 <LazyImg 
-                sizes={mediaDetails.sizes} 
-                srcSet={featuredImage.localFile.childImageSharp.fluid.srcSet}
+                {...currentPost.featuredImage.node}
                 isPoster={true} 
-                sourceUrl={defaultImg}
-                sourceHeight={featuredImage.localFile.childImageSharp.fixed.height}
-                sourceWidth={featuredImage.localFile.childImageSharp.fixed.width}
-                altText={featuredImage.altText}
+                
                 addClasses={`${posterImg}`}
                 />
             </div>

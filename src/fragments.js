@@ -15,68 +15,18 @@ fragment postData on WpPost {
 const ftest = graphql`
 fragment featuredImagePost on WpPost {
     featuredImage{
-    node {
-      mediaDetails {
-        sizes {
-          sourceUrl
-          height
-          width
-          name
-        }
-        width
-      height
+      node {
+        databaseId
       }
-      sourceUrl
-      srcSet
-      altText
-      localFile {
-        childImageSharp {
-          fixed {
-            src
-            width
-            height
-          }
-          fluid {
-            srcSet
-            src
-          }
-        }
-      }
-    }
     }
   }
 `
 const featuredImageProject = graphql`
 fragment featuredImageProject on WpProject {
     featuredImage{
-    node {
-      mediaDetails {
-        sizes {
-          sourceUrl
-          height
-          width
-          name
-        }
-        width
-      height
+      node {
+        databaseId
       }
-      sourceUrl
-      srcSet
-      altText
-      localFile {
-        childImageSharp {
-          fixed {
-            src
-            width
-            height
-          }
-          fluid {
-            srcSet
-            src
-          }
-        }
-      }
-    }
     }
   }
 `

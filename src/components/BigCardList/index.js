@@ -18,7 +18,7 @@ export default function BigCardList({posts}) {
     return <div className={`${cardContainer} ${contentCenterer} ${gridLayout}`}>
         {
                 posts.map(e => {
-                  
+                  console.log(e)
                return  <Card key={e.slug} ctaText={e.ctaText || "View post"} featuredImage={e.featuredImage} extraClasses={card} kicker={e.kicker} title={e.title} desc={e.excerpt} link={e.link} />
                      })
             }

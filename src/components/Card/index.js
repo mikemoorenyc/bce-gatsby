@@ -29,26 +29,14 @@ const ThumbImage = ({featuredImage}) => {
         return null;
     }
     const {
-        mediaDetails,
-        altText,
-        localFile
+        databaseId
     } = featuredImage.node
-    const {childImageSharp} = localFile
-    const {
-        width,
-        height
-    } = mediaDetails
-    const {src} = childImageSharp.fixed
-    const {srcSet} = childImageSharp.fluid
+   
     return (
         <div className={imgContainer}>
             <LazyImg 
                     isPoster={true}
-                    srcSet={srcSet}
-                    sourceUrl={src}
-                    sourceWidth={width}
-                    sourceHeight={height}
-                    altText={altText}
+                    databaseId={databaseId}
                     />
         </div>
     )
