@@ -3,21 +3,41 @@ import React from "react"
 import {domToReact} from "html-react-parser"
 import LazyImg from "../LazyImg";
 
+import { graphql,useStaticQuery } from "gatsby";
 
 
-
-import {
-    figcaption,
-    stdImg
-} from "./imageStyles.module.scss";
+import * as styles from "./imageStyles.module.scss";
 
 import {
     fontSans,
-    thinBox
+    thinBox,
+    beforeBlock,
+    afterBlock
 } from "../../global-styles/utilities.module.scss"
-
+console.log(styles);
+const {
+    figcaption,
+    stdImg,
+    screenshotImg
+} = styles
 export default function CopyImage({node}) {
-    
+    const data = useStaticQuery(
+        graphql`
+          query {
+            allImgs : allWpMediaItem {
+                nodes {
+                    databaseId
+                    altText
+                    localFile {
+                      childImageSharp {
+                        gatsbyImageData
+                      }
+                    }
+                }
+              }
+          }
+        `
+    )
    
     
     function getdbId(classList) {
@@ -33,16 +53,20 @@ export default function CopyImage({node}) {
     const classes = node.attribs.class || "";
     let caption = node.children.filter(c => c.name === "figcaption")[0] || null;
     let img = node.children.filter(c => c.name === "img")[0] || null;
-    
+    let isScreenshot = classes.includes("screenshot");
     
     if (!img) {
         return null; 
     }
-    
+    const imgData = data.allImgs.nodes.filter(e=> e.databaseId ===getdbId(img.attribs.class) )[0];
 
-    
-    return <figure className={`${classes}`}>
-        <div className={`${stdImg} `}><LazyImg databaseId={getdbId(img.attribs.class)} addClasses={thinBox} /></div>
+    const {width} = imgData.localFile.childImageSharp.gatsbyImageData;
+    return <figure className={`${stdImg}`}>
+        <div className={`${classes.split(" ").map(e=>styles[e]).join(" ")} ${(isScreenshot) ? `${beforeBlock} ${afterBlock}` : ""}`}
+        style={{maxWidth: (isScreenshot)?width:""}}
+        >
+            <LazyImg databaseId={getdbId(img.attribs.class)} addClasses={`${(!isScreenshot)?thinBox:screenshotImg} `} />
+        </div>
         {(caption)? <figcaption className={`${figcaption} ${fontSans}`}>{domToReact(caption.children)}</figcaption>: ""}
     </figure>
 } 

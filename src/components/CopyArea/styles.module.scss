@@ -90,6 +90,9 @@
         margin-left:4px;
         margin-right: 4px;
         margin-bottom: calc( (var(--gutter-width) * 1.5 ) + 4px);
+        &:not(:first-child) {
+          margin-top: calc( (var(--gutter-width) * 1.5 ) + 4px);
+        }
         code {
           color:var(--bg-white);
           border-width:0;

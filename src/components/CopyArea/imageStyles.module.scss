@@ -1,16 +1,102 @@
 @import "../../global-styles/global-variables.scss";
 .std-img {
-   
+   text-align: center;
     @media(min-width: $t7) {
-      width: calc(100vw - 36px);
+      width: calc(100vw - 48px);
       position: relative;
       left: 50%;
       transform: translateX(-50%);
     }
+    img {
+      border-width: 1px; 
+    }
+    
   }
+  
   .figcaption{
     font-size: 14px;
+    line-height: 1.5;
     text-align: center;
     max-width: 712px;
     margin: var(--half-gutter) auto 0;
+ 
+}
+.phone,.desktop {
+  margin: 0 auto;
+  box-sizing: content-box;
+  position:relative
+}
+.phone {
+  padding: 65px 10px;
+  border-width: 1px;
+  border-radius: 30px;
+  box-shadow: 4px 4px 0 currentColor;
+  
+  &:before, &:after {
+    position:absolute;
+  }
+  &:before {
+    top: 35px;
+     left: 50%;
+           margin-left: -27px;
+      width: 54px;
+      height: 5px;
+      border-radius: 3.5px;
+      border-width: 1px
+  }
+  &:after {
+    left: 50%;
+       bottom: 13px;
+       border-width: 1px;
+       border-radius: 50%;
+       width: 40px;
+       height: 40px;
+       margin-left: -20px;
+  }
+  .screenshot-img {
+    max-width: 328px !important;
+    position:relative;
+  
+  }
+}
+.desktop {
+  font-size: 1px; 
+  border-width: 1px 1px 0 1px;
+  padding: 8em 8em 0 8em;
+  border-radius: 8em 8em 0 0;
+  @media(min-width:$t7) {
+    font-size: 2px;
+    max-width: calc(100vw - ((36em * 2) + (var(--gutter-width) * 2) )) !important;
+  }
+  @media(min-width: $d-mq) {
+    font-size: 3.5px;
+    //max-width: 1080px !important; 
+  }
+  .screenshot-img {
+    margin-bottom: 18em;
+    @media(min-width: $t7) {
+      max-width: calc(100vw - ((36em * 2) + (var(--gutter-width) * 2) )) !important;
+    }
+    @media(min-width: $d-mq) {
+      //max-width: 1080px !important; 
+    }
+  }
+  &:after {
+    background: var(--bg-white);
+    height: 12em;
+    border-width: 1px;
+    width: calc(100% + (8em * 2) + (12em * 2));
+    transform: translateX( calc( (12em + 8em) * -1  ) );
+    border-radius: 0 0 12em 12em;
+  }
+  &:before {
+    position:absolute;
+    border-width: 1px;
+    width: 80em;
+    height: 4em;
+    border-radius:2em;
+    bottom: 18em;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 }
