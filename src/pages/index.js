@@ -49,13 +49,13 @@ const IndexPage = ({data}) => {
                 hpProjects.nodes.map((n,i)=> {
               
                   return <article key={n.databaseId} className={projectItem}>
-                    <Link to={n.link} className={`${projectThumb} ${posterContainer}`} style={{paddingTop: "56.625%"}}>
+                    <Link to={n.link} className={`${projectThumb} ${posterContainer} normal-hover`} style={{paddingTop: "56.625%"}}>
                       {(n.featuredImage)? <LazyImg isPoster={true} databaseId={n.featuredImage.node.databaseId}/> : "" }
                     </Link>
                     <div className={projectCopy}>
                       <h3><Link to={n.link}>{n.title}</Link></h3>
                       {(n.excerpt) ? <div className={`${homeTag} ${tagLine}`}>{truncateString(HtmlStrip(n.excerpt),75)}</div> : null}
-                      <Link className={`${projectBtn} ${buttonStyling} ${fontSans} ${noUnderline}`} to={n.link}><span>View project</span><span><Svg icon={"arrow"}/></span></Link>
+                      <Link className={`${projectBtn} ${buttonStyling} ${fontSans} ${noUnderline} `} to={n.link}><span>View project</span><span><Svg icon={"arrow"}/></span></Link>
                     </div>
                     
                   </article>

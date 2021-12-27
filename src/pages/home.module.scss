@@ -101,16 +101,28 @@
     .project-btn {
         display: inline-block;
         margin-top: var(--half-gutter);
-        
+        border-color: var(--the-color);
         padding: .5em (12em / 16 ) (8em / 16) (12em / 16);
-        
+        &:hover {
+            position:relative;
+            &:after {
+                display:block;
+                content: "";
+                width: 100%;
+                height: 100%;
+                position:absolute;
+                left: 0;
+                top: 0;
+                border: 2px solid var(--bg-white)
+            }
+        }
         @media(min-width:$t7) {
             margin-top: var(--gutter-width);
         }
         @media(min-width:$d-mq) {
             font-size: 22px;
             border-width: (2em / 16);
-            box-shadow: (2em / 16) (2em / 16) 0 currentColor; 
+            box-shadow: (2em / 16) (2em / 16) 0 var(--the-color); 
         }
         span {
             display: inline-block;
@@ -140,7 +152,6 @@
     margin-top: calc(var(--gutter-width) * 1.25 );
     
     font-size: .75em;
-    font-weight: bold;
     @media(min-width: $t7) {
         text-align: right;
     }

@@ -98,13 +98,13 @@
           font-size: 12px;
           font-weight: bold;
           font-family: $font-sans;
+          
           a {
             display:block;
             padding: 0 8px;
             line-height: 32px;
-            &:hover {
-              text-decoration: underline;
-            }
+            font-weight: bold;
+           
           }
         }
       }
@@ -116,7 +116,6 @@
     padding-top: 24px;
     .title {
       text-transform: uppercase;
-      font-weight: bold;
       font-size:14px;
       > span {
         display: block;

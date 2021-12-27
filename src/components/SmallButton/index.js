@@ -2,14 +2,14 @@ import React from "react";
 import { Link } from "gatsby";
 
 
-import {fontSans, noUnderline} from "../../global-styles/utilities.module.scss"
+import {fontSans, noUnderline, fwNormal} from "../../global-styles/utilities.module.scss"
 import {tagLink} from "./styles.module.scss";
 
 const SmallButton = ({href,external,children, extraClasses}) => {
     if(!href) {
         return false; 
     }
-    const styling = `${tagLink} ${fontSans} ${extraClasses} ${noUnderline}`
+    const styling = `${tagLink} ${fontSans} ${extraClasses} ${noUnderline} ${fwNormal}`
     
 
     if(external) {

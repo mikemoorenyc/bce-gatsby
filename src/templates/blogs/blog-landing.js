@@ -63,7 +63,7 @@ export default function BlogLanding({data,pageContext}) {
                       <BlogCopy {...node} />
                       </div>
                       {(node.featuredImage && wideView)?
-                      <Link to={node.link} className={` ${blogLandingImage} ${thinBox} ${posterContainer}`} style={{paddingTop: "56.25%"}}>
+                      <Link to={node.link} className={` ${blogLandingImage} ${thinBox} ${posterContainer} normal-hover`} style={{paddingTop: "56.25%"}}>
                           <LazyImg 
                 {...node.featuredImage.node} 
                 

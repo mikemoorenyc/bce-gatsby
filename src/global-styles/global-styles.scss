@@ -71,11 +71,21 @@ body {
     }
   }
   a {
-    &:hover {
-      text-decoration: none;
+    font-weight:bold; 
+    
+    &:not(.normal-hover):hover {
+      //text-decoration: none;
+      //text-decoration-style: dotted;
+      background:var(--the-color);
+      color: var(--bg-white);
+      text-decoration: none; 
     }
     &.no-underline {
       text-decoration: none;
+    }
+    
+    &.thin {
+      font-weight: normal;
     }
   }
   button {

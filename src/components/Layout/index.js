@@ -35,8 +35,11 @@ import {
     beforeBlock,
     contentCenterer,
     fontSans,
-    middleCenter
+    middleCenter,
+    noUnderline,
+    fwNormal
 } from "../../global-styles/utilities.module.scss"
+
 
 
 export default function Layout({pageTitle, headerDescription,headerImg,headerLink, children, activeMenu}) {
@@ -170,7 +173,10 @@ background-size: 12.73px 12.73px;
     
         }
         body {
-                color: ${(!favIconColor) ? "var(--dark-base)" : favIconColor}
+                color: ${(!favIconColor) ? "var(--dark-base)" : favIconColor} }
+        :root {
+            --the-color : ${(!favIconColor) ? "var(--dark-base)" : favIconColor}
+        }
     `}</style>
 
     <body className={(favIconColor === "white") ? "dark-mode" : ""} />
@@ -185,12 +191,12 @@ background-size: 12.73px 12.73px;
         <div id="header-test"></div>
         <header id="top-header" role="presentation"  className={`${(menuOpen)?showMenu :""}`}>
             <div className={mainLogo}>
-                <a  aria-label={theTitle} href="/" className={`${spinner} ${beforeBlock}`}><span style={{display:"none"}}>{theTitle}</span></a>
+                <a  aria-label={theTitle} href="/" className={`${spinner} ${beforeBlock} normal-hover`}><span style={{display:"none"}}>{theTitle}</span></a>
                 <div className={logoText} style={{display: (hideHeader)? "none": "" }}>
                     <div className={topLogo}>
-                    <a className={"no-underline"}  href="/"><span className={`${title} ${fontSans}`}>{theTitle}</span></a> 
+                    <a className={`${noUnderline} normal-hover `}  href="/"><span className={`${title} ${fontSans}`}>{theTitle}</span></a> 
                     </div>
-                    <div className={`${topTagline} `}><a className={"no-underline"} href="/">{parse(desc)}</a></div>
+                    <div className={`${topTagline}`}><a className={`${noUnderline} ${fwNormal} normal-hover`} href="/">{parse(desc)}</a></div>
                 </div>
             </div>
             
@@ -198,7 +204,7 @@ background-size: 12.73px 12.73px;
             <nav className={nav}>
                 <div className={lockup}>
                     <div className={topLogo}>
-                        <a href="/">
+                        <a  href="/">
                             <span className={`${title} ${fontSans}`}>
                                 {
                                     theTitle.split(" ").map((n,i) => (
@@ -209,13 +215,13 @@ background-size: 12.73px 12.73px;
                             </span>
                          </a>
                     </div>
-                    <div className={topTagline}><a href="/">{parse(desc)}</a></div>
+                    <div className={topTagline}><a className={fwNormal} href="/">{parse(desc)}</a></div>
                 </div>
                 <div className={navItems}>
                     {
                     data.wpMenu.menuItems.nodes.map(n => (
                         <div className={`${navItem} ${(n.label === activeMenu)?active : ""}`} key={n.id}>
-                            <Link onClick={hamburgerClick} to={n.url}>{parse(n.label)}</Link></div>
+                            <Link className={fwNormal} onClick={hamburgerClick} to={n.url}>{parse(n.label)}</Link></div>
                       ))
                     }
                     <ColorModeToggle colorPicker={colorPicker} currentColor={favIconColor} switchFunction={updateColorMode} />
@@ -234,7 +240,7 @@ background-size: 12.73px 12.73px;
             </main>
             <footer className={`${footer} ${fontSans} lazy-gradient`}>
                 <div className={`${inner} ${contentCenterer}`}>
-                    <div><b>Menu</b>
+                    <div>Menu
                     <ul className={`${socialFooter} `}>
                         {
                             data.wpMenu.menuItems.nodes.map(n => (
@@ -245,7 +251,7 @@ background-size: 12.73px 12.73px;
                     </div>
                     {
                         (data.socialLinks && data.socialLinks.socialmedialink) ?<div>
-                           <div> <b>Email &amp; Social</b>
+                           <div> Email &amp; Social
                             <ul className={socialFooter}>
                                 {
                                     arraySplit(data.socialLinks.socialmedialink).map((e,i)=> {

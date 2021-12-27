@@ -133,7 +133,9 @@
   .no-underline {
     text-decoration: none !important;
   }
-  
+.fw-normal {
+    font-weight:normal; 
+  }
   
   
   .middle-center {
@@ -261,10 +263,10 @@
 }
 /// Shadow styling
 .box-shadow {
-  box-shadow: 4px 4px 0 currentColor;
+  box-shadow: 4px 4px 0 var(--the-color);
   &.bs-trans {
     &:hover {
-      box-shadow: 6px 6px 0 currentColor;
+      box-shadow: 6px 6px 0 var(--the-color);
     }
   }
 }
@@ -291,10 +293,10 @@
 }
 .thin-box {
   border-width: 1px; 
-  box-shadow: 2px 2px 0 currentColor;
+  box-shadow: 2px 2px 0 var(--the-color);
 }
 .button-styling {
-  box-shadow: 2px 2px 0 currentColor;
+  box-shadow: 2px 2px 0 var(--the-color);
   border-width: 2px;
   white-space: nowrap;
   font-size: 14px;

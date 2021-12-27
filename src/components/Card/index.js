@@ -81,7 +81,7 @@ export default function Card(props) {
         <ThumbImage featuredImage={featuredImage} />
         <div className={textArea}>
         {(kicker)?<div className={`${kickerStyle} ${fontSans}`}>{kicker}</div>: null}
-        <h2 className={h2}>{(link)?<Link className={noUnderline} to={link}>{title}</Link>:title}</h2>
+        <h2 className={h2}>{(link)?<Link className={`${noUnderline} normal-hover`} to={link}>{title}</Link>:title}</h2>
         {(desc)?<div className={`${tagLine}`}>{truncateString(HtmlStrip(desc),75)}</div>: null}
        
         </div>
