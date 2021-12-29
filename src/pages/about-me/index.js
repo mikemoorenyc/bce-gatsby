@@ -45,7 +45,7 @@ const AboutPage = ({data}) => {
     const {title,content,thingsilike,thingsidontlike} = data.wpPage
 
     return (
-      <Layout activeMenu={"About"} pageTitle={title}>
+      <Layout activeMenu={"About Me"} pageTitle={title}>
         <LandingHeader pageTitle={title} />
         <div className={` ${aboutLayout} ${contentCenterer} ${gridLayout}`}>
           <div className={`${picture} ${bottomMargin}`} dangerouslySetInnerHTML={{__html: data.wp.generalSettings.portraitSvg}} />

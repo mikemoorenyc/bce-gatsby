@@ -4,6 +4,7 @@ import React from "react";
 import TwitterBlock from "./components/CopyArea/TwitterBlock";
 import parse from "html-react-parser"
 import DownloadBlock from "./components/CopyArea/DownloadBlock"
+import Video from "./components/Video"
 import ButtonBlocks from "./components/CopyArea/ButtonBlocks"
 const HtmlStrip = function(string) {
     if(!string) {
@@ -20,27 +21,11 @@ const arraySplit = function(string, splitValue = /\r?\n/) {
 }
 
 const copyParse = function(copy) {
+
     function Remove() {
         return null;
     }
-    /*let prep = document.createElement("div");
-    prep.innerHTML = copy;
-    let tweets = prep.querySelectorAll(".wp-block-embed-twitter");
-    tweets.forEach(function(e) {
-        let href = (e.querySelector("a"))? e.querySelector("a").getAttribute("href") :null
-        
-        if(href) {
-         e.setAttribute("data-tweet-id",href); 
-        }
-        let bq = e.querySelector("blockquote");
-        let i = document.createElement("div")
-        i.classList.add("content-holder");
-        i.innerHTML = bq.innerHTML
-        if(bq) {
-            e.appendChild(i);
-        }
-        
-    });*/
+    
     const checkClass = function(classList) {
         if(!classList) {
             return false; 
@@ -70,6 +55,9 @@ const copyParse = function(copy) {
             }
             if(domNode.attribs && domNode.attribs.class && domNode.attribs["class"].indexOf("wp-block-image") > -1) {
                 return <CopyImage node={domNode} />
+            }
+            if(domNode.attribs && domNode.attribs.class && domNode.attribs["class"].indexOf("wp-block-video") > -1) {
+                return <Video node={domNode} />
             }
             if(domNode.attribs && domNode.attribs.class && domNode.attribs["class"].indexOf("wp-block-buttons") > -1) {
                 return <ButtonBlocks node={domNode} />
@@ -104,4 +92,23 @@ function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-export {numberWithCommas,monthConvert, timeConvert, truncateString, copyParse, arraySplit, HtmlStrip}
+const attrs = `accept acceptCharset accessKey action allowFullScreen alt async autoComplete
+autoFocus autoPlay capture cellPadding cellSpacing challenge charSet checked
+cite classID className colSpan cols content contentEditable contextMenu controls
+controlsList coords crossOrigin data dateTime default defer dir disabled
+download draggable encType form formAction formEncType formMethod formNoValidate
+formTarget frameBorder headers height hidden high href hrefLang htmlFor
+httpEquiv icon id inputMode integrity is keyParams keyType kind label lang list
+loop low manifest marginHeight marginWidth max maxLength media mediaGroup method
+min minLength multiple muted name noValidate nonce open optimum pattern
+placeholder poster preload profile radioGroup readOnly rel required reversed
+role rowSpan rows sandbox scope scoped scrolling seamless selected shape size
+sizes span spellCheck src srcDoc srcLang srcSet start step style summary
+tabIndex target title type useMap value width wmode wrap playsInline`.replace(/(\r\n|\n|\r)/gm, " ").split(" ").map(e=>e.trim());
+const camelCaseAttributes = {};
+attrs.forEach(e => {
+    camelCaseAttributes[e.toLowerCase()] = e;
+})
+
+
+export {numberWithCommas,monthConvert, timeConvert, truncateString, copyParse, arraySplit, HtmlStrip,camelCaseAttributes}

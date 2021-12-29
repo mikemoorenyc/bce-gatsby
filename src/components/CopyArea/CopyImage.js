@@ -2,21 +2,20 @@
 import React from "react"
 import {domToReact} from "html-react-parser"
 import LazyImg from "../LazyImg";
-
+import FigCaption from "./FigCaption";
 import { graphql,useStaticQuery } from "gatsby";
 
 
 import * as styles from "./imageStyles.module.scss";
 
 import {
-    fontSans,
     thinBox,
     beforeBlock,
     afterBlock
 } from "../../global-styles/utilities.module.scss"
-console.log(styles);
+
 const {
-    figcaption,
+  
     stdImg,
     screenshotImg
 } = styles
@@ -67,6 +66,6 @@ export default function CopyImage({node}) {
         >
             <LazyImg databaseId={getdbId(img.attribs.class)} addClasses={`${(!isScreenshot)?thinBox:screenshotImg} `} />
         </div>
-        {(caption)? <figcaption className={`${figcaption} ${fontSans}`}>{domToReact(caption.children)}</figcaption>: ""}
+        {(caption)? <FigCaption>{domToReact(caption.children)}</FigCaption>: ""}
     </figure>
 } 

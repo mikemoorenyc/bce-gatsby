@@ -25,6 +25,13 @@ module.exports = {
         }
       },
     },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `assets`,
+        path: `${__dirname}/src/assets`, // this needs to include a path with atleast 1 file
+      },
+    },
     `gatsby-plugin-react-helmet`,
     "gatsby-transformer-sharp",
     {

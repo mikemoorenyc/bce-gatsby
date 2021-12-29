@@ -37,7 +37,7 @@ const ContactPage = ({data}) => {
      })
  
     return (
-      <Layout activeMenu={"Contact"} pageTitle={title}>
+      <Layout activeMenu={"Contact Me"} pageTitle={title}>
         <LandingHeader pageTitle={title} />
         <div className={`${contentCenterer} ${gridLayout}`}>
         <div className={copyLayout}>

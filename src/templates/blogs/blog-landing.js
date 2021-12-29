@@ -48,7 +48,7 @@ export default function BlogLanding({data,pageContext}) {
       return () => {
         window.removeEventListener("resize",sizeCheck);
       }
-    })
+    },[])
     return <Layout 
               activeMenu={"Writing"}
               pageTitle={pageInfo.title} 
