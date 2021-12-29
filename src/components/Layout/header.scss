@@ -145,7 +145,27 @@ header {
   top: auto; 
   transform: none;
 }
-
+.content-skip {
+  position:fixed;
+  left: -9999px;
+  top: 0;
+  z-index: 999; 
+  background: var(--the-color);
+  color: var(--bg-white);
+  padding: 12px 16px;
+  
+  &:after {
+    position:absolute;
+    left: 2px;
+    right: 2px;
+    bottom: 2px;
+    top: 2px;
+    border: 2px solid var(--bg-white);
+  }
+  &:focus {
+    left: 0;
+  }
+}
 
 @keyframes spinner {
     0% {

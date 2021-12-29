@@ -28,7 +28,8 @@ import {
     title,
     topLogo,
     topTagline,
-    socialFooter
+    socialFooter,
+    contentSkip
 } from "./styles.module.scss"
 import {
     afterBlock,
@@ -188,6 +189,7 @@ background-size: 12.73px 12.73px;
         <Fragment>
             
         <Head />
+        <a className={`${contentSkip} ${noUnderline} normal-hover ${fontSans} ${afterBlock}` } href="#main">Skip to content</a>
         <div id="header-test"></div>
         <header id="top-header" role="presentation"  className={`${(menuOpen)?showMenu :""}`}>
             <div className={mainLogo}>
@@ -235,7 +237,7 @@ background-size: 12.73px 12.73px;
         </header>
         <div id="footer-grid-wrap">
             <main id="main-content-container" className={mainContentContainer}>
-                <div ref={headerCheck} style={{width: "100%", height: "1px"}}/>
+                <div id={"main"} ref={headerCheck} style={{width: "100%", height: "1px"}}/>
                     {children}
             </main>
             <footer className={`${footer} ${fontSans} lazy-gradient`}>

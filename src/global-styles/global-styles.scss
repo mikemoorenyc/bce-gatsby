@@ -92,7 +92,7 @@ body {
     cursor: pointer;
   }
   *:focus {
-    outline: 3px dashed currentColor
+    outline: 3px dashed var(--the-color)
   }
   
   .mw-800 {
