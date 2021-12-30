@@ -3,7 +3,7 @@
 import React, { useState } from "react"
 
 import * as styles from "./styles.module.scss";
-
+import parse from "html-react-parser"
 import { HtmlStrip, truncateString } from "../../utilities"
 import LazyImg from "../LazyImg";
 import { Link } from "gatsby";
@@ -82,7 +82,7 @@ export default function Card(props) {
         <div className={textArea}>
         {(kicker)?<div className={`${kickerStyle} ${fontSans}`}>{kicker}</div>: null}
         <h2 className={h2}>{(link)?<Link className={`${noUnderline} normal-hover`} to={link}>{title}</Link>:title}</h2>
-        {(desc)?<div className={`${tagLine}`}>{truncateString(HtmlStrip(desc),75)}</div>: null}
+        {(desc)?<div className={`${tagLine}`}>{parse(truncateString(HtmlStrip(desc),75))}</div>: null}
        
         </div>
          <Cta />

@@ -9,6 +9,7 @@ import TagList from "../../components/TagList";
 import MorePosts from "../../components/MorePosts";
 import LazyImg from "../../components/LazyImg";
 import {getSrc} from "gatsby-plugin-image"
+import parse from "html-react-parser"
 import {
     blogTagline,
     blogHero,
@@ -39,7 +40,7 @@ export default function BlogSingle({data}) {
     >
         <ReadingSection>
             <h1 className={`${blogSingleHeadline} ${articleHeading}`}>{currentPost.title}</h1>
-            <div className={`${blogTagline} ${tagLine}`}>{excerpt}</div>
+            <div className={`${blogTagline} ${tagLine}`}>{parse(excerpt)}</div>
             {(currentPost.featuredImage)?
             <div className={`${blogHero} ${thinBox} ${posterContainer}`} style={{paddingTop: "56.25%"}}>
                 <LazyImg 

@@ -144,7 +144,7 @@ export default function Layout({pageTitle, headerDescription,headerImg,headerLin
     function Head() {
 
         let headImg = headerImg || ((data.siteIcon && data.siteIcon.featuredImage)? data.siteIcon.featuredImage.node.localFile.childImageSharp.fluid.src : null) ;
-        let headDesc = headerDescription || desc;
+        let headDesc = (headerDescription)? parse(headerDescription) : desc;
         let headTitle = pageTitle || theTitle;
         let headLink = data.wp.allSettings.generalSettingsCanonUrl+(headerLink || "")
         return <Helmet>

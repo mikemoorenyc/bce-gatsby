@@ -11,7 +11,7 @@ import ReadingSection from "../components/ReadingSection";
 import SmallHeader from "../components/SmallHeader";
 import TagList from "../components/TagList";
 import { HtmlStrip } from "../utilities";
-
+import parse from "html-react-parser"
 import {
   projectTag,
   topHero,
@@ -56,7 +56,7 @@ export default function ProjectPost({ data,pageContext }) {
               return (
                 <Fragment key={i}>
                   {(i !== 0)? <Fragment>, </Fragment>: "" }
-                  <a href={l[1]}>{l[0]}</a>
+                  <a rel="noreferrer noopener" target="_blank" href={l[1]}>{parse(l[0])}</a>
                 </Fragment>
               )
             })
@@ -89,7 +89,7 @@ export default function ProjectPost({ data,pageContext }) {
         <div className={topInfoContainer}>
         <div className={topInfo}>
           <h1 className={`${articleHeading}`}>{currentProject.title}</h1>
-          <h2 className={`${tagLine} ${projectTag}`}>{HtmlStrip(currentProject.excerpt)}</h2>
+          <h2 className={`${tagLine} ${projectTag}`}>{parse(HtmlStrip(currentProject.excerpt))}</h2>
           
         </div>
         </div>
@@ -105,7 +105,7 @@ export default function ProjectPost({ data,pageContext }) {
         <SmallHeader size={3} copy={"What I learned"} />
         <ul className={typeSmaller}>
         {
-          arraySplit(currentProject.whatilearned).map((e,i) => <li key={i}>{e}</li>)
+          arraySplit(currentProject.whatilearned).map((e,i) => <li key={i}>{parse(e)}</li>)
         }
         </ul>
       </div>

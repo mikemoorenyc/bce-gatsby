@@ -9,6 +9,7 @@ import {
 import React from "react"
 import SmallHeader from "../SmallHeader";
 import SmallButton from "../SmallButton";
+import parse from "html-react-parser"
 
 export default function TagList({items, extraClasses}) {
     if(!items.length || typeof items !== "object") {
@@ -21,7 +22,7 @@ export default function TagList({items, extraClasses}) {
         
         <ul >
             {
-                items.map((e,i)=> <li className={li} key={e.slug}><SmallButton href={`/tagged/${e.slug}`}>{e.name}</SmallButton></li>)
+                items.map((e,i)=> <li className={li} key={e.slug}><SmallButton href={`/tagged/${e.slug}`}>{parse(e.name)}</SmallButton></li>)
             }
         </ul>
     </div>

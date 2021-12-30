@@ -8,6 +8,7 @@ import LazyImg from '../components/LazyImg'
 import {BlogItem} from "../components/BlogItem"
 import Svg from '../components/SVG'
 import { copyParse,HtmlStrip,truncateString } from '../utilities'
+import parse from "html-react-parser"
 import {
   header,
   homeSection,
@@ -54,7 +55,7 @@ const IndexPage = ({data}) => {
                     </Link>
                     <div className={projectCopy}>
                       <h3><Link to={n.link}>{n.title}</Link></h3>
-                      {(n.excerpt) ? <div className={`${homeTag} ${tagLine}`}>{truncateString(HtmlStrip(n.excerpt),75)}</div> : null}
+                      {(n.excerpt) ? <div className={`${homeTag} ${tagLine}`}>{parse(truncateString(HtmlStrip(n.excerpt),75))}</div> : null}
                       <Link className={`${projectBtn} ${buttonStyling} ${fontSans} ${noUnderline} `} to={n.link}><span>View project</span><span><Svg icon={"arrow"}/></span></Link>
                     </div>
                     
