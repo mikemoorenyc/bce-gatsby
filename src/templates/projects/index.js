@@ -19,16 +19,16 @@ const ProjectsPage= ({data}) => {
     const {wpPage} = data,
         {nodes} = data.allWpProject;
 
-        
+        console.log(wpPage)
     return (
-      <Layout activeMenu={"Projects"} 
+      <Layout activeMenu={wpPage.menuslug} 
       pageTitle={wpPage.title} 
       headerLink={wpPage.link}
       headerDescription={HtmlStrip(wpPage.content)}
       >
           <LandingHeader pageTitle={wpPage.title} copy={wpPage.content} />
           <BigCardList posts={nodes.map(e => {
-            e.ctaText = "View project"
+            e.ctaText = "View case study"
             return e; 
           } )} />
         
@@ -45,6 +45,7 @@ const ProjectsPage= ({data}) => {
         content
         title
         link
+        menuslug
       }
       allWpProject(sort: {fields: menuOrder, order: ASC},limit: $limit, skip: $skip) {
         nodes {

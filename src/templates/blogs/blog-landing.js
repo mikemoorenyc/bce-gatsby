@@ -50,7 +50,7 @@ export default function BlogLanding({data,pageContext}) {
       }
     },[])
     return <Layout 
-              activeMenu={"Writing"}
+              activeMenu={pageInfo.menuslug}
               pageTitle={pageInfo.title} 
               headerLink={pageInfo.link}
               headerDescription={HtmlStrip(pageInfo.content)}>
@@ -91,6 +91,7 @@ export const query = graphql`
       content
       title
       link
+      menuslug
     }
     allWpPost(sort: {fields: date, order: DESC}, limit: $limit, skip: $skip) {
         totalCount

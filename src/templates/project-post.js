@@ -39,7 +39,7 @@ import { graphql } from "gatsby"
 
 export default function ProjectPost({ data,pageContext }) {
 
-    const {currentProject,otherPosts} = data
+    const {currentProject,otherPosts,parentPage} = data
 
     const featuredImage =(currentProject.featuredImage)? currentProject.featuredImage.node : null
 
@@ -71,7 +71,7 @@ export default function ProjectPost({ data,pageContext }) {
     
   <Layout 
     
-    pageTitle={currentProject.title} activeMenu={"Projects"}
+    pageTitle={currentProject.title} activeMenu={parentPage.menuslug}
     headerDescription={HtmlStrip(currentProject.excerpt)}
     headerImg={(featuredImage)? getSrc(featuredImage.localFile) : null }
     headerLink={currentProject.link}
@@ -84,7 +84,7 @@ export default function ProjectPost({ data,pageContext }) {
                                         databaseId={featuredImage.databaseId}
                                  
                                         addClasses={`${posterImg}`}
-                                        /> </div>: ""
+                                        />  </div>: ""
       }
         <div className={topInfoContainer}>
         <div className={topInfo}>
@@ -142,6 +142,9 @@ query($slug: String!, $otherPosts: [String!] ) {
       }
       excerpt
       ...featuredImageProject
+    }
+    parentPage: wpPage(slug: {eq: "projects"}) {
+      menuslug
     }
     otherPosts: allWpProject(sort: {fields: date, order: DESC}
       filter: {slug: {in: $otherPosts}}) {

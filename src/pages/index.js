@@ -30,12 +30,14 @@ import {
   gridLayout
 } from "../global-styles/utilities.module.scss"
 
-
+const SeeAllBtn = ({url,title}) => <div className={`${seeAllContainer}  ${contentCenterer}`}><Link className={`${fontSans}`} to={url}>See all {title.toLowerCase()}</Link></div>
 // Step 2: Define your component
 const IndexPage = ({data}) => {
   const {
     hpProjects,
-    hpBlogs
+    hpBlogs,
+    projectPage,
+    blogPage
   } = data; 
 
   return (
@@ -43,7 +45,7 @@ const IndexPage = ({data}) => {
       <div className={`${header} ${contentCenterer} ${gridLayout}`}><div>{copyParse(data.wpPage.content)}</div></div>
      
       {(hpProjects.nodes.length)? <div className={` ${homeSection}`}>
-        <h2 className={sectionHeading}><span className={`${contentCenterer}`}>Projects</span></h2>
+        <h2 className={sectionHeading}><span className={`${contentCenterer}`}>{projectPage.title}</span></h2>
         <div className={` ${contentCenterer}`}>
           
                {
@@ -56,7 +58,7 @@ const IndexPage = ({data}) => {
                     <div className={projectCopy}>
                       <h3><Link to={n.link}>{n.title}</Link></h3>
                       {(n.excerpt) ? <div className={`${homeTag} ${tagLine}`}>{parse(truncateString(HtmlStrip(n.excerpt),75))}</div> : null}
-                      <Link className={`${projectBtn} ${buttonStyling} ${fontSans} ${noUnderline} `} to={n.link}><span>View project</span><span><Svg icon={"arrow"}/></span></Link>
+                      <Link className={`${projectBtn} ${buttonStyling} ${fontSans} ${noUnderline} `} to={n.link}><span>View case study</span><span><Svg icon={"arrow"}/></span></Link>
                     </div>
                     
                   </article>
@@ -64,12 +66,12 @@ const IndexPage = ({data}) => {
               }
           
         </div>
-        <div className={`${seeAllContainer}  ${contentCenterer}`}><Link className={`${fontSans}`} to={"/projects"}>See all projects</Link></div>
+        <SeeAllBtn url={"/projects/"} title={projectPage.title} />
         
       </div>:null}
 
       {(hpBlogs.nodes.length)? <div className={` ${homeSection} `}>
-      <h2 className={sectionHeading}><span className={`${contentCenterer}`}>Writing</span></h2>
+      <h2 className={sectionHeading}><span className={`${contentCenterer}`}>{blogPage.title}</span></h2>
       <div className={`${contentCenterer}`}>
       {
               hpBlogs.nodes.map((n,i) => {
@@ -81,7 +83,7 @@ const IndexPage = ({data}) => {
               })
             }
             </div>
-          <div className={`${seeAllContainer} ${contentCenterer}`}><Link className={`${fontSans}`} to={"/blog"}>See all writing</Link></div>
+          <SeeAllBtn title={blogPage.title} url={"/blog/"} />
       </div> : null}
     
      
@@ -133,6 +135,12 @@ export const query = graphql`query MyQuery {
   }
   wpPage(slug: {eq: "home"}) {
     content
+    title
+  }
+  projectPage : wpPage(slug: {eq: "projects"}) {
+    title
+  }
+  blogPage : wpPage(slug: {eq: "blog"}) {
     title
   }
 }

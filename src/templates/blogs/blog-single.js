@@ -26,14 +26,15 @@ import {
 export default function BlogSingle({data}) {
     const {
         currentPost,
-        otherPosts
+        otherPosts,
+        parentPage
     } = data; 
     
     const excerpt = HtmlStrip(currentPost.excerpt);
     
     return <Layout
         pageTitle={currentPost.title} 
-        activeMenu={"Writing"}
+        activeMenu={parentPage.menuslug}
         headerDescription={excerpt}
         headerImg={(currentPost.featuredImage) ? getSrc(currentPost.featuredImage.node.localFile) : null}
         headerLink={currentPost.link}
@@ -76,6 +77,9 @@ export const query = graphql`
       }
       excerpt
       ...featuredImagePost
+    }
+    parentPage: wpPage(slug: {eq: "blog"}) {
+      menuslug
     }
     otherPosts: allWpPost(sort: {fields: date, order: DESC}
       filter: {slug: {in: $otherPosts}}) {

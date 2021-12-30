@@ -21,7 +21,7 @@ export default function TaggedPage({data,pageContext}) {
   }).map((e) => {
     let n = e.node;
     n.kicker = `A ${(n.type==="post")? "blog post" : "project"} from ${new Date(parseInt(n.date)).getFullYear()}`
-    n.ctaText = (n.type === "post") ? "View post" : "View project"
+    n.ctaText = (n.type === "post") ? "Read post" : "View case study"
     return n; 
   })
   

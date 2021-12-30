@@ -42,10 +42,10 @@ const LikeBlock = ({list, title}) => {
 
 const AboutPage = ({data}) => {
  
-    const {title,content,thingsilike,thingsidontlike} = data.wpPage
+    const {title,content,thingsilike,thingsidontlike,menuslug} = data.wpPage
 
     return (
-      <Layout activeMenu={"About Me"} pageTitle={title}>
+      <Layout activeMenu={menuslug} pageTitle={title}>
         <LandingHeader pageTitle={title} />
         <div className={` ${aboutLayout} ${contentCenterer} ${gridLayout}`}>
           <div className={`${picture} ${bottomMargin}`} dangerouslySetInnerHTML={{__html: data.wp.generalSettings.portraitSvg}} />
@@ -70,6 +70,7 @@ const AboutPage = ({data}) => {
       title
       thingsilike
       thingsidontlike
+      menuslug
     }
     wp {
       generalSettings {

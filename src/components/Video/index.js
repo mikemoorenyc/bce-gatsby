@@ -12,6 +12,7 @@ import {
 } from "../CopyArea/imageStyles.module.scss";
 
 const Video = ({node}) => {
+    console.log(node);
     const data = useStaticQuery(
         graphql`
           query {
@@ -37,8 +38,12 @@ const Video = ({node}) => {
     const videoContainer = useRef(null);
     const [inView, updateView] = useState(false);
     useLayoutEffect(()=>{
+    
         let vidDom = videoContainer.current;
-        console.log(vidDom);
+  
+        if(!vidDom) {
+            return  ; 
+        }
         const observer = new IntersectionObserver((changes)=> {
             changes.forEach(change => {
                 if(change.isIntersecting) {
@@ -56,17 +61,19 @@ const Video = ({node}) => {
     },[])
     let video  = node.children.filter(c => c.name === "video") ;
     if(!video.length) {
+        
         return false; 
     }
     video = video[0];
 
     let caption = node.children.filter(c => c.name === "figcaption")[0] || null;
     
-    let localVideo = data.allImgs.nodes.filter(v => v.localFile.url === video.attribs.src);
+    let localVideo = data.allImgs.nodes.filter(v => v.localFile.url === video.attribs.src || v.localFile.publicURL === video.attribs.src);
     if(!localVideo.length) {
+        
         return false; 
     }
-  
+    
     const {publicURL} = localVideo[0].localFile
     const {width,height} = localVideo[0].mediaDetails; 
     let videoValues = Object.entries(video.attribs);

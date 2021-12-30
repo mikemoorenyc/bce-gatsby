@@ -23,7 +23,7 @@ import { graphql } from "gatsby"
 
 import Svg from "../../components/SVG"
 const ContactPage = ({data}) => {
-    const {title,content,socialmedialink} = data.wpPage
+    const {title,content,socialmedialink,menuslug} = data.wpPage
 
     const social = arraySplit(socialmedialink).map((e,i)=> {
       let item = arraySplit(e,",");
@@ -37,7 +37,7 @@ const ContactPage = ({data}) => {
      })
  
     return (
-      <Layout activeMenu={"Contact Me"} pageTitle={title}>
+      <Layout activeMenu={menuslug} pageTitle={title}>
         <LandingHeader pageTitle={title} />
         <div className={`${contentCenterer} ${gridLayout}`}>
         <div className={copyLayout}>
@@ -60,6 +60,7 @@ const ContactPage = ({data}) => {
       content
       title
       socialmedialink
+      menuslug
     }
     wp {
       generalSettings {

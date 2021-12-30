@@ -2,7 +2,7 @@
 @import "../../global-styles/utilities.module.scss";
 .top-section {
     position:relative;
-    @media(min-width:$t7) {
+    @media(min-width:$t7) and (max-width: ($d-mq - 1)){
         height: calc(100vw * .5625);
         max-height: calc(75vh - var(--header-top-padding));
         margin-bottom: calc(var(--gutter-width) * 1.5);
@@ -11,7 +11,7 @@
 }
 .top-hero{
     border-width: 1px 0;
-    @media(min-width:$t7) {
+    @media(min-width:$t7) and (max-width: ($d-mq - 1)){
         position:absolute;
         left: 0;
         top: 0;
@@ -27,7 +27,7 @@
 }
 .top-info-container {
     position:relative; 
-    @media(min-width: $t7) {
+    @media(min-width: $t7) and (max-width: ($d-mq - 1)){
         width: $t7;
         margin: 0 auto; 
         position: absolute;
@@ -36,12 +36,12 @@
         transform: translate(-50%,-50%);
     }
     @media(min-width: $d-mq) {
-        width: 988px
+        //width: 988px
     }
 }
 .top-info {
     margin: 0 $gutter-width 24px;
-    @media(min-width: $t7) {
+    @media(min-width: $t7) and (max-width: ($d-mq - 1)){
   
         margin: 0;
         position: relative;
@@ -51,6 +51,47 @@
         padding: var(--gutter-width);
         border-width: 2px;
         box-shadow: 2px 2px 0 currentColor;
+    }
+}
+//Desktop Header Styles
+@media(min-width: $d-mq) {
+    .top-section {
+        display:flex;
+        border-width: 1px 0 ;
+        margin-bottom: calc(var(--gutter-width) * 1.5 );
+    }
+    .top-info-container {
+        order: 1;
+        width: calc(50% - var(--half-gutter));
+        background: var(--the-color);
+        color: var(--bg-white);
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        body:global(.dark-mode) & {
+            background-color: var(--bg-white);
+            color: var(--the-color);
+            border-right-width: 1px;
+        }
+    }
+    .top-info {
+        margin: 0;
+        width: 456px;
+        padding: var(--gutter-width);
+        padding-left: 0;
+    }
+    .top-hero {
+        order: 2;
+        flex: 1; 
+        border-width:0;
+        margin-bottom: 0;
+        &:after {
+            display:block;
+            content: "";
+            width: 100%;
+            height: 0;
+            padding-top: percentage(9/16);
+        }
     }
 }
 .project-tag {
