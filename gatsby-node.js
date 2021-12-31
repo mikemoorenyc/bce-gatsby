@@ -12,7 +12,7 @@ exports.createPages = ({ graphql, actions }) => {
               link
             }
           }
-          allWpTag(filter: {limit:999, count: {gt: 0}}) {
+          allWpTag(limit: 999, filter: {count: {gt: 0}}) {
             nodes {
               count
               posts {
