@@ -9,7 +9,7 @@ const SmallButton = ({href,external,children, extraClasses}) => {
     if(!href) {
         return false; 
     }
-    const styling = `${tagLink} ${fontSans} ${extraClasses} ${noUnderline} ${fwNormal}`
+    const styling = `${tagLink} ${fontSans} ${extraClasses} ${noUnderline} ${fwNormal} normal-hover`
     
 
     if(external) {

@@ -11,16 +11,7 @@
         box-shadow: 2px 2px 0 var(--the-color);
         position:relative; 
         border-style: solid;
-        &:before {
-            display:block;
-            content:'';
-            position:absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            border: 1px solid var(--bg-white);
-        }
+       
     }
     &:active {
         transform: translate(0px,0px);

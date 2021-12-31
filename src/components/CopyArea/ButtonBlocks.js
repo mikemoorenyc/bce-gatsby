@@ -18,9 +18,11 @@ const ButtonBlocks = ({node}) => {
                 }
                 let link = links[0],
                 {attribs} = link;
-                return <SmallButton extraClasses={dlButton} key={i} href={(attribs.href||null)} external={attribs.target && attribs.target==="_blank" }>
+                let isExternal = attribs.target && attribs.target==="_blank" ;
+                return <SmallButton extraClasses={dlButton} key={i} href={(attribs.href||null)} external={isExternal}>
                     <span>{link.children[0].data}</span>
                     {(e.attribs.class.includes("download"))? <Svg icon="download" /> : ""}
+                    {(isExternal && !e.attribs.class.includes("download"))? <Svg icon="external" />:""}
                     </SmallButton>
                 
             })
