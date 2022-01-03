@@ -58,7 +58,9 @@ export default function CopyImage({node}) {
         return null; 
     }
     const imgData = data.allImgs.nodes.filter(e=> e.databaseId ===getdbId(img.attribs.class) )[0];
-
+    if(!imgData) {
+        return false;
+    }
     const {width} = imgData.localFile.childImageSharp.gatsbyImageData;
     return <figure className={`${stdImg}`}>
         <div className={`${classes.split(" ").map(e=>styles[e]).join(" ")} ${(isScreenshot) ? `${beforeBlock} ${afterBlock}` : ""}`}
