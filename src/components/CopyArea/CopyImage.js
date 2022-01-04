@@ -17,7 +17,8 @@ import {
 const {
   
     stdImg,
-    screenshotImg
+    screenshotImg,
+    fakeImg
 } = styles
 export default function CopyImage({node}) {
     const data = useStaticQuery(
@@ -37,7 +38,6 @@ export default function CopyImage({node}) {
           }
         `
     )
-   
     
     function getdbId(classList) {
         let cArray = classList.split(" ");
@@ -57,16 +57,19 @@ export default function CopyImage({node}) {
     if (!img) {
         return null; 
     }
+    let width = (img.attribs && img.attribs.width) ?  img.attribs.width : null;
+
     const imgData = data.allImgs.nodes.filter(e=> e.databaseId ===getdbId(img.attribs.class) )[0];
     if(!imgData) {
         return false;
     }
-    const {width} = imgData.localFile.childImageSharp.gatsbyImageData;
+    
+    width = width || imgData.localFile.childImageSharp.gatsbyImageData ;
     return <figure className={`${stdImg}`}>
         <div className={`${classes.split(" ").map(e=>styles[e]).join(" ")} ${(isScreenshot) ? `${beforeBlock} ${afterBlock}` : ""}`}
         style={{maxWidth: (isScreenshot)?width:""}}
         >
-            <LazyImg databaseId={getdbId(img.attribs.class)} addClasses={`${(!isScreenshot)?thinBox:screenshotImg} `} />
+            <LazyImg optionalWidth={parseInt(width)} databaseId={getdbId(img.attribs.class)} addClasses={`${(!isScreenshot)?thinBox:screenshotImg+" "+fakeImg} `} />
         </div>
         {(caption)? <FigCaption>{domToReact(caption.children)}</FigCaption>: ""}
     </figure>

@@ -10,10 +10,11 @@ import blankSVG from "../../assets/img-bg.svg";
 import {
     posterImg
 } from "../../global-styles/utilities.module.scss"
-const LazyLayout = ({addClasses,isPoster,imgData}) => {
-    const {width,height,images} = imgData.localFile.childImageSharp.gatsbyImageData;
+const LazyLayout = ({addClasses,isPoster,imgData, optionalWidth}) => {
+    let {width,height,images} = imgData.localFile.childImageSharp.gatsbyImageData;
     const {altText} = imgData;
- 
+    let spacerPadding =  ((height/width) * 100)+"%"
+    width = optionalWidth || width;
     
     const {srcSet,src} = images.fallback
     const {sources} = images; 
@@ -59,12 +60,12 @@ const LazyLayout = ({addClasses,isPoster,imgData}) => {
             className={(isPoster)? `${posterImg} lazy-gradient` : `${fakeImg} lazy-gradient ${addClasses}`} style={{
         
         maxWidth: (!isPoster)? width : null 
-    }} > <img alt={altText } src={blankSVG} style={{width: "100%",height:0,paddingTop: (isPoster)?"" : ((height/width) * 100)+"%"}}/></div> : null
+    }} > <img alt={altText } src={blankSVG} style={{width: "100%",height:0,paddingTop: (isPoster)?"" :spacerPadding}}/></div> : null
         
     }
     {
         (inView) ? (
-            <picture>
+            <picture className={(!imageLoaded)?notLoaded : ""}>
                 {(webpSources)?<source srcSet={webpSources.srcSet} type="image/webp" />: null}
                 <source srcSet={srcSet} type="image/webp" />
                 <img onLoad={()=>{updateLoaded(true)}}  alt={altText} src={src} className={`${(!imageLoaded) ? notLoaded : ""} ${addClasses || ""} ${(isPoster)? posterImg : ""}`} style={{width: "100%",maxWidth: (!isPoster)? width : null }}/> 
