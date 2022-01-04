@@ -80,7 +80,7 @@
   line-height: 1;
   font-size: 1px; 
   //border-width: 1px 1px 0 1px;
-  padding: 8em 8em (16em + 18em) 8em;
+  padding: 8em 8em (12em + 12em) 8em;
   //border-radius: 8em 8em 0 0;
   @media(min-width:$t7) {
     font-size: 2px;
@@ -108,19 +108,21 @@
       position:absolute;
     }
     &:before { 
+      //Screen Frame
       left: -8em;
       top: -8em;
       right: -8em;
-      bottom: -18em;
+      bottom: -12em;
       border-width: 1px 1px 0 1px; 
       border-radius: 8em 8em 0 0;
     }
     &:after {
+      //Keyboard
       background: var(--bg-white);
-      height: 16em;
+      height: 12em;
       left: -20em;
       right: -20em;
-      bottom: -34em;
+      bottom: -24em;
       border-radius: 0 0 12em 12em;
       border-width: 1px;
     }
@@ -136,12 +138,13 @@
     border-radius: 0 0 12em 12em;
   }*/
   &:before {
+    //LIttle power thing
     position:absolute;
     border-width: 1px;
     width: 80em;
     height: 4em;
     border-radius:2em;
-    bottom: 24em;
+    bottom: 16em;
     left: 50%;
     transform: translateX(-50%);
   }
