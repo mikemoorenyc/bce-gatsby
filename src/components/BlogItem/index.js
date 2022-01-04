@@ -16,7 +16,7 @@ import {
 const BlogCopy = ({title,link,excerpt}) => {
     return <Fragment>
         <h3><Link to={link} className={noUnderline}>{title}</Link></h3>
-   <div className={blogMeta}> {(excerpt) ? <div className={`${blogExcerpt} ${tagLine}`}>{truncateString(HtmlStrip(excerpt),75)}</div> : null} <Link className={`${blogReadMore} ${fontSans}`} to={link}>Read more</Link></div>
+   <div className={blogMeta}> {(excerpt) ? <div className={`${blogExcerpt} ${tagLine}`}>{truncateString(HtmlStrip(excerpt),75)}</div> : null} <Link className={`${blogReadMore} ${fontSans}`} to={link}>Continue reading</Link></div>
     </Fragment>
 }
 const BlogItem = ({title,link,excerpt,extraClasses}) => {
