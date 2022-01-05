@@ -75,9 +75,24 @@ const Video = ({node}) => {
     }
     
     const {publicURL} = localVideo[0].localFile
-    const {width,height} = localVideo[0].mediaDetails; 
+    let {width,height} = localVideo[0].mediaDetails; 
     let videoValues = Object.entries(video.attribs);
- 
+    
+    
+    //CHeck for mw
+    const getSetWidth = () => {
+        if(!node.attribs || !node.attribs.class) {
+            return width; 
+        }
+        if(!node.attribs.class.includes("mw-")) {
+            return width; 
+        }
+        let mw = node.attribs.class.split(" ").filter(e=> e.includes("mw-"));
+        return parseInt(mw[0].split("-")[1]);
+    }
+
+    let setWidth = getSetWidth();
+
     let videoProps = {};
     videoValues.forEach(e => {
         let attr = e[0]
@@ -88,11 +103,11 @@ const Video = ({node}) => {
         videoProps[attr] = true;
         
     });
-    const TheVideo = () => <video style={{width: "100%",maxWidth:width}} {...videoProps} ><source src={publicURL} type={localVideo[0].mimeType} /></video>
+    const TheVideo = () => <video style={{width: "100%",maxWidth:setWidth}} {...videoProps} ><source src={publicURL} type={localVideo[0].mimeType} /></video>
 
     
     return <figure className={stdImg} ref={videoContainer}>
-        <div className={`${thinBox} ${(!inView)?"lazy-gradient" :""}`} style={{maxWidth:width,position:"relative"}}>
+        <div className={`${thinBox} ${(!inView)?"lazy-gradient" :""}`} style={{maxWidth:setWidth,position:"relative", margin: "0 auto"}}>
           { (!inView) ? <img src={blankSVG} style={{width: "100%", height: 0, paddingTop: ((height/width) * 100)+"%"}} /> : <TheVideo /> }
         </div>
         {(caption)? <FigCaption>{domToReact(caption.children)}</FigCaption>: ""}
