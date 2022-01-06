@@ -67,7 +67,7 @@ export default function CopyImage({node}) {
     width = width || imgData.localFile.childImageSharp.gatsbyImageData ;
     return <figure className={`${stdImg}`}>
         <div className={`${classes.split(" ").map(e=>styles[e]).join(" ")} ${(isScreenshot) ? `${beforeBlock} ${afterBlock}` : ""}`}
-        style={{maxWidth: (isScreenshot)?width:""}}
+        style={{maxWidth: (isScreenshot)?parseInt(width):""}}
         >
             <LazyImg optionalWidth={parseInt(width)} databaseId={getdbId(img.attribs.class)} addClasses={`${(!isScreenshot)?thinBox:screenshotImg+" "+fakeImg} `} />
         </div>
