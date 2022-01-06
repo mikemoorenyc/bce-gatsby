@@ -62,6 +62,14 @@
         p {
           margin-bottom:.5em;
         }
+        cite {
+          font-size: .85em;
+          font-style: normal;
+          display: block;
+          &:before {
+            content: "— "
+          }
+        }
         @media(min-width:$dt-break) {
           padding-left: 0;
           &:before {
