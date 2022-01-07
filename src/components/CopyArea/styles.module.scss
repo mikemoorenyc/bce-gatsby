@@ -82,8 +82,8 @@
           
           padding: var(--quote-gutter);
           padding-left: calc(var(--quote-gutter) + 32px);
-          border-width: 1px;
-          box-shadow: 2px 2px 0 currentColor;
+          border-width: 4px;
+          border-style: dashed;
           width: calc(100% + ( var(--quote-gutter) * 2 ));
           left: calc(-1 * var(--quote-gutter));
           &:before {
