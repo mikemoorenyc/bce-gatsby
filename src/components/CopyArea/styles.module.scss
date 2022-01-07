@@ -1,4 +1,8 @@
 @import "../../global-styles/global-variables.scss";
+:root {
+  --quote-gutter : calc(var(--half-gutter) * 1.5);
+}
+
 .copyArea {
 
     > * {
@@ -50,15 +54,16 @@
         padding-left: 32px;
         &:before {
           display: block;
-          content:'\0022';
+          content:'“';
           left: -8px;
-          top:0;
+          top:.1em;
           position: absolute;
           font-family: $font-serif;
           font-weight: bold;
           font-size: 48px;
           line-height: 1;
         }
+        
         p {
           margin-bottom:.5em;
         }
@@ -66,20 +71,33 @@
           font-size: .85em;
           font-style: normal;
           display: block;
-          &:before {
-            content: "— "
+          font-weight: bold;
+          position:relative;
+          line-height: 1.2;
+          @media(min-width: $t7) {
+            margin-top: -.2em;
           }
         }
         @media(min-width:$dt-break) {
-          padding-left: 0;
+          
+          padding: var(--quote-gutter);
+          padding-left: calc(var(--quote-gutter) + 32px);
+          border-width: 1px;
+          box-shadow: 2px 2px 0 currentColor;
+          width: calc(100% + ( var(--quote-gutter) * 2 ));
+          left: calc(-1 * var(--quote-gutter));
           &:before {
-            left:-40px;
+            left: calc(var(--quote-gutter) - 4px);
+            top: calc(var(--quote-gutter) + 4px);
+          }
+          p:last-child {
+            margin-bottom: 0;
           }
         }
     
       }
       blockquote, blockquote p, .block-quote, .block-quote p {
-        font-style: oblique;
+        font-style: italic;
         font-family: $font-sans;
       }
       pre, code {
