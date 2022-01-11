@@ -73,6 +73,9 @@ export default function ProjectPost({ data,pageContext }) {
     updatePasswordState("verified");
   }
   useEffect(()=> {
+    if(!sessionStorage.getItem("savedPassword")) {
+      updatePasswordState("empty");
+    }
     if(!pwProtected || !sessionStorage.getItem("savedPassword")) {
       return ; 
     }
@@ -138,7 +141,7 @@ export default function ProjectPost({ data,pageContext }) {
       
       {(!pwProtected || passwordState === "verified" )? <GatedContent /> :""}
       
-      {(pwProtected && (!sessionStorage.getItem('savedPassword') || passwordState === "errored"))? <PwForm successCallback={pwSuccess} contactPageUrl={contactPage.link} />: ""}
+      {(pwProtected && (passwordState === "empty" || passwordState === "errored"))? <PwForm successCallback={pwSuccess} contactPageUrl={contactPage.link} />: ""}
       
       
       
