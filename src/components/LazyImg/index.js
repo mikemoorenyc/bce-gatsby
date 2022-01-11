@@ -10,15 +10,15 @@ import blankSVG from "../../assets/img-bg.svg";
 import {
     posterImg
 } from "../../global-styles/utilities.module.scss"
-const LazyLayout = ({addClasses,isPoster,imgData, optionalWidth}) => {
+const LazyLayout = ({addClasses,isPoster,imgData, optionalWidth, optionalAlt}) => {
     let {width,height,images} = imgData.localFile.childImageSharp.gatsbyImageData;
-    const {altText} = imgData;
+    
     let spacerPadding =  ((height/width) * 100)+"%"
     width = optionalWidth || width;
     
     const {srcSet,src} = images.fallback
     const {sources} = images; 
-
+    const altText = imgData.altText || optionalAlt || src;
     let webpSources = null;
 
     if(sources && sources.length) {

@@ -58,7 +58,6 @@ export default function CopyImage({node}) {
         return null; 
     }
     let width = (img.attribs && img.attribs.width) ?  img.attribs.width : null;
-
     const imgData = data.allImgs.nodes.filter(e=> e.databaseId ===getdbId(img.attribs.class) )[0];
     if(!imgData) {
         return false;
@@ -69,7 +68,7 @@ export default function CopyImage({node}) {
         <div className={`${classes.split(" ").map(e=>styles[e]).join(" ")} ${(isScreenshot) ? `${beforeBlock} ${afterBlock}` : ""}`}
         style={{maxWidth: (isScreenshot)?parseInt(width):""}}
         >
-            <LazyImg optionalWidth={parseInt(width)} databaseId={getdbId(img.attribs.class)} addClasses={`${(!isScreenshot)?thinBox:screenshotImg+" "+fakeImg} `} />
+            <LazyImg optionalAlt={img.attribs.alt} optionalWidth={parseInt(width)} databaseId={getdbId(img.attribs.class)} addClasses={`${(!isScreenshot)?thinBox:screenshotImg+" "+fakeImg} `} />
         </div>
         {(caption)? <FigCaption>{domToReact(caption.children)}</FigCaption>: ""}
     </figure>

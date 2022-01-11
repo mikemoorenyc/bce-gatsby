@@ -6,6 +6,7 @@ import parse from "html-react-parser"
 import DownloadBlock from "./components/CopyArea/DownloadBlock"
 import Video from "./components/Video"
 import ButtonBlocks from "./components/CopyArea/ButtonBlocks"
+import PullQuote from "./components/CopyArea/PullQuote";
 const HtmlStrip = function(string) {
     if(!string) {
         return "";
@@ -67,6 +68,9 @@ const copyParse = function(copy) {
             }
             if(domNode.attribs && domNode.attribs.class && domNode.attribs["class"].indexOf("wp-block-embed-twitter") > -1) {
                 return <TwitterBlock node={domNode} />
+            } 
+            if(domNode.attribs && domNode.attribs.class && domNode.attribs["class"].indexOf("wp-block-pullquote") > -1) {
+                return <PullQuote node={domNode} />
             } 
         }
     })

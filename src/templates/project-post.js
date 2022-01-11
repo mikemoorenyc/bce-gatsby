@@ -28,7 +28,8 @@ import {
   posterContainer,
   posterImg,
   tagLine,
-  typeSmaller
+  typeSmaller,
+  bottomReadingSection
 } from "../global-styles/utilities.module.scss"
 
 
@@ -88,9 +89,9 @@ export default function ProjectPost({ data,pageContext }) {
   },[])
   const GatedContent = () =>   <ReadingSection> 
       
-  <CopyArea copy={currentProject.content} />
+  <CopyArea copy={currentProject.content} isReadingSection={true}/>
   <EndBullet />
-  
+  <div className={bottomReadingSection}>
   {
   (!currentProject.whatilearned)? "": <div className={`${whatILearned} ${fontSans}`}>
   <SmallHeader size={3} copy={"What I learned"} />
@@ -108,6 +109,10 @@ export default function ProjectPost({ data,pageContext }) {
    post.ctaText = "View project"
    return post;
  })} title={"More Projects"} />
+
+  </div>
+  
+  
 </ReadingSection>
 
 

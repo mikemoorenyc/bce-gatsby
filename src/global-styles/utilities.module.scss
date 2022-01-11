@@ -303,3 +303,12 @@
   font-weight: bold;
   line-height: 1;
 }
+.bottom-reading-section {
+  margin: 0 var(--gutter-width);
+    position: relative;
+    @media(min-width: $t7) {
+        max-width: 760px;
+        margin: 0 auto;
+        padding: 0 var(--gutter-width);
+    }
+}

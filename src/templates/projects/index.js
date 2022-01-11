@@ -19,7 +19,7 @@ const ProjectsPage= ({data}) => {
     const {wpPage} = data,
         {nodes} = data.allWpProject;
 
-        console.log(wpPage)
+        
     return (
       <Layout activeMenu={wpPage.menuslug} 
       pageTitle={wpPage.title} 

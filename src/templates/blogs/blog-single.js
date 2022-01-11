@@ -21,8 +21,13 @@ import {
     tagLine,
     posterContainer,
     posterImg,
-    thinBox
+    thinBox,
+    bottomReadingSection
 } from "../../global-styles/utilities.module.scss"
+import {
+  copyArea,
+  readingSection
+} from "../../components/CopyArea/styles.module.scss"
 export default function BlogSingle({data}) {
     const {
         currentPost,
@@ -40,10 +45,12 @@ export default function BlogSingle({data}) {
         headerLink={currentPost.link}
     >
         <ReadingSection>
+          <div className={`${copyArea} ${readingSection}`}>
             <h1 className={`${blogSingleHeadline} ${articleHeading}`}>{currentPost.title}</h1>
             <div className={`${blogTagline} ${tagLine}`}>{parse(excerpt)}</div>
             {(currentPost.featuredImage)?
-            <div className={`${blogHero} ${thinBox} ${posterContainer}`} style={{paddingTop: "56.25%"}}>
+            <div >
+            <div className={`${blogHero} ${thinBox} ${posterContainer}`} style={{paddingTop: "56.25%"}} >
                 <LazyImg 
                 {...currentPost.featuredImage.node}
                 isPoster={true} 
@@ -51,10 +58,12 @@ export default function BlogSingle({data}) {
                 addClasses={`${posterImg}`}
                 />
             </div>
+            </div>
             :null}
-            <div className={blogCopy}><CopyArea copy={currentPost.content} /><EndBullet /></div>
-            <TagList items={currentPost.tags.nodes} />
-            <MorePosts posts={otherPosts.edges.map(e => e.node)} title={"More writing"} />
+            </div>
+            <div className={blogCopy}><CopyArea isReadingSection={true} copy={currentPost.content} /><EndBullet /></div>
+           <div className={bottomReadingSection}> <TagList items={currentPost.tags.nodes} />
+            <MorePosts posts={otherPosts.edges.map(e => e.node)} title={"More writing"} /></div>
         </ReadingSection>
         
 

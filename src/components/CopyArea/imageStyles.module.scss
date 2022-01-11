@@ -2,10 +2,8 @@
 .std-img {
    text-align: center;
     @media(min-width: $t7) {
-      width: calc(100vw - 48px);
-      position: relative;
-      left: 50%;
-      transform: translateX(-50%);
+      max-width: calc(100% - (var(--gutter-width) * 2)) !important;
+      width: 100%;
     }
     
     

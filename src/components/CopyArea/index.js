@@ -4,15 +4,15 @@ import React from "react";
 import { copyParse } from "../../utilities";
 
 import {
-    copyArea
+    copyArea, readingSection
 } from "./styles.module.scss"
 
 
-export default function CopyArea({copy, extraClasses}) {
+export default function CopyArea({copy, extraClasses,isReadingSection}) {
     
     return (
 
-        <div  className={`${copyArea} ${extraClasses || ""}`} >{copyParse(copy)}</div>
+        <div  className={`${copyArea} ${isReadingSection ? readingSection : ""} ${extraClasses || ""}`} >{copyParse(copy)}</div>
 
     )
 }  
