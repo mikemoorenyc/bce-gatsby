@@ -110,5 +110,26 @@ attrs.forEach(e => {
     camelCaseAttributes[e.toLowerCase()] = e;
 })
 
+const pwCheck = (pw,successCallback,errorCallback) => {
+    fetch(process.env.GATSBY_PW_CHECK_URL, {
+        method: 'POST', // or 'PUT'
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({pw:pw}),
+      })
+      .then(response => response.json())
+      .then(data => {
+          successCallback(data);
+          //updateSubmitting(false);
+        sessionStorage.setItem("savedPassword",data.pw);
+        //successCallback(true);
+      })
+      .catch((error) => {
+          //updateSubmitting(false)
+        //updatedErrorState(true)
+        errorCallback(error);
+      });
+}
 
-export {numberWithCommas,monthConvert, timeConvert, truncateString, copyParse, arraySplit, HtmlStrip,camelCaseAttributes}
+export {numberWithCommas,monthConvert, timeConvert, truncateString, copyParse, arraySplit, HtmlStrip,camelCaseAttributes, pwCheck}

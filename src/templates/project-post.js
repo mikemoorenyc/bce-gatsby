@@ -2,15 +2,15 @@ import React from "react"
 import { getSrc } from "gatsby-plugin-image";
 import CopyArea from "../components/CopyArea";
 import EndBullet from "../components/EndBullet";
-import { Fragment } from "react";
-
+import { Fragment, useState, useEffect } from "react";
+import PwForm from "../components/PwForm";
 import Layout from "../components/Layout"
 import LazyImg from "../components/LazyImg";
 import MorePosts from "../components/MorePosts";
 import ReadingSection from "../components/ReadingSection";
 import SmallHeader from "../components/SmallHeader";
 import TagList from "../components/TagList";
-import { HtmlStrip } from "../utilities";
+import { HtmlStrip, pwCheck } from "../utilities";
 import parse from "html-react-parser"
 import {
   projectTag,
@@ -38,13 +38,17 @@ import { graphql } from "gatsby"
 
 
 export default function ProjectPost({ data,pageContext }) {
+  
 
-    const {currentProject,otherPosts,parentPage} = data
+    const {currentProject,otherPosts,parentPage,contactPage} = data
 
     const featuredImage =(currentProject.featuredImage)? currentProject.featuredImage.node : null
 
-  
-
+   
+    const pwProtected = currentProject.categories.nodes.map(e=>e.name).includes("Password Protected");
+    const [passwordState, updatePasswordState] = useState(pwProtected? "unverified": "verified");
+    
+    
     const TopLinks = ({links}) => {
 
       const lArray = links.split(/\r?\n/).map(l => l.split(",") )
@@ -65,8 +69,45 @@ export default function ProjectPost({ data,pageContext }) {
       )
     
     }   
-    
-    
+  const pwSuccess = () => {
+    updatePasswordState("verified");
+  }
+  useEffect(()=> {
+    if(!pwProtected || !sessionStorage.getItem("savedPassword")) {
+      return ; 
+    }
+    pwCheck(sessionStorage.getItem("savedPassword"),()=> {
+      updatePasswordState("verified");
+    }, () => {
+      updatePasswordState("errored");
+    })
+
+  },[])
+  const GatedContent = () =>   <ReadingSection> 
+      
+  <CopyArea copy={currentProject.content} />
+  <EndBullet />
+  
+  {
+  (!currentProject.whatilearned)? "": <div className={`${whatILearned} ${fontSans}`}>
+  <SmallHeader size={3} copy={"What I learned"} />
+  <ul className={typeSmaller}>
+  {
+    arraySplit(currentProject.whatilearned).map((e,i) => <li key={i}>{parse(e)}</li>)
+  }
+  </ul>
+</div>
+}
+{(currentProject.toplinks)? <TopLinks links={currentProject.toplinks} />: ""}
+ <TagList items={currentProject.tags.nodes} />
+ <MorePosts posts={otherPosts.edges.map(e => {
+   let post = e.node;
+   post.ctaText = "View project"
+   return post;
+ })} title={"More Projects"} />
+</ReadingSection>
+
+
   return (
     
   <Layout 
@@ -95,30 +136,9 @@ export default function ProjectPost({ data,pageContext }) {
         </div>
       </div>
       
-      <ReadingSection> 
+      {(!pwProtected || passwordState === "verified" )? <GatedContent /> :""}
       
-        <CopyArea copy={currentProject.content} />
-        <EndBullet />
-        
-        {
-        (!currentProject.whatilearned)? "": <div className={`${whatILearned} ${fontSans}`}>
-        <SmallHeader size={3} copy={"What I learned"} />
-        <ul className={typeSmaller}>
-        {
-          arraySplit(currentProject.whatilearned).map((e,i) => <li key={i}>{parse(e)}</li>)
-        }
-        </ul>
-      </div>
-      }
-      {(currentProject.toplinks)? <TopLinks links={currentProject.toplinks} />: ""}
-       <TagList items={currentProject.tags.nodes} />
-       <MorePosts posts={otherPosts.edges.map(e => {
-         let post = e.node;
-         post.ctaText = "View project"
-         return post;
-       })} title={"More Projects"} />
-      </ReadingSection>
-      
+      {(pwProtected && (!sessionStorage.getItem('savedPassword') || passwordState === "errored"))? <PwForm successCallback={pwSuccess} contactPageUrl={contactPage.link} />: ""}
       
       
       
@@ -134,6 +154,11 @@ query($slug: String!, $otherPosts: [String!] ) {
       whatilearned
       toplinks
       link
+      categories {
+        nodes {
+          name
+        }
+      }
       tags {
         nodes {
           slug
@@ -145,6 +170,9 @@ query($slug: String!, $otherPosts: [String!] ) {
     }
     parentPage: wpPage(slug: {eq: "projects"}) {
       menuslug
+    }
+    contactPage: wpPage(slug: {eq: "contact-me"}) {
+      link
     }
     otherPosts: allWpProject(sort: {fields: date, order: DESC}
       filter: {slug: {in: $otherPosts}}) {
