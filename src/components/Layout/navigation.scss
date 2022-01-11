@@ -41,8 +41,10 @@
       &.active {
         a {
           text-decoration: underline;
-          &:hover {
-            text-decoration: none;
+          @media not all and (hover:none) {
+            &:hover {
+              text-decoration: none;
+            }
           }
         }
       }

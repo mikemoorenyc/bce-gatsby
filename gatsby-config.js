@@ -37,7 +37,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-sharp`,
       options: {
-        defaultQuality: (process.env.NODE_ENV === 'production') ? 95 : 50
+        defaultQuality: (process.env.NODE_ENV === 'production') ? 99 : 50
       }
     },
     {

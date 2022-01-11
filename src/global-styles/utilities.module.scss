@@ -171,8 +171,10 @@
   }
   
   .stripe-hover {
-    &:hover {
-      @include bg-stripe();
+    @media not all and (hover:none) {
+      &:hover {
+        @include bg-stripe();
+      }
     }
   }
   
@@ -265,8 +267,10 @@
 .box-shadow {
   box-shadow: 4px 4px 0 var(--the-color);
   &.bs-trans {
-    &:hover {
-      box-shadow: 6px 6px 0 var(--the-color);
+    @media not all and (hover:none) {
+      &:hover {
+        box-shadow: 6px 6px 0 var(--the-color);
+      }
     }
   }
 }

@@ -17,15 +17,17 @@
  
     outline: 1px solid transparent;
 
-    &:hover, &:focus-within {
-        transform: translate(calc(-1 * var(--widths) ), calc(-1 * var(--widths) ));
-        box-shadow: calc((var(--widths) * 2)) calc((var(--widths) * 2)) 0 currentColor;
-        $hover-state: &;
-        .h2 {
-            text-decoration: underline;
-        }
-        svg {
-            transform: translateX(4px)
+    @media not all and (hover:none) {
+        &:hover, &:focus-within {
+            transform: translate(calc(-1 * var(--widths) ), calc(-1 * var(--widths) ));
+            box-shadow: calc((var(--widths) * 2)) calc((var(--widths) * 2)) 0 currentColor;
+            $hover-state: &;
+            .h2 {
+                text-decoration: underline;
+            }
+            svg {
+                transform: translateX(4px)
+            }
         }
     }
     //Make flex correctly
