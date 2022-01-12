@@ -102,7 +102,7 @@
         display: inline-block;
         margin-top: var(--half-gutter);
         border-color: var(--the-color);
-        padding: .5em (12em / 16 ) (8em / 16) (12em / 16);
+        padding: .5em (12em / 16 ) .65em (12em / 16);
         @media not all and (hover:none) {
             &:hover {
                 position:relative;
