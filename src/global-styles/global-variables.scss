@@ -55,12 +55,12 @@ $gutter-width: 16px;
     background-image: linear-gradient(45deg,
       transparent 0%,
       transparent 25%,
-      currentColor 25%,
-      currentColor 26%,
+      var(--the-color) 25%,
+      var(--the-color) 26%,
       transparent 26%,
       transparent 75%,
-      currentColor 75%,
-      currentColor 76%,
+      var(--the-color) 75%,
+      var(--the-color) 76%,
       transparent 76%
     );
   }

@@ -2,7 +2,7 @@
 .tweet-block {
     border-width: 2px;
     padding: var(--half-gutter) calc(var(--gutter-width) - 4px) calc(var(--gutter-width) - 4px);
-    box-shadow: 2px 2px 0 currentColor;
+    box-shadow: 2px 2px 0 var(--the-color);
     font-size: 13px;
     max-width: 550px;
     margin-left: auto;
@@ -27,7 +27,7 @@
     width: 46px;
     height: 46px;
     border-width:1px;
-    box-shadow: 1px 1px 0 currentColor;
+    box-shadow: 1px 1px 0 var(--the-color);
 }
 .user-name {
     margin-left: 6px; 
@@ -49,7 +49,7 @@
     line-height: 1;
 }
 .meta {
-    border-top: 1px dashed currentColor;
+    border-top: 1px dashed var(--the-color);
     margin-top: var(--gutter-width);
     padding-top: calc( var(--gutter-width) - 4px);
     display: flex;

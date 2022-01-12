@@ -5,7 +5,7 @@
     height: 100vh;
     
     -webkit-overflow-scrolling: touch;
-    background-color:currentColor;
+    background-color:var(--the-color);
     padding-left: 24px;
     transform: translateX(200%);
     transition: transform .15s;
@@ -59,7 +59,7 @@
       transform: none;
       padding: 0 var(--gutter-width);
       > * {
-        color:currentColor;
+        color:cvar(--the-color);
       }
       .lockup {
         position: absolute;
@@ -88,7 +88,7 @@
         right: var(--gutter-width);
         
         border-width:3px;
-        box-shadow: 3px 3px 0 currentColor;
+        box-shadow: 3px 3px 0 var(--the-color);
         padding: 0 4px;
         
         margin-right: 0;

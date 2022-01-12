@@ -83,7 +83,7 @@ header {
       left:8px;
       top:8px;
       border-width: 3px;
-      box-shadow: 3px 3px 0 currentColor;
+      box-shadow: 3px 3px 0 var(--the-color);
       background: var(--bg-white);
      /* #{$show-menu} & {
         background: var(--bg-white);

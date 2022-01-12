@@ -95,8 +95,8 @@
         height: 24px;
         border-width: 1px;
         border-color: var(--bg-white);
-        box-shadow: 2px 2px 0 currentColor;
-        background: currentColor;
+        box-shadow: 2px 2px 0 var(--the-color);
+        background: var(--the-color);
         &:active {
             box-shadow: none;
             left: 2px;

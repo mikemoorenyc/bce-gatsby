@@ -9,7 +9,7 @@
     border-width: var(--widths); 
     background: var(--bg-white);
     word-wrap: break-word;
-    box-shadow: var(--widths) var(--widths) 0 currentColor;
+    box-shadow: var(--widths) var(--widths) 0 var(--the-color);
     
    
     transition: all .1s;
@@ -20,7 +20,7 @@
     @media not all and (hover:none) {
         &:hover, &:focus-within {
             transform: translate(calc(-1 * var(--widths) ), calc(-1 * var(--widths) ));
-            box-shadow: calc((var(--widths) * 2)) calc((var(--widths) * 2)) 0 currentColor;
+            box-shadow: calc((var(--widths) * 2)) calc((var(--widths) * 2)) 0 var(--the-color);
             $hover-state: &;
             .h2 {
                 text-decoration: underline;

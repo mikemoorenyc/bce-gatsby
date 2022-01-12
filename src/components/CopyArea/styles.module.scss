@@ -124,7 +124,7 @@ $reading-block: ".copyArea.reading-section";
       pre {
         position: relative;
         padding: 1px;
-        background: currentColor;
+        background: var(--the-color);
         margin-left:4px;
         margin-right: 4px;
         margin-bottom: calc( var(--copy-bottom-margin) + 4px);
@@ -147,7 +147,7 @@ $reading-block: ".copyArea.reading-section";
           right: -4px;
           bottom: -4px;
           top: -4px;
-          border: 1px dashed currentColor;
+          border: 1px dashed var(--the-color);
           pointer-events:none;
         }
     
@@ -230,6 +230,7 @@ $reading-block: ".copyArea.reading-section";
       width: 120px;
       border-top-width: 1px; 
       border-style: dashed; 
+      border-color:currentColor;
       margin: 0 auto var(--gutter-width) auto; 
     }
   }

@@ -31,7 +31,7 @@
   line-height: 1;
  // border-width: 1px;
  // border-radius: 30px;
- // box-shadow: 4px 4px 0 currentColor;
+ // box-shadow: 4px 4px 0 var(--the-color);
   picture, .fake-img {
     display:inline-block;;
     position:relative;
@@ -40,7 +40,7 @@
       content: '';
       border-width: 1px;
        border-radius: 30px;
-       box-shadow: 4px 4px 0 currentColor;
+       box-shadow: 4px 4px 0 var(--the-color);
       position:absolute;
       left: -10px;
       right: -10px;
