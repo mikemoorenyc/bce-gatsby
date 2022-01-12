@@ -76,6 +76,7 @@ export default function Layout({pageTitle, headerDescription,headerImg,headerLin
                   generalSettingsDescription
                   generalSettingsTitle
                   generalSettingsCanonUrl
+                  generalSettingsColorOptions
                 }
               }
               wpMenu(name: {eq: "Main Menu"}) {
@@ -99,7 +100,7 @@ export default function Layout({pageTitle, headerDescription,headerImg,headerLin
     const hamburgerDOM = useRef(null);
     const updateColorMode = (color) => {
         updateFaviconColor(color);
-        localStorage.setItem("current_color", color);
+        sessionStorage.setItem("current_color", color);
         let dmSet = (color === "white") ? "yes" : "no" 
         localStorage.setItem("dark_mode", dmSet);
     }
@@ -110,7 +111,7 @@ export default function Layout({pageTitle, headerDescription,headerImg,headerLin
     const headerCheck = useRef(null);
     const [hideHeader, updateHeaderState] = useState(false);
     const [favIconColor, updateFaviconColor] = useState(null);
-    const colors = ["DarkRed", "darkGreen", "darkslateblue", "purple","orangered","saddlebrown","black"]
+    const colors = (data.wp.allSettings.generalSettingsColorOptions || "darkRed black").split(" ");
     const colorPicker = () => colors[Math.floor(Math.random() * colors.length)]
     useEffect(()=>{
         //Is dark mode currently set? 
@@ -123,8 +124,8 @@ export default function Layout({pageTitle, headerDescription,headerImg,headerLin
                 return; 
             }
             //Switch to color mode
-            
-            updateColorMode(colorPicker() )
+            updateColorMode(colorPicker())
+           // updateColorMode(sessionStorage.getItem("current_color") || colorPicker() )
         }
         colormodeInit();
         const observer = new IntersectionObserver(function(changes){
@@ -169,16 +170,19 @@ export default function Layout({pageTitle, headerDescription,headerImg,headerLin
 
         <style type="text/css">{`
         .lazy-gradient {
-            background-image: linear-gradient(45deg, ${favIconColor} 5.56%, transparent 5.56%, transparent 50%, ${favIconColor} 50%, ${favIconColor} 55.56%, transparent 55.56%, transparent 100%);
+            background-image: linear-gradient(45deg, var(--the-color) 5.56%, transparent 5.56%, transparent 50%, var(--the-color) 50%, var(--the-color) 55.56%, transparent 55.56%, transparent 100%);
 background-size: 12.73px 12.73px;
     
         }
         body {
-                color: ${(!favIconColor) ? "var(--dark-base)" : favIconColor} }
+                //color: ${(!favIconColor) ? "var(--dark-base)" : favIconColor} }
         :root {
-            --the-color : ${(!favIconColor) ? "var(--dark-base)" : favIconColor}
+            --the-color : ${(!favIconColor) ? "rgba(0,0,0,)" : favIconColor}
         }
     `}</style>
+    <noscript>{`
+        <style>:root{--the-color: #000; }body{color:#000 !important;}</style>
+    `}</noscript>
 
     <body className={(favIconColor === "white") ? "dark-mode" : ""} />
         

@@ -126,7 +126,7 @@ const pwCheck = (pw,successCallback,errorCallback) => {
       .then(data => {
           successCallback(data);
           //updateSubmitting(false);
-        sessionStorage.setItem("savedPassword",data.pw);
+        localStorage.setItem("savedPassword",data.pw);
         //successCallback(true);
       })
       .catch((error) => {

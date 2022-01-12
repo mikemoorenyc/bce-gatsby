@@ -74,13 +74,14 @@ export default function ProjectPost({ data,pageContext }) {
     updatePasswordState("verified");
   }
   useEffect(()=> {
-    if(!sessionStorage.getItem("savedPassword")) {
+    let savedPassword = localStorage.getItem("savedPassword")
+    if(!savedPassword) {
       updatePasswordState("empty");
     }
-    if(!pwProtected || !sessionStorage.getItem("savedPassword")) {
+    if(!pwProtected || !savedPassword) {
       return ; 
     }
-    pwCheck(sessionStorage.getItem("savedPassword"),()=> {
+    pwCheck(savedPassword,()=> {
       updatePasswordState("verified");
     }, () => {
       updatePasswordState("errored");

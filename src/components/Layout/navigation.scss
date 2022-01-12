@@ -20,10 +20,13 @@
     @media (max-width: ($t7 - 1)) {
       overflow-x:hidden;
     overflow-y: auto;
+    > *,  a {
+        color:white;
+        
+      }
     }
-    > * {
-      color:white;
-    }
+    
+    
     a {
       text-decoration: none;
     }
