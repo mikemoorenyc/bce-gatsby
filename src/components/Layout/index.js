@@ -177,7 +177,7 @@ background-size: 12.73px 12.73px;
         body {
                 //color: ${(!favIconColor) ? "var(--dark-base)" : favIconColor} }
         :root {
-            --the-color : ${(!favIconColor) ? "rgba(0,0,0,)" : favIconColor}
+            --the-color : ${(!favIconColor) ? "rgba(0,0,0,0)" : favIconColor}
         }
     `}</style>
     <noscript>{`
