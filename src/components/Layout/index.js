@@ -128,6 +128,13 @@ export default function Layout({pageTitle, headerDescription,headerImg,headerLin
            // updateColorMode(sessionStorage.getItem("current_color") || colorPicker() )
         }
         colormodeInit();
+        const queries = new URLSearchParams(window.location.search);
+        if(!localStorage.getItem("savedPassword")) {
+            if(queries.get('pw')) {
+                localStorage.setItem("savedPassword", queries.get('pw'));
+            }  
+        }
+        
         const observer = new IntersectionObserver(function(changes){
             if(changes[0].isIntersecting) {
                 updateHeaderState(false)
