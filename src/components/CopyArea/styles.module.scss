@@ -316,18 +316,21 @@ $reading-block: ".copyArea.reading-section";
   }
 }
 .copyArea.reading-section {
-  :global(.wp-block-table) {
-    
-    @media(min-width: $t7) {
-      max-width: calc(var(--centered-width) * 1.50);
-      padding-left: var(--gutter-width);
-      padding-right: var(--gutter-width);
-    }
+  :global(.wp-block-table) table{
+    width: 100%;
   }
   table {
+    width: calc(100% - (var(--gutter-width) * 2));
+    
     *:not(h4) {
       font-size: .95em;
       line-height: 1.4;
+    }
+  }
+  @media(min-width: $t7) {
+    :global(.wp-block-table), > table {
+      max-width: calc(100% - (var(--gutter-width) * 2));
+      width: calc(var(--centered-width) * 1.5);
     }
   }
   //Mobile styles
