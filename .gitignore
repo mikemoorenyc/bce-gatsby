@@ -3,3 +3,4 @@ node_modules/
 public
 .env*
 fake-tweet.json
+src/vision-table.html

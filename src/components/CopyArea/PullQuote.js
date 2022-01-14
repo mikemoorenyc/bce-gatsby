@@ -13,7 +13,7 @@ const Border = ({area}) => {
   </div>
 }
 const PullQuote = ({node}) => {
-    console.log(node);
+
     node.children.forEach((e)=> {
       e.attribs.class = styles.pullquote;
     })

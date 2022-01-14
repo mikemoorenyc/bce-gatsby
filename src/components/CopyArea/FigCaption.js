@@ -4,7 +4,7 @@ import {
 } from "../../global-styles/utilities.module.scss"
 import {
     figcaption
-} from "./imageStyles.module.scss"
+} from "./styles.module.scss"
 const FigCaption = ({children}) => {
     return <figcaption className={`${figcaption} ${fontSans}`}>{children}</figcaption>
 }

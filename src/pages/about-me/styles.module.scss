@@ -5,7 +5,7 @@
         width: 100%;
         height: auto;
         border-width: 1px;
-        box-shadow: 2px 2px 0 currentColor;
+        box-shadow: 2px 2px 0 var(--the-color);
     }
     grid-column-start: 3;
     grid-column-end: 4;

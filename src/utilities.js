@@ -7,6 +7,7 @@ import DownloadBlock from "./components/CopyArea/DownloadBlock"
 import Video from "./components/Video"
 import ButtonBlocks from "./components/CopyArea/ButtonBlocks"
 import PullQuote from "./components/CopyArea/PullQuote";
+
 const HtmlStrip = function(string) {
     if(!string) {
         return "";
@@ -22,6 +23,7 @@ const arraySplit = function(string, splitValue = /\r?\n/) {
 }
 
 const copyParse = function(copy) {
+ 
 
     function Remove() {
         return null;
@@ -42,6 +44,29 @@ const copyParse = function(copy) {
         return isInClass.length > 0;
 
     }
+    
+    const reactReplace = (domNode) =>{
+        const reactOptions = [
+            ["wp-block-image", CopyImage],
+            ["wp-block-embed-twitter", TwitterBlock],
+            ["wp-block-video",Video],
+            ["wp-block-buttons", ButtonBlocks],
+            ["wp-block-file",DownloadBlock],
+            ["wp-block-pullquote",PullQuote]
+        ]
+        if(!domNode.attribs || !domNode.attribs.class) {
+            return false; 
+        }
+        const newReact = reactOptions.filter(e=> domNode.attribs.class.includes(e[0]))
+        if(!newReact.length) {
+            return false; 
+        }
+        //return newReact[0][1];
+
+        return React.createElement(newReact[0][1], {
+            node: domNode
+          });
+    }
     return parse(copy, {
         replace: domNode => {
             if(domNode.name === "a" && domNode.attribs["data-type"] === "page") {
@@ -54,24 +79,10 @@ const copyParse = function(copy) {
             if(domNode.attribs && checkClass(domNode.attribs.class)) {
                 return <Remove />;
             }
-            if(domNode.attribs && domNode.attribs.class && domNode.attribs["class"].indexOf("wp-block-image") > -1) {
-                return <CopyImage node={domNode} />
+            if(reactReplace(domNode)) {
+                return reactReplace(domNode);
             }
-            if(domNode.attribs && domNode.attribs.class && domNode.attribs["class"].indexOf("wp-block-video") > -1) {
-                return <Video node={domNode} />
-            }
-            if(domNode.attribs && domNode.attribs.class && domNode.attribs["class"].indexOf("wp-block-buttons") > -1) {
-                return <ButtonBlocks node={domNode} />
-            }
-            if(domNode.attribs && domNode.attribs.class && domNode.attribs["class"].indexOf("wp-block-file") > -1) {
-                return <DownloadBlock node={domNode} />
-            }
-            if(domNode.attribs && domNode.attribs.class && domNode.attribs["class"].indexOf("wp-block-embed-twitter") > -1) {
-                return <TwitterBlock node={domNode} />
-            } 
-            if(domNode.attribs && domNode.attribs.class && domNode.attribs["class"].indexOf("wp-block-pullquote") > -1) {
-                return <PullQuote node={domNode} />
-            } 
+           
         }
     })
 }
