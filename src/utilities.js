@@ -125,13 +125,14 @@ attrs.forEach(e => {
     camelCaseAttributes[e.toLowerCase()] = e;
 })
 
-const pwCheck = (pw,successCallback,errorCallback) => {
+const pwCheck = (pw,successCallback,errorCallback,databaseId,postType) => {
+
     fetch(process.env.GATSBY_PW_CHECK_URL, {
         method: 'POST', // or 'PUT'
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({pw:pw}),
+        body: JSON.stringify({pw:pw,databaseId:databaseId,postType:postType}),
       })
       .then(response => response.json())
       .then(data => {
@@ -143,6 +144,7 @@ const pwCheck = (pw,successCallback,errorCallback) => {
       .catch((error) => {
           //updateSubmitting(false)
         //updatedErrorState(true)
+      
         errorCallback(error);
       });
 }

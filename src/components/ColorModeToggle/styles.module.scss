@@ -113,6 +113,9 @@
             top: calc(50% - (var(--svg-size) / 2));
             fill:white;
             color:white;
+            * {
+                fill: inherit;
+            }
         }
         &.dark-mode:before {
             left: 0;

@@ -103,9 +103,13 @@
         margin-top: var(--half-gutter);
         border-color: var(--the-color);
         padding: .5em (12em / 16 ) .65em (12em / 16);
+        * {
+            color: inherit;
+        }
         @media not all and (hover:none) {
             &:hover {
                 position:relative;
+                color: var(--bg-white);
                 &:after {
                     display:block;
                     content: "";

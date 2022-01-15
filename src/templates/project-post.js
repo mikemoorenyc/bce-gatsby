@@ -1,6 +1,6 @@
 import React from "react"
 import { getSrc } from "gatsby-plugin-image";
-import CopyArea from "../components/CopyArea";
+
 import EndBullet from "../components/EndBullet";
 import { Fragment, useState, useEffect } from "react";
 import PwForm from "../components/PwForm";
@@ -12,6 +12,7 @@ import SmallHeader from "../components/SmallHeader";
 import TagList from "../components/TagList";
 import { HtmlStrip, pwCheck } from "../utilities";
 import parse from "html-react-parser"
+import { copyParse } from "../utilities";
 import {
   projectTag,
   topHero,
@@ -21,7 +22,7 @@ import {
   topSection,
   topInfoContainer
 } from "./styles/project.module.scss";
-
+import * as copyStyles from "../components/CopyArea/styles.module.scss";
 import {
   articleHeading,
   fontSans,
@@ -45,10 +46,10 @@ export default function ProjectPost({ data,pageContext }) {
 
     const featuredImage =(currentProject.featuredImage)? currentProject.featuredImage.node : null
 
-   
+
     const pwProtected = currentProject.categories.nodes.map(e=>e.name).includes("Password Protected");
     const [passwordState, updatePasswordState] = useState(pwProtected? "unverified": "verified");
-    
+    const [postContent,updatePostContent] = useState(currentProject.content) 
     
     const TopLinks = ({links}) => {
 
@@ -73,22 +74,34 @@ export default function ProjectPost({ data,pageContext }) {
   const pwSuccess = () => {
     updatePasswordState("verified");
   }
+  const pwSubmit = (pw) => {
+    pwCheck(pw, (data) => {
+      console.log("done");
+      localStorage.setItem("project-"+currentProject.databaseId, data.payload.data.project.content)
+      updatePasswordState("verified");
+    }, () => {
+      updatePasswordState("errored");
+    },currentProject.databaseId,"project")
+  }
   useEffect(()=> {
     let savedPassword = localStorage.getItem("savedPassword")
+    let savedContent = localStorage.getItem("project-"+currentProject.databaseId);
     if(!savedPassword) {
       updatePasswordState("empty");
     }
     if(!pwProtected || !savedPassword) {
       return ; 
     }
-    pwCheck(savedPassword,()=> {
+    if(savedContent) {
+      updatePostContent(savedContent);
       updatePasswordState("verified");
-    }, () => {
-      updatePasswordState("errored");
-    })
+      return ; 
+    }
+    
+    pwSubmit(savedPassword);
 
   },[])
-  const GatedContent = () =>   <ReadingSection> 
+  /*const GatedContent = () =>   <ReadingSection> 
       
   <CopyArea copy={currentProject.content} isReadingSection={true}/>
   <EndBullet />
@@ -114,7 +127,17 @@ export default function ProjectPost({ data,pageContext }) {
   </div>
   
   
-</ReadingSection>
+</ReadingSection>*/
+const contentPush = () => {
+  if(!pwProtected || passwordState === "verified" ) {
+    return copyParse(postContent); 
+  }
+
+  if(pwProtected && (passwordState === "empty" || passwordState === "errored")) {
+    return <PwForm submitFunction={pwSubmit} isErrored={passwordState === "errored" } allowInput={ passwordState === "empty" || passwordState === "errored" } contactPageUrl={contactPage.link} />
+  }
+  
+}
 
 
   return (
@@ -144,10 +167,34 @@ export default function ProjectPost({ data,pageContext }) {
         </div>
         </div>
       </div>
+      <ReadingSection>
+        <div className={`${copyStyles.copyArea} ${copyStyles.readingSection}`}>
+          {contentPush()}
+        </div>
+      </ReadingSection>
+      <EndBullet />
+      <div className={bottomReadingSection}>
+        {
+        (!currentProject.whatilearned)? "": <div className={`${whatILearned} ${fontSans}`}>
+        <SmallHeader size={3} copy={"What I learned"} />
+        <ul className={typeSmaller}>
+        {
+          arraySplit(currentProject.whatilearned).map((e,i) => <li key={i}>{parse(e)}</li>)
+        }
+        </ul>
+      </div>
+      }
+      {(currentProject.toplinks)? <TopLinks links={currentProject.toplinks} />: ""}
+      <TagList items={currentProject.tags.nodes} />
+      <MorePosts posts={otherPosts.edges.map(e => {
+        let post = e.node;
+        post.ctaText = "View project"
+        return post;
+      })} title={"More Projects"} />
+
+    </div>
       
-      {(!pwProtected || passwordState === "verified" )? <GatedContent /> :""}
       
-      {(pwProtected && (passwordState === "empty" || passwordState === "errored"))? <PwForm successCallback={pwSuccess} contactPageUrl={contactPage.link} />: ""}
       
       
       
@@ -155,6 +202,10 @@ export default function ProjectPost({ data,pageContext }) {
   
   )
 }
+/*
+{(!pwProtected || passwordState === "verified" )? <GatedContent /> :""}
+      
+      {(pwProtected && (passwordState === "empty" || passwordState === "errored"))? <PwForm successCallback={pwSuccess} contactPageUrl={contactPage.link} />: ""}*/
 export const query = graphql`
 query($slug: String!, $otherPosts: [String!] ) {
     currentProject: wpProject(slug: {eq: $slug}) {
@@ -163,6 +214,7 @@ query($slug: String!, $otherPosts: [String!] ) {
       whatilearned
       toplinks
       link
+      databaseId
       categories {
         nodes {
           name

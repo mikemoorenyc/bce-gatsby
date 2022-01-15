@@ -21,7 +21,7 @@
       overflow-x:hidden;
     overflow-y: auto;
     > *,  a {
-        color:white;
+        color:white !important;
         
       }
     }
@@ -68,6 +68,9 @@
         position: absolute;
         left:63px;
         display:none; 
+        * {
+          color: inherit;
+        }
         &.over-fold {
           display:none;
         }

@@ -126,7 +126,9 @@ header {
   align-items: center;
   top: $header-center;
   transform: translateY(-50%);
-
+  * {
+    color:inherit;
+  }
   .top-logo {
     padding-top: 0;
     

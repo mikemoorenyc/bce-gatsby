@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "gatsby";
-import { useState } from "react";
-import { pwCheck } from "../../utilities";
+import { useState, useEffect } from "react";
+
 import * as styles from "./styles.module.scss"
 import {
     fontSans,
@@ -9,12 +9,17 @@ import {
 } from "../../global-styles/utilities.module.scss"
 import Svg from "../SVG";
 
-const PwForm = ({contactPageUrl, successCallback}) => {
+const PwForm = ({contactPageUrl, submitFunction, allowInput, isErrored}) => {
 
     const [passInput, updatePassInput] = useState("")
-    const [errored,updatedErrorState] = useState(false)
-    const [isSubmitting, updateSubmitting] = useState(false)
+    //const [errored,updatedErrorState] = useState()
+    const errored = isErrored;
+    const [isSubmitting, updateSubmitting] = useState(!allowInput)
     const submitCheck = (e) => {
+        e.preventDefault(); 
+        updateSubmitting(true);
+        submitFunction(passInput)
+        /*
         updateSubmitting(true);
         updatedErrorState(false);
         e.preventDefault(); 
@@ -27,7 +32,12 @@ const PwForm = ({contactPageUrl, successCallback}) => {
             updatedErrorState(true)
           
         })
+        */
     }
+    useEffect(()=> {
+        console.log(allowInput);
+        updateSubmitting(!allowInput)
+    },[allowInput,isErrored])
     return <form className={`${styles.form} ${fontSans} `} onSubmit={submitCheck}>
         <h1>Password Required</h1>
         <p className={`${styles.info} `}>You can request the password by contacting me. <Link to={contactPageUrl}>See contact options</Link>.</p>
