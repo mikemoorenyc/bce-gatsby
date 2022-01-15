@@ -144,7 +144,7 @@ const pwCheck = (pw,successCallback,errorCallback,databaseId,postType) => {
       .catch((error) => {
           //updateSubmitting(false)
         //updatedErrorState(true)
-      
+        console.log(error);
         errorCallback(error);
       });
 }

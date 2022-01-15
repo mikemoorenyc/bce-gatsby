@@ -71,13 +71,11 @@ export default function ProjectPost({ data,pageContext }) {
       )
     
     }   
-  const pwSuccess = () => {
-    updatePasswordState("verified");
-  }
+
   const pwSubmit = (pw) => {
     pwCheck(pw, (data) => {
       console.log("done");
-      localStorage.setItem("project-"+currentProject.databaseId, data.payload.data.project.content)
+      sessionStorage.setItem("project-"+currentProject.databaseId, data.payload.data.project.content)
       updatePasswordState("verified");
     }, () => {
       updatePasswordState("errored");
@@ -85,7 +83,7 @@ export default function ProjectPost({ data,pageContext }) {
   }
   useEffect(()=> {
     let savedPassword = localStorage.getItem("savedPassword")
-    let savedContent = localStorage.getItem("project-"+currentProject.databaseId);
+    let savedContent = sessionStorage.getItem("project-"+currentProject.databaseId);
     if(!savedPassword) {
       updatePasswordState("empty");
     }
