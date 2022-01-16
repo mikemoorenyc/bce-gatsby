@@ -295,25 +295,28 @@ $reading-block: ".copyArea.reading-section";
 
 //Table
 .copyArea  {
-  table {
-    width:100%;
-    border-collapse: collapse;
-    
-  }
   table, td {
     border-width: 2px; 
     border-style: solid;
     border-color: var(--the-color);
     vertical-align: top;
   }
-  td {
-    padding: var(--half-gutter);
-  }
-  @media(min-width: $t7) {
-    ul, ol {
-      padding-left: var(--half-gutter);
+  table {
+    width:100%;
+    border-collapse: collapse;
+    @media(min-width: $t7) {
+      ul, ol {
+        padding-left: var(--half-gutter);
+      }
     }
+    td {
+      padding: var(--half-gutter);
+    }
+    
   }
+  
+  
+  
 }
 .copyArea.reading-section {
   :global(.wp-block-table) table{
