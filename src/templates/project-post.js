@@ -74,12 +74,12 @@ export default function ProjectPost({ data,pageContext }) {
 
   const pwSubmit = (pw) => {
     pwCheck(pw, (data) => {
-      console.log("done");
-      sessionStorage.setItem("project-"+currentProject.databaseId, data.payload.data.project.content)
+      //console.log("done");
+      sessionStorage.setItem("project-"+currentProject.databaseId, currentProject.content)
       updatePasswordState("verified");
     }, () => {
       updatePasswordState("errored");
-    },currentProject.databaseId,"project")
+    })
   }
   useEffect(()=> {
     let savedPassword = localStorage.getItem("savedPassword")

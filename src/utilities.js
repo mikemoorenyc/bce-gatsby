@@ -138,6 +138,7 @@ const pwCheck = (pw,successCallback,errorCallback,databaseId,postType) => {
       .then(data => {
           successCallback(data);
           //updateSubmitting(false);
+          console.log('checked pw')
         localStorage.setItem("savedPassword",data.pw);
         //successCallback(true);
       })
