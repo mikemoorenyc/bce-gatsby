@@ -24,7 +24,7 @@ const AutoCheckLoader = () => {
         }
     },[])
     return<div className={fontSans}>
-        Checking if you have access to this post {dots.map((e) => {
+        I&rsquo;m checking if you have access to this post {dots.map((e) => {
     return <span key={e} style={{display: (dotsVisible < e)? "none" : null  }}>🤫</span>
 })}
     </div>;
