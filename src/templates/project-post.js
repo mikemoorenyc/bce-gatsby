@@ -1,6 +1,6 @@
 import React from "react"
 import { getSrc } from "gatsby-plugin-image";
-
+import AutoCheckLoader from "../components/AutoCheckLoader";
 import EndBullet from "../components/EndBullet";
 import { Fragment, useState, useEffect } from "react";
 import PwForm from "../components/PwForm";
@@ -95,6 +95,7 @@ export default function ProjectPost({ data,pageContext }) {
       updatePasswordState("verified");
       return ; 
     }
+    updatePasswordState("autochecking");
     
     pwSubmit(savedPassword);
 
@@ -129,6 +130,9 @@ export default function ProjectPost({ data,pageContext }) {
 const contentPush = () => {
   if(!pwProtected || passwordState === "verified" ) {
     return copyParse(postContent); 
+  }
+  if(passwordState === "autochecking") {
+    return <AutoCheckLoader />
   }
 
   if(pwProtected && (passwordState === "empty" || passwordState === "errored")) {
