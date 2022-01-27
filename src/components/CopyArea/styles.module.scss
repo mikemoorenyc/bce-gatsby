@@ -311,7 +311,7 @@ $reading-block: ".copyArea.reading-section";
     }
     td {
       padding: var(--half-gutter);
-      @media((max-width: ($t7 - 1px) ) {
+      @media(max-width: ($t7 - 1px) ) {
         width: 100% !important;
       }
     }
