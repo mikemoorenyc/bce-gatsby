@@ -1,4 +1,4 @@
-
+import PropTypes from "prop-types"
 
 import { Fragment } from "react";
 import React from "react";
@@ -16,7 +16,7 @@ import {
     landingHeaderTitle
 } from "./styles.module.scss";
 
-export default function LandingHeader({pageTitle, copy}) {
+const LandingHeader = ({pageTitle, copy}) => {
 
     return (
         <Fragment>
@@ -37,3 +37,8 @@ export default function LandingHeader({pageTitle, copy}) {
 
     )
 }
+LandingHeader.propTypes = {
+    pageTitle: PropTypes.string.isRequired,
+    copy: PropTypes.string
+}
+export default LandingHeader
