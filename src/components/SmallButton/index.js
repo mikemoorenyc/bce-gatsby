@@ -23,7 +23,8 @@ const SmallButton = ({href,external,children, extraClasses}) => {
 
 }
 SmallButton.defaultProps = {
-    external: false
+    external: false,
+    extraClasses: ""
 }
 SmallButton.propTypes = {
     href: PropTypes.string.isRequired,
