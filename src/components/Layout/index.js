@@ -1,5 +1,5 @@
 import "../../global-styles/global-styles.scss";
-
+import PropTypes from "prop-types";
 import { Fragment, useEffect, useRef, useState } from "react";
 import { Link, graphql, useStaticQuery } from "gatsby"
 import { arraySplit } from "../../utilities";
@@ -43,7 +43,7 @@ import {
 
 
 
-export default function Layout({pageTitle, headerDescription,headerImg,headerLink, children, activeMenu}) {
+const Layout = ({pageTitle, headerDescription,headerImg,headerLink, children, activeMenu}) => {
     const data = useStaticQuery(
         graphql`
           query {
@@ -290,5 +290,16 @@ background-size: 12.73px 12.73px;
         </Fragment>
     )
 }
+
+Layout.propTypes = {
+    pageTitle : PropTypes.string, 
+    headerDescription : PropTypes.string,
+    headerImg : PropTypes.string,
+    headerLink : PropTypes.string, 
+    children : PropTypes.element.isRequired, 
+    activeMenu : PropTypes.string
+}
+
+export default Layout; 
 
 //<body style={(!favIconColor) ? "color: var(--dark-base)" : `color: ${favIconColor}`} className={(favIconColor === "white") ? "dark-mode" : ""} />
