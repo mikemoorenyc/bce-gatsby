@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "gatsby";
+import PropTypes from "prop-types";
 
 
 import {fontSans, noUnderline, fwNormal} from "../../global-styles/utilities.module.scss"
@@ -20,5 +21,14 @@ const SmallButton = ({href,external,children, extraClasses}) => {
 
 
 
+}
+SmallButton.defaultProps = {
+    external: false
+}
+SmallButton.propTypes = {
+    href: PropTypes.string.isRequired,
+    children: PropTypes.element.isRequired,
+    external: PropTypes.bool,
+    extraClasses: PropTypes.string
 }
 export default SmallButton
