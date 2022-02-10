@@ -1,7 +1,7 @@
 
 
 import React, { useState } from "react"
-
+import PropTypes from "prop-types"
 import * as styles from "./styles.module.scss";
 import parse from "html-react-parser"
 import { HtmlStrip, truncateString } from "../../utilities"
@@ -45,12 +45,10 @@ const ThumbImage = ({featuredImage}) => {
 
 
 
-export default function Card(props) {
+const Card = ( {ctaText, featuredImage,title, link, kicker, desc,  externalLink, extraClasses, styleMod}) => {
 
-    const {featuredImage,title, link, kicker, desc,  externalLink, extraClasses, styleMod} = props
-    const ctaText = props.ctaText || "View post"; 
 
-    const Cta = () => <div className={`${fontSans} ${styles.ctaText}`}><span>{ctaText}</span><Svg icon={"arrow"} /></div>
+
 
     const [downTime, setDownTime] = useState(0);
 
@@ -85,7 +83,30 @@ export default function Card(props) {
         {(desc)?<div className={`${tagLine}`}>{parse(truncateString(HtmlStrip(desc),75))}</div>: null}
        
         </div>
-         <Cta />
+         <div className={`${fontSans} ${styles.ctaText}`}><span>{ctaText}</span><Svg icon={"arrow"} /></div>
 
     </div>
 }
+Card.defaultProps = {
+    ctaText : "View Post" 
+    externalLink: false,
+    extraClasses: ""
+}
+Card.propTypes = {
+    ctaText : PropTypes.string,
+    featuredImage: PropTypes.shape({
+        node: PropTypes.shape({
+            databaseId : PropTypes.number
+        })
+    }),
+    title : PropTypes.string.isRequired, 
+    link : PropTypes.string.isRequired, 
+    kicker : PropTypes.string, 
+    desc : PropTypes.string,  
+    externalLink : PropTypes.bool, 
+    extraClasses : PropTypes.string, 
+    styleMod : PropTypes.string
+    
+
+}
+export default Card; 
