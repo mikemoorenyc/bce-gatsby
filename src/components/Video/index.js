@@ -1,4 +1,5 @@
 import React, { useRef, useState,useLayoutEffect } from "react"
+import PropTypes from "prop-types";
 import { graphql, useStaticQuery } from "gatsby"
 import { domToReact } from "html-react-parser";
 import { camelCaseAttributes } from "../../utilities"
@@ -113,5 +114,14 @@ const Video = ({node}) => {
         {(caption)? <FigCaption>{domToReact(caption.children)}</FigCaption>: ""}
     </figure>
 }
+
+Video.propTypes = {
+  node: PropTypes.shape({
+    children: PropTypes.array.isRequired,
+    
+  }).isRequired
+};
+
+
 
 export default Video ; 
