@@ -88,7 +88,7 @@ const Card = ( {ctaText, featuredImage,title, link, kicker, desc,  externalLink,
     </div>
 }
 Card.defaultProps = {
-    ctaText : "View Post" 
+    ctaText : "View Post" ,
     externalLink: false,
     extraClasses: ""
 }
