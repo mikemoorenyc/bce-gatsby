@@ -1,7 +1,7 @@
 import React from "react";
+import PropTypes from "prop-types"
 
-
-export default function SVG({icon}) {
+const SVG = ({icon}) =>  {
     let svg = null;
     switch(icon) {
         case "x":
@@ -129,3 +129,8 @@ export default function SVG({icon}) {
     }
     return svg; 
 }
+SVG.propTypes = {
+    icon:PropTypes.oneOf(["x","menu","twitter","quote","error","external","download","email","retweet","sun","moon","arrow","linkedin","codepen","github","heart","twitter"]).isRequired
+}
+
+export default SVG; 
