@@ -25,14 +25,14 @@ MorePosts.defaultProps = {
     title: "More Posts"
 }
 MorePosts.propTypes = {
-    title: PropTypes.string
+    title: PropTypes.string,
     posts : PropTypes.arrayOf(
-        PropTypes.shape(
-            slug: PropTypes.string,.isRequired
+        PropTypes.shape({
+            slug: PropTypes.string.isRequired,
             desc : PropTypes.string,
             excerpt: PropTypes.string,
             kicker: PropTypes.string
-        )
+        })
     ).isRequired
 }
 

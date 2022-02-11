@@ -28,7 +28,7 @@ SmallButton.defaultProps = {
 }
 SmallButton.propTypes = {
     href: PropTypes.string.isRequired,
-    children: PropTypes.element.isRequired,
+    children: PropTypes.any.isRequired,
     external: PropTypes.bool,
     extraClasses: PropTypes.string
 }
