@@ -1,0 +1,92 @@
+@import "./global-variables.scss";
+
+@mixin clearfix() {
+    &:before,
+    &:after {
+      content: ""; // 1
+      display: table; // 2
+    }
+    &:after {
+      clear: both;
+    }
+  }
+  @mixin center-block() {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  @mixin text-overflow() {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  @mixin before-fix() {
+    display: block;
+    content:'';
+  }
+  
+  @mixin bg-cover() {
+    background-size: cover;
+    background-position: top right;
+    background-repeat: no-repeat;
+  }
+  
+  @mixin ab-cover() {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
+  @mixin inline-centerer() {
+    letter-spacing: -4px;
+    > * {
+      display: inline-block;
+      letter-spacing:normal;
+      vertical-align: middle;
+    }
+  }
+  @mixin poster-img() {
+   position:relative;
+   overflow:hidden;
+   > img {
+     position: absolute;
+     left: 0;
+     top: 0;
+     width:100%;
+     height:100%;
+     object-fit:cover;
+     object-position: center center;
+     &.preload {
+       filter:blur(10px);
+       transform: scale(1.1);
+     }
+    }
+  }
+
+//LAYOUT
+@mixin content-centerer {
+    padding: 0 var(--gutter-width);
+    margin: 0 auto; 
+    @media(min-width:$t7) {
+      max-width: $t7;
+    }
+    @media(min-width:$d-mq) {
+      max-width: $dt-width;
+    }
+}
+@mixin grid-layout() {
+    @media(min-width: $t7) {
+      display:grid; 
+      column-gap: var(--gutter-width);
+      //padding: 0 var(--gutter-width);
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-rows: auto; 
+    }
+    @media(min-width: $d-mq) {
+      grid-template-columns: repeat(12, minmax(0,1fr));
+    }
+    
+}

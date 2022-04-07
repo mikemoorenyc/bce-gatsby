@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useLayoutEffect } from "react"
 import { getSrc } from "gatsby-plugin-image";
 import AutoCheckLoader from "../components/AutoCheckLoader";
 import EndBullet from "../components/EndBullet";
@@ -84,21 +84,20 @@ export default function ProjectPost({ data,pageContext }) {
   useEffect(()=> {
     let savedPassword = localStorage.getItem("savedPassword")
     let savedContent = sessionStorage.getItem("project-"+currentProject.databaseId);
-    if(!savedPassword) {
-      updatePasswordState("empty");
-    }
-    if(!pwProtected || !savedPassword) {
-      return ; 
-    }
-    if(savedContent) {
-      updatePostContent(savedContent);
-      updatePasswordState("verified");
-      return ; 
-    }
-    updatePasswordState("autochecking");
-    
-    pwSubmit(savedPassword);
-
+      if(!savedPassword) {
+        updatePasswordState("empty");
+      }
+      if(!pwProtected || !savedPassword) {
+        return ; 
+      }
+      if(savedContent) {
+        updatePostContent(savedContent);
+        updatePasswordState("verified");
+        return ; 
+      }
+      updatePasswordState("autochecking");
+      
+      pwSubmit(savedPassword);
   },[])
   /*const GatedContent = () =>   <ReadingSection> 
       
@@ -127,9 +126,14 @@ export default function ProjectPost({ data,pageContext }) {
   
   
 </ReadingSection>*/
+const FullText = () => {
+  
+  return copyParse(postContent); 
+}
 const contentPush = () => {
   if(!pwProtected || passwordState === "verified" ) {
-    return copyParse(postContent); 
+   return  <FullText />
+    
   }
   if(passwordState === "autochecking") {
     return <AutoCheckLoader />

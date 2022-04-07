@@ -3,15 +3,25 @@ import { graphql, useStaticQuery } from "gatsby";
 import { Link } from "gatsby";
 import React from "react"
 
-function capitalizeFirstLetter(string) {
+function capitalizeFirstLetter(string: string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
-export default function InternaLink({node}) {
+type NodeProps = {
+  node: {
+    attribs: {
+      href:string,
+      "data-type": string,
+      "data-id":string
+    }
+    children: {data:string}[]
+  }
+}
+export default function InternaLink({node}:NodeProps) {
 
   
     let url = node.attribs.href;
     const {attribs} = node 
-    console.log()
+  
     const data = useStaticQuery(
       graphql`
         query {
@@ -39,7 +49,7 @@ export default function InternaLink({node}) {
         }
       `
   )
-  let postData = data[`allWp${capitalizeFirstLetter(attribs['data-type'])}`].nodes.filter(e => e.databaseId === parseInt(attribs["data-id"]))[0];
+  let postData = data[`allWp${capitalizeFirstLetter(attribs['data-type'])}`].nodes.find( (e: {databaseId:number}) => e.databaseId === parseInt(attribs["data-id"]));
   
   
   

@@ -2,14 +2,14 @@
 .slider {
     position:relative;
     display:block;
-    .fake-label {
+    .fakeLabel {
         display:none;
     }
     &:before, &:after {
         display: block;
         content: '';
     }
-    &.dark-mode:before {
+    &.darkMode:before {
         background:linear-gradient(to right, red,orange,yellow,green,blue,indigo,violet);
         opacity: .75;
         position: absolute;
@@ -62,7 +62,7 @@
             right: 5px;
             top: 3px;
         }
-        &.dark-mode {
+        &.darkMode {
             &:after {
                 transform: translateX(34px);
             }
@@ -102,7 +102,7 @@
             left: 2px;
             top: 2px;
         }
-        &.dark-mode {
+        &.darkMode {
             background:none;
         }
         svg {
@@ -117,7 +117,7 @@
                 fill: inherit;
             }
         }
-        &.dark-mode:before {
+        &.darkMode:before {
             left: 0;
             top: 0;
             right: 0;

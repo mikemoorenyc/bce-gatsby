@@ -1,10 +1,8 @@
-
-
-import React, { useState } from "react"
+import React, {  useState } from "react"
 import PropTypes from "prop-types"
-import * as styles from "./styles.module.scss";
+
 import parse from "html-react-parser"
-import { HtmlStrip, truncateString } from "../../utilities"
+import { HtmlStrip, truncateString } from "../../utilities-typed"
 import LazyImg from "../LazyImg";
 import { Link } from "gatsby";
 import { navigate, } from "gatsby"
@@ -15,19 +13,18 @@ import {
     noUnderline,
     tagLine
  } from "../../global-styles/utilities.module.scss"
- const {
+import {
     card,
     imgContainer,
     kickerStyle,    
     textArea,
     h2,
-    
-} = styles;
+    cta,
+    slim
+} from "./styles.module.scss";
+import { FeaturedImage,Card } from "src/typings/interfaces";
 
-const ThumbImage = ({featuredImage}) => {
-    if(!featuredImage) {
-        return null;
-    }
+const ThumbImage = ({featuredImage}:{featuredImage:FeaturedImage}) => {
     const {
         databaseId
     } = featuredImage.node
@@ -42,19 +39,28 @@ const ThumbImage = ({featuredImage}) => {
     )
 } 
 
+interface CC extends Card {
+
+}
 
 
+const CardComponent = ( {ctaText, featuredImage,title, link, kicker, desc,  externalLink, extraClasses, styleMod}:CC) => {
 
-const Card = ( {ctaText, featuredImage,title, link, kicker, desc,  externalLink, extraClasses, styleMod}) => {
-
-
+    const stylePick = (mod: "slim"|undefined) => {
+        switch(mod) {
+            case "slim":
+                return slim;
+            default:
+                return null; 
+        }
+    }
 
 
     const [downTime, setDownTime] = useState(0);
 
 
-    const cardClick = (e) => {
-     
+    const cardClick = (e :React.MouseEvent<HTMLDivElement>) => {
+
         if(e.button !== 0) {
             return ;
         }
@@ -75,24 +81,24 @@ const Card = ( {ctaText, featuredImage,title, link, kicker, desc,  externalLink,
     }
 
     
-    return <div role="presentation" onMouseDown={cardClick} onMouseUp={cardClick} className={`${card} ${(styleMod)? styles[styleMod]: ""} ${extraClasses}  `}>
-        <ThumbImage featuredImage={featuredImage} />
+    return <div role="presentation" onMouseDown={cardClick} onMouseUp={cardClick} className={`${card} ${stylePick(styleMod)} ${extraClasses}  `}>
+        {(featuredImage)?<ThumbImage featuredImage={featuredImage} /> : null}
         <div className={textArea}>
         {(kicker)?<div className={`${kickerStyle} ${fontSans}`}>{kicker}</div>: null}
         <h2 className={h2}>{(link)?<Link className={`${noUnderline} normal-hover`} to={link}>{title}</Link>:title}</h2>
         {(desc)?<div className={`${tagLine}`}>{parse(truncateString(HtmlStrip(desc),75))}</div>: null}
        
         </div>
-         <div className={`${fontSans} ${styles.ctaText}`}><span>{ctaText}</span><Svg icon={"arrow"} /></div>
+         <div className={`${fontSans} ${cta}`}><span>{ctaText}</span><Svg icon={"arrow"} /></div>
 
     </div>
 }
-Card.defaultProps = {
+CardComponent.defaultProps = {
     ctaText : "View Post" ,
     externalLink: false,
     extraClasses: ""
 }
-Card.propTypes = {
+CardComponent.propTypes = {
     ctaText : PropTypes.string,
     featuredImage: PropTypes.shape({
         node: PropTypes.shape({
@@ -109,4 +115,4 @@ Card.propTypes = {
     
 
 }
-export default Card; 
+export default CardComponent; 

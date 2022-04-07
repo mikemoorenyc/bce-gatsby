@@ -1,5 +1,5 @@
 @import "../../global-styles/global-variables.scss";
-.blog-item {
+.item {
    
         padding-bottom: var(--gutter-width);
         margin-bottom: var(--gutter-width);
@@ -7,7 +7,7 @@
         border-style: dashed;
     
 }
-.blog-meta {
+.meta {
     line-height: 1.2;
     font-size: .85em;
     margin-top: .25em;
@@ -19,10 +19,10 @@
         margin-top: var(--half-gutter);
     }
 }
-.blog-excerpt {
+.blogExcerpt {
     margin-right: 4px;
 }
-.blog-read-more {
+.readMore {
 
     display: inline-block;
     font-size: .85em;

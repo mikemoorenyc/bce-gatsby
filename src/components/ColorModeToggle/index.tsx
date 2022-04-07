@@ -1,5 +1,5 @@
 import React, { useEffect, useRef} from "react";
-import Svg from "../../components/SVG"
+import Svg from "../SVG"
 import {
     container,
     slider,
@@ -7,18 +7,25 @@ import {
     fakeLabel
 } from "./styles.module.scss"
 
-const ColorModeToggle = ({currentColor, switchFunction,colorPicker}) => {
-    //const [dm,updateDM] = useState(currentColor === "white")
-    const btnEl = useRef(null);
+type ToggleProps = {
+    currentColor:string,
+    switchFunction: Function,
+    colorPicker: Function
+}
+const ColorModeToggle = ({currentColor, switchFunction,colorPicker}:ToggleProps) => {
+    
+    const btnEl = useRef<HTMLButtonElement>(null);
     
     let dm = currentColor === "white",
         colorClass = (dm) ? darkMode : "",
         label = (dm) ? "Switch to color mode" : "Switch to dark mode",
         bgColor = (!dm) ? currentColor : "";
-    const btnClick = (e) => {
+    const btnClick = (e:React.MouseEvent) => {
         e.preventDefault();
         switchFunction( (dm) ? colorPicker() : "white" )
-        btnEl.current.blur();
+        if(btnEl.current) {
+            btnEl.current.blur();
+        }
     }
     useEffect(()=>{
         //updateDM(currentColor);
@@ -27,7 +34,7 @@ const ColorModeToggle = ({currentColor, switchFunction,colorPicker}) => {
                 <button ref={btnEl} onClick={btnClick} style={{color: bgColor}}  arial-label={label} className={`${slider} ${colorClass}`}>
                     <span className={fakeLabel}>{label}</span>
                    
-                        <Svg role="presentation" icon={(!dm) ? "moon" : "sun"} />
+                        <Svg icon={(!dm) ? "moon" : "sun"} />
                     
                 </button>
             </div>

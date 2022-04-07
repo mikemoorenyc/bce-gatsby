@@ -11,18 +11,20 @@ import {
     tagLine
 } from "../../global-styles/utilities.module.scss"
 import {
-    excerpt,
-    landingHeaderRule,
-    landingHeaderTitle
+    rule,
+    title,
+    excerpt
 } from "./styles.module.scss";
 
-const LandingHeader = ({pageTitle, copy}) => {
+ 
 
+const LandingHeader = ({pageTitle, copy}:{pageTitle:string,copy?:string}) => {
+    
     return (
         <Fragment>
         <div className="gl-mod landing-header  media-item">
   <div className={`${contentCenterer} ${gridLayout}`}>
-    <h1 className={`${landingHeaderTitle} ${articleHeading}`}>{pageTitle}</h1>
+    <h1 className={`${title} ${articleHeading}`}>{pageTitle}</h1>
 
     {
         (copy)? <div className={`${excerpt} ${tagLine}`}>{parse(copy)}</div> : null
@@ -32,7 +34,7 @@ const LandingHeader = ({pageTitle, copy}) => {
   </div>
 
 </div>
-<hr className={landingHeaderRule}/>
+<hr className={rule}/>
         </Fragment>
 
     )

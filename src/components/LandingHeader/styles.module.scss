@@ -1,7 +1,22 @@
 @import "../../global-styles/global-variables.scss";
 
+.excerpt {
+  font-size: 14px; 
+  grid-column-start: 1;
+  grid-column-end: 3;
+  @media(min-width: $d-mq) {
+    font-size: 1em; 
+    grid-column-end: 10;
+  }
+}
+@media(min-width: var(--d-mq)) {
+  .excerpt {
+    font-size: 1em; 
+    grid-column-end: 10; 
+  }
+}
 
-.landing-header-title {
+.title {
     font-size: 30px;
     margin-bottom:16px;
     &:last-child {
@@ -19,20 +34,11 @@
       grid-column-end: 10;
     }
 }
-.landing-header-rule {
+.rule {
     height: 1px;
     border-top-width:1px;
     margin: var(--gutter-width) 0;
     @media(min-width:$d-mq) {
       margin:32px 0;
     }
-}
-.excerpt {
-  font-size: 14px; 
-  grid-column-start: 1;
-  grid-column-end: 3;
-  @media(min-width: $d-mq) {
-    font-size: 1em; 
-    grid-column-end: 10;
-  }
 }

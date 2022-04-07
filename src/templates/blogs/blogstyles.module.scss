@@ -1,5 +1,4 @@
-@import "../../global-styles/global-variables.scss";
-@import "../../global-styles/utilities.module.scss";
+@import "../../global-styles/mixins.scss";
 .blog-item-padding {
     padding-left: var(--gutter-width);
     padding-right: var(--gutter-width);

@@ -1,7 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types"
+import {FC, ReactElement} from "react"
 
-const SVG = ({icon}) =>  {
+type SVGProps = {
+  icon: string
+}
+
+const SVG: FC<SVGProps> = ({icon}): ReactElement | null =>  {
     let svg = null;
     switch(icon) {
         case "x":

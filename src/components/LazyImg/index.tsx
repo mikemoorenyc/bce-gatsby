@@ -10,32 +10,62 @@ import blankSVG from "../../assets/img-bg.svg";
 import {
     posterImg
 } from "../../global-styles/utilities.module.scss"
-const LazyLayout = ({addClasses,isPoster,imgData, optionalWidth, optionalAlt}) => {
+interface ImageBase {
+    addClasses?:string, 
+    isPoster?:boolean,
+    optionalWidth?: number,
+    optionalAlt?:string
+}
+interface ImageLayout extends ImageBase {
+    
+    imgData: {
+        altText?:string,
+        localFile: {
+            childImageSharp: {
+                gatsbyImageData: {
+                    width: number,
+                    height: number,
+                    images: {
+                        fallback: {
+                            src: string,
+                            srcSet: string
+                        }
+                        sources: {type:string,srcSet:string}[]                       
+                    }
+                }
+            }
+        }
+    }
+}
+
+const LazyLayout = ({addClasses,isPoster,imgData, optionalWidth, optionalAlt}:ImageLayout) => {
     let {width,height,images} = imgData.localFile.childImageSharp.gatsbyImageData;
     
     let spacerPadding =  ((height/width) * 100)+"%"
     width = optionalWidth || width;
+    const maxWidthStyle = (!isPoster)? {maxWidth: width} : {};
     
     const {srcSet,src} = images.fallback
     const {sources} = images; 
     const altText = imgData.altText || optionalAlt || src;
     let webpSources = null;
+    
 
     if(sources && sources.length) {
-        webpSources = sources.filter(e=> e.type === "image/webp"); 
+        webpSources = sources.find(e=> e.type === "image/webp") || null; 
     }
-    webpSources = (webpSources.length) ? webpSources[0] : null; 
+    
     
     const fakeDom = useRef(null);
     const [inView, updateView] = useState(false);
     const [imageLoaded,updateLoaded] = useState(false);
     useLayoutEffect(()=>{
-        if(imageLoaded) {
+        if(imageLoaded || !fakeDom.current) {
             return;
         }
         const domObserver = fakeDom.current
         const observer = new IntersectionObserver(onChange);
-        function onChange(changes){
+        function onChange(changes: any[]){
             changes.forEach(change => {
                 if(change.isIntersecting) {
                     updateView(true);
@@ -45,36 +75,44 @@ const LazyLayout = ({addClasses,isPoster,imgData, optionalWidth, optionalAlt}) =
             })
         }
         observer.observe(domObserver);
-        if(fakeDom) {
-            
-        }
         return () => {  
             observer.unobserve(domObserver);
             observer.disconnect(); 
         }
     },[])
+
+   
+
+
     return <Fragment>
     {
     ( !imageLoaded) ?  <div 
             ref={fakeDom} 
-            className={(isPoster)? `${posterImg} lazy-gradient` : `${fakeImg} lazy-gradient ${addClasses}`} style={{
-        
-        maxWidth: (!isPoster)? width : null 
-    }} > <img alt={altText } src={blankSVG} style={{width: "100%",height:0,paddingTop: (isPoster)?"" :spacerPadding}}/></div> : null
+            className={(isPoster)? `${posterImg} lazy-gradient` : `${fakeImg} lazy-gradient ${addClasses}`} 
+            style={(!isPoster)?maxWidthStyle:undefined} >
+                <img 
+                    alt={altText } 
+                    src={blankSVG} 
+                    style={{width: "100%",height:0,paddingTop: (isPoster)?"" :spacerPadding}}/>
+            </div> : null
         
     }
     {
         (inView) ? (
             <picture className={(!imageLoaded)?notLoaded : ""}>
                 {(webpSources)?<source srcSet={webpSources.srcSet} type="image/webp" />: null}
-                <source srcSet={srcSet} type="image/webp" />
-                <img onLoad={()=>{updateLoaded(true)}}  alt={altText} src={src} className={`${(!imageLoaded) ? notLoaded : ""} ${addClasses || ""} ${(isPoster)? posterImg : ""}`} style={{width: "100%",maxWidth: (!isPoster)? width : null }}/> 
+                <source srcSet={srcSet}  />
+                <img onLoad={()=>{updateLoaded(true)}}  alt={altText} src={src} className={`${(!imageLoaded) ? notLoaded : ""} ${addClasses || ""} ${(isPoster)? posterImg : ""}`} style={{width: "100%", ...maxWidthStyle }}/> 
             </picture>
         ) : null
     }
 </Fragment>
 }
-export default function LazyImg(props) {
+interface ImageProps extends ImageBase {
+    databaseId: number
+}
+
+export default function LazyImg(props: ImageProps) {
     const {databaseId} = props;
     const data = useStaticQuery(
         graphql`
@@ -97,29 +135,13 @@ export default function LazyImg(props) {
         return null ; 
     }
     
-    let theImg = data.allImgs.nodes.filter(e=>e.databaseId === databaseId);
-    if(!theImg.length) {
+    let theImg = data.allImgs.nodes.find((e: {databaseId:number})=>e.databaseId === databaseId);
+    if(!theImg) {
         return null; 
     }
-    theImg = theImg[0]
+    
     
 
     return <LazyLayout imgData={theImg} {...props} />; 
-    /*return (
-        <Fragment>
-            {
-            ( !imageLoaded) ?  <div 
-                    ref={fakeDom} 
-                    className={(isPoster)? `${posterImg} lazy-gradient` : `${fakeImg} lazy-gradient ${addClasses}`} style={{
-                
-                maxWidth: (!isPoster)? sourceWidth : null 
-            }} > <img alt={altText || sourceUrl} src={blankSVG} style={{width: "100%",height:0,paddingTop: (isPoster)?"" : ((sourceHeight/sourceWidth) * 100)+"%"}}/></div> : null
-                
-            }
-            {
-                (inView) ? <img onLoad={()=>{updateLoaded(true)}} srcSet={srcSet}  alt={altText || sourceUrl} src={sourceUrl} className={`${(!imageLoaded) ? notLoaded : ""} ${addClasses || ""} ${(isPoster)? posterImg : ""}`} style={{width: "100%",maxWidth: (!isPoster)? sourceWidth : null }}/> : null
-            }
-        </Fragment>
-        
-    )*/
+   
 }

@@ -1,7 +1,7 @@
 
 import React from "react";
 import { useEffect, useState } from "react";
-import {fontSans} from "../../global-styles/utilities.module.scss";
+import {fontSans} from "../../global-styles/utilities.module.scss"
 
 
 
@@ -23,11 +23,11 @@ const AutoCheckLoader = () => {
             clearInterval(dotRotator);
         }
     },[])
-    return<div className={fontSans}>
+    return <div className={fontSans}>
         I&rsquo;m checking if you have access to this post {dots.map((e) => {
-    return <span key={e} style={{display: (dotsVisible < e)? "none" : null  }}>🤫</span>
+    return <span key={e} style={{display: (dotsVisible < e)? "none" : "inline"  }}>🤫</span>
 })}
-    </div>;
+    </div>;  
 }
 
 export default AutoCheckLoader; 

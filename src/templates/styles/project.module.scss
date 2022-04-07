@@ -1,5 +1,4 @@
-@import "../../global-styles/global-variables.scss";
-@import "../../global-styles/utilities.module.scss";
+@import "../../global-styles/mixins.scss";
 .top-section {
     position:relative;
     @media(min-width:$t7) and (max-width: ($d-mq - 1)){

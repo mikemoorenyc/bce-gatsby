@@ -8,10 +8,11 @@ module.exports = {
     title: "BCE G",
   },
   plugins: [
+
     "gatsby-plugin-gatsby-cloud",
     "gatsby-plugin-webpack-bundle-analyser-v2",
+    'gatsby-plugin-typescript',
     
-
     {
       resolve: `gatsby-source-wordpress`,
       options: {
@@ -22,6 +23,11 @@ module.exports = {
         url: process.env.WORDPRESS_GRAPH_URL,
         html: {
           useGatsbyImage: false ,
+        },
+        schema : {
+          perPage: 20, // currently set to 100
+      requestConcurrency: 5, // currently set to 15
+      previewRequestConcurrency: 2, // currently set to 5
         }
       },
     },
@@ -44,7 +50,13 @@ module.exports = {
       resolve: `gatsby-plugin-sass`,
       options: {
         implementation: require("node-sass")
+      },
+      cssLoaderOptions: {
+        modules: {
+          exportLocalsConvention: 'camelCaseOnly'
+        }
       }
-    }
+    },
+    "gatsby-transformer-typescript-css-modules",
   ],
 };
