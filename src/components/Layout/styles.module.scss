@@ -1,3 +1,7 @@
 @import "../../global-styles/global-variables.scss";
 
-@import "./header.scss";
+
+//@import "./header.scss";
+.mainContentContainer {
+    padding-top: var(--header-top-padding);     
+}

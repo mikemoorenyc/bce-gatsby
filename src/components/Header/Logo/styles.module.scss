@@ -1,0 +1,77 @@
+@import "../../../global-styles/global-variables.scss";
+
+
+.spinner, .spinner:before {
+    position: relative;
+     border-width:1px;
+     border-radius: 50%;
+     
+ }
+ 
+.spinner {
+    left: auto;
+    width: 32px;
+    height: 32px;
+
+    &:before {
+        width: 22px;
+        height: 22px;
+        border-style:dashed;
+        left: 50%;
+        top: 50%;
+        margin-left: -11px;
+        margin-top: -11px;
+        animation: spinner 5s infinite linear;
+        will-change:transform;
+    }
+}
+
+.mainLogo {
+    position: absolute;
+    left: var(--gutter-width);
+    display:flex;
+    align-items: center;
+    top: $header-center;
+    transform: translateY(-50%);
+    * {
+      color:inherit;
+    }
+    .topLogo {
+      padding-top: 0;
+      
+    }
+    .topTagline {
+      display: none;
+      @media (min-width:$t7) {
+        display: block;
+      }
+    }
+  }
+  .logoText {
+    margin-left: 8px;
+  }
+
+  .topLogo {
+    line-height: 1;
+    padding-top: 24px;
+    .title {
+      text-transform: uppercase;
+      font-size:14px;
+      > span {
+        display: block;
+      }
+    }
+  }
+  .topTagline {
+    font-size:12px;
+    
+  }
+
+@keyframes spinner {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg)
+    }
+  }

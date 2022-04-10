@@ -24,9 +24,18 @@ $dt-width: ($d9 + 38px);
     @media(min-width: $t7) {
       --gutter-width: 24px;
     }
-    
-    
 }
+:root {
+  --header-top-padding: 72px;
+  @media(min-width: $t7) {
+    --header-top-padding: calc(72px + 16px)
+  }
+  @media(min-width:$d-mq) {
+    --header-top-padding: calc(72px + 24px);
+  }
+}
+$header-center: calc(var(--header-top-padding) / 2);
+
 
 /* SITE COLORS */
 $body-bg: #fff;

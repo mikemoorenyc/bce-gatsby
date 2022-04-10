@@ -35,7 +35,6 @@
     "node-sass": "^6.0.1",
     "object-path": ">=0.11.8",
     "prettier": "^2.6.2",
-    "prettifier": "^0.4.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-helmet": "^6.1.0",

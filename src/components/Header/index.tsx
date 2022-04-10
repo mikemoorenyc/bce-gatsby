@@ -1,21 +1,40 @@
-import React from "react";
+import React, { useContext } from "react";
 import ColorModeToggle from "../ColorModeToggle";
 import Svg from "../SVG";
 import {MenuItem} from "../../typings/interfaces"
 import { Link } from "gatsby";
 import parse from "html-react-parser"
-
+import FoldContext from "../../context/FoldContext"
+import ResponsiveContext from "../../context/ResponsiveContext";
+import DesktopNav from "./DesktopNav"
+import MobileNav from "./MobileNav";
 import {
     fontSans,
     beforeBlock
 } from "../../global-styles/utilities.module.scss"
-
-type HeaderProps = {
+import {
+    header
+} from "./styles.module.scss"
+import Logo from "./Logo";
+export type HeaderProps = {
     siteTitle: string,
     siteDesc : string,
-    menuItems: MenuItem[]
+    menuItems: MenuItem[],
+    current?: string
 }
 
+const Header = (props:HeaderProps) =>{
+  
+    const {screenSize} = useContext(ResponsiveContext);
+    
+    return <header className={header} id="top-header">
+            <Logo {...props} />
+            {(screenSize === "mobile")?<MobileNav {...props} />:""}
+            {(screenSize == "desktop" || screenSize=="tablet")? <DesktopNav {...props} />: ""}
+        
+    </header>
+} 
+/*
 const Header = ({siteTitle, siteDesc,menuItems}: HeaderProps) => {
     return <header id="top-header" role="presentation"  className={`${(menuOpen)?showMenu :""}`}>
     <div className={mainLogo}>
@@ -62,5 +81,6 @@ const Header = ({siteTitle, siteDesc,menuItems}: HeaderProps) => {
     </button>
 </header>
 }
+*/
 
 export default Header;
