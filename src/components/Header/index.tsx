@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext , useState} from "react";
 import ColorModeToggle from "../ColorModeToggle";
 import Svg from "../SVG";
 import {MenuItem} from "../../typings/interfaces"
@@ -16,7 +16,7 @@ import {
     header
 } from "./styles.module.scss"
 import Logo from "./Logo";
-export type HeaderProps = {
+export interface HeaderProps {
     siteTitle: string,
     siteDesc : string,
     menuItems: MenuItem[],
@@ -24,12 +24,13 @@ export type HeaderProps = {
 }
 
 const Header = (props:HeaderProps) =>{
+    const [mobileNavOpened,updateMobileNavState] = useState(false);
   
     const {screenSize} = useContext(ResponsiveContext);
     
     return <header className={header} id="top-header">
             <Logo {...props} />
-            {(screenSize === "mobile")?<MobileNav {...props} />:""}
+            {(screenSize === "mobile")?<MobileNav mobileNavOpened={mobileNavOpened} {...props} />:""}
             {(screenSize == "desktop" || screenSize=="tablet")? <DesktopNav {...props} />: ""}
         
     </header>
