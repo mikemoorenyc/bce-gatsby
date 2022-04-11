@@ -30,8 +30,10 @@ const Header = (props:HeaderProps) =>{
     
     return <header className={header} id="top-header">
             <Logo {...props} />
-            {(screenSize === "mobile")?<MobileNav mobileNavOpened={mobileNavOpened} {...props} />:""}
-            {(screenSize == "desktop" || screenSize=="tablet")? <DesktopNav {...props} />: ""}
+     
+            {(screenSize == "desktop" || screenSize=="tablet")? 
+                <DesktopNav {...props} />:
+                <MobileNav mobileNavOpened={mobileNavOpened} {...props} />}
         
     </header>
 } 
