@@ -1,0 +1,37 @@
+@import "../../../../global-styles/global-variables.scss";
+.navOpener {
+    @media(min-width:$t7) {
+      display:none;
+    }
+    position: absolute;
+    right: calc(var(--gutter-width) - 8px)  ;
+    width: 48px;
+    height: 48px;
+    top: $header-center;
+    transform: translateY(-50%);
+    z-index:9999;
+    &:before {
+      position: absolute;
+      right: 8px;
+      bottom:8px;
+      left:8px;
+      top:8px;
+      border-width: 3px;
+      box-shadow: 3px 3px 0 var(--the-color);
+      background: var(--bg-white);
+   
+    }
+   
+    > span {
+      display: block;
+      width: 18px;
+      height: 18px;
+      > svg{
+        width: 18px;
+        height: 18px;
+      }
+      &.close {
+        display: none;
+      }
+    }
+}

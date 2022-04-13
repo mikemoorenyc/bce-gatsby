@@ -33,7 +33,7 @@ const Header = (props:HeaderProps) =>{
      
             {(screenSize == "desktop" || screenSize=="tablet")? 
                 <DesktopNav {...props} />:
-                <MobileNav mobileNavOpened={mobileNavOpened} {...props} />}
+                <MobileNav  {...props} />}
         
     </header>
 } 

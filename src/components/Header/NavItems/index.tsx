@@ -6,7 +6,7 @@ import { noUnderline } from "../../../global-styles/utilities.module.scss";
 const NavItems = ({menuItems, extraClasses,current}:{current?:string,menuItems:MenuItem[],extraClasses?:string}) => {
     return <nav className={`${extraClasses || ""}`}>
         <ul>
-            {menuItems.map(e => <li key={e.id}><Link className={noUnderline} to={e.url}>{e.label}</Link></li>)}
+            {menuItems.map(e => <li key={e.id}><Link className={(e.label != current)?noUnderline:""} to={e.url}>{e.label}</Link></li>)}
         </ul>
     </nav>
 }

@@ -15,6 +15,7 @@ const truncateString = function(str: string, num: number) : string {
 const arraySplit = function(string:string, splitValue : any = /\r?\n/) {
     return string.split(splitValue);
 }
+/*
 const inView = function(el,updateCallback) {
     const element = el ;
     const interSector = new IntersectionObserver((changes) => {
@@ -33,5 +34,6 @@ const inView = function(el,updateCallback) {
     }
     
 }
+*/
 
-export {inView, arraySplit, HtmlStrip,truncateString}
+export {/*inView, */arraySplit, HtmlStrip,truncateString}
