@@ -19,7 +19,7 @@ import {
 } from "../../../global-styles/utilities.module.scss"
 
 const MobileNav = ({siteDesc,siteTitle,menuItems,current}:HeaderProps) =>{ 
-    const [mobileNavOpened,updateMobileNavOpenState] = useState(true);
+    const [mobileNavOpened,updateMobileNavOpenState] = useState(false);
     
     return(
     <>
