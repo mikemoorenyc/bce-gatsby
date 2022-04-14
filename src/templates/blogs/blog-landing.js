@@ -14,7 +14,7 @@ import {
   blogItemInner
 } from "./blogstyles.module.scss";
 import {
-  blogItem ,
+  item ,
 
 } from "../../components/BlogItem/styles.module.scss"
 import {
@@ -57,7 +57,7 @@ export default function BlogLanding({data,pageContext}) {
                 <LandingHeader pageTitle={pageInfo.title} copy={pageInfo.content} />
                 <div>
                 {posts.map(( {node} ) => {
-                  return <article key={node.slug} className={`${blogItem} ${blogItemPadding} `}>
+                  return <article key={node.slug} className={`${item} ${blogItemPadding} `}>
                     <div className={blogItemInner}>
                       <div className={`${blogLandingCopy} ${(!node.featuredImage) ? landingFullWidth:""}`}>
                       <BlogCopy {...node} />
