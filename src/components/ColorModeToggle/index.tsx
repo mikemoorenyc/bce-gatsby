@@ -1,17 +1,34 @@
-import React, { useEffect, useRef} from "react";
+import React, { useContext, useEffect, useRef} from "react";
+import DarkModeContext from "../../context/DarkModeContext";
 import Svg from "../SVG"
-import {
-    container,
-    slider,
-    darkMode,
-    fakeLabel
-} from "./styles.module.scss"
+import * as styles from "./styles.module.scss"
 
 type ToggleProps = {
-    currentColor:string,
-    switchFunction: Function,
-    colorPicker: Function
+    format: "desktop" | "mobile"
 }
+const ColorModeToggle = ({format}:ToggleProps) => {
+    const darkModeSettings = useContext(DarkModeContext);
+    const {darkMode} = darkModeSettings;
+    const colorClass = darkMode ? styles.darkMode : ""
+    const label = darkMode ? "Switch to color mode" : "Switch to dark mode"
+
+    const clickHandler = (e:React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        console.log(darkModeSettings.darkMode);
+        darkModeSettings.modeSwitch(); 
+        e.currentTarget.blur(); 
+    }
+
+    return  <div className={`${styles.container} ${colorClass}`}>
+    <button onClick={clickHandler} arial-label={label} className={`${styles.slider} ${colorClass}`}>
+        
+       <span aria-hidden>
+            <Svg icon={(!darkMode) ? "moon" : "sun"} /></span>
+        
+    </button>
+</div>
+}
+/*
 const ColorModeToggle = ({currentColor, switchFunction,colorPicker}:ToggleProps) => {
     
     const btnEl = useRef<HTMLButtonElement>(null);
@@ -39,4 +56,5 @@ const ColorModeToggle = ({currentColor, switchFunction,colorPicker}:ToggleProps)
                 </button>
             </div>
 }
+*/
 export default ColorModeToggle;

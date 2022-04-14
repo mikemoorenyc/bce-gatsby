@@ -1,16 +1,16 @@
 import React from "react";
 import {Helmet} from "react-helmet";
 import favIconDefault from "../../assets/favicon.ico"
-type HeadProps = {
+export interface HeadProps {
     siteIcon?: string,
     pageImage?: string,
-    siteDescription?:string,
+    siteDescription?:any,
     pageDescription?:string,
     siteTitle: string,
     pageTitle?:string,
     siteLink: string,
     pageLink?: string,
-    favIconColor: string,
+    favIconColor?: string,
 }
 const Head = ({siteIcon,pageImage,siteLink,siteTitle,siteDescription,favIconColor,pageDescription,pageLink,pageTitle}:HeadProps) =>  {
   const headTitle = [pageTitle,siteTitle,siteDescription].filter( (e:string|undefined) => typeof e !== "undefined").join(" | "),

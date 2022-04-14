@@ -1,4 +1,14 @@
 @import "../../global-styles/global-variables.scss";
+.toggle {
+    position:relative;
+    display:block;
+}
+.desktop {
+    background:red;
+}
+.mobile {
+    background:blue;
+}
 .slider {
     position:relative;
     display:block;
@@ -97,6 +107,7 @@
         border-color: var(--bg-white);
         box-shadow: 2px 2px 0 var(--the-color);
         background: var(--the-color);
+        transform:translateY(3px);
         &:active {
             box-shadow: none;
             left: 2px;

@@ -18,7 +18,7 @@ import {
 import Logo from "./Logo";
 export interface HeaderProps {
     siteTitle: string,
-    siteDesc : string,
+    siteDesc? : any,
     menuItems: MenuItem[],
     current?: string
 }

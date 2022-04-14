@@ -17,6 +17,9 @@
     transform: translateX(200%);
     transition: transform .15s;
     transition-timing-function: ease-in;
+    &.darkMode {
+        background: var(--bg-white)
+    }
     &.menuOpened {
       transform: translateX(0);
       transition-timing-function: ease-out;
@@ -49,6 +52,9 @@
       line-height: 1.62;
             a {
                 font-weight: normal;
+                &:hover {
+                    background: none!important;
+                }
             }
         }
     }
