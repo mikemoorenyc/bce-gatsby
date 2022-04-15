@@ -14,7 +14,6 @@ const ColorModeToggle = ({format}:ToggleProps) => {
 
     const clickHandler = (e:React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        console.log(darkModeSettings.darkMode);
         darkModeSettings.modeSwitch(); 
         e.currentTarget.blur(); 
     }
