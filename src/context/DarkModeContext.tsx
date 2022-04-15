@@ -36,7 +36,6 @@ class DarkModeProvider extends React.Component {
         })
     }
     modeSwitch = () => {
-        console.log(this.state);
         if(this.state.darkMode) {
             this.updateColorMode(this.colorPicker())
         } else {
