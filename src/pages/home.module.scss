@@ -1,4 +1,7 @@
+@use "sass:math";
+
 @import "../global-styles/mixins.scss";
+
 .header {
     font-size: 22px;
     line-height: 1.7;
@@ -98,10 +101,11 @@
     }
     
     .project-btn {
+        
         display: inline-block;
         margin-top: var(--half-gutter);
         border-color: var(--the-color);
-        padding: .5em (12em / 16 ) .65em (12em / 16);
+        padding: .5em math.div(12em,16) .65em ;
         * {
             color: inherit;
         }
@@ -125,18 +129,19 @@
             margin-top: var(--gutter-width);
         }
         @media(min-width:$d-mq) {
+            $shadow-pad: math.div(2em,16);
             font-size: 22px;
-            border-width: (2em / 16);
-            box-shadow: (2em / 16) (2em / 16) 0 var(--the-color); 
+            border-width: $shadow-pad;
+            box-shadow: $shadow-pad $shadow-pad 0 var(--the-color); 
         }
         span {
             display: inline-block;
             vertical-align: middle;
         }
         svg {
-            width: (14em / 16);
-            height: (14em / 16);
-            margin-left: (6em / 16);
+            width: math.div(14em , 16);
+            height: math.div(14em , 16);
+            margin-left: math.div(6em , 16);
             transition: transform .15s;
 
         }

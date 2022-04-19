@@ -96,8 +96,8 @@ const Layout :FunctionComponent<LayoutProps> = ({pageTitle, headerDescription,he
     const darkModeSettings = useContext(DarkModeContext);
 
     useEffect(()=>{
-      darkModeSettings.getColors(data.wp.allSettings.generalSettingsColorOptions);
-   
+      
+      darkModeSettings.colorModeInit();
         const queries = new URLSearchParams(window.location.search);
         if(!localStorage.getItem("savedPassword")) {
           const pw = queries.get('pw')
@@ -114,7 +114,7 @@ const Layout :FunctionComponent<LayoutProps> = ({pageTitle, headerDescription,he
     return (
         <Fragment>
             
-        <Head {...headData} favIconColor={darkModeSettings.color} />
+        <Head {...headData} />
         <SkipContent />
         <div id="header-test"></div>
         <Header current={activeMenu} siteTitle={headData.siteTitle} siteDesc={headData.siteDescription} menuItems={menuItemsList} />

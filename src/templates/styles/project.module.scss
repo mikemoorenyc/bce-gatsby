@@ -1,3 +1,4 @@
+@use "sass:math";
 @import "../../global-styles/mixins.scss";
 .top-section {
     position:relative;
@@ -19,7 +20,7 @@
     }
     @media(orientation:portrait) and (max-width: ($t7 - 1)) {
         height: 0;
-        padding-top: percentage(9/16 );
+        padding-top: percentage(math.div(9,16 ));
     }
     margin-bottom: calc(var(--gutter-width) * 1.5);
     
@@ -89,7 +90,7 @@
             content: "";
             width: 100%;
             height: 0;
-            padding-top: percentage(9/16);
+            padding-top: percentage(math.div(9,16));
         }
     }
 }

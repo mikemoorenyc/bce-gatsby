@@ -1,8 +1,9 @@
+@use "sass:math";
 @import "../../global-styles/global-variables.scss";
 
 @mixin gridder($columns, $gutter) {
-    $g-half: ($gutter / 2);
-    $w : percentage( (100 / $columns ) / 100);
+    $g-half: math.div($gutter , 2);
+    $w : percentage( math.div(math.div(100 ,$columns ) , 100 ));
     hr {
       width: calc(#{$w} - #{$gutter});
       margin: 0 $g-half;
