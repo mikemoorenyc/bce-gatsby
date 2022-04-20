@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from "react"
+import React from "react"
 import { getSrc } from "gatsby-plugin-image";
 import AutoCheckLoader from "../components/AutoCheckLoader";
 import EndBullet from "../components/EndBullet";

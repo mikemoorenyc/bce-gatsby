@@ -58,6 +58,17 @@ background-size: 12.73px 12.73px;
     <style>:root{--the-color: #000; }body{color:#000 !important;}</style>
 `}</noscript>
 
+
+
+<script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.GATSBY_GA_TAG}`}></script>
+<script>
+  {`window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', '${process.env.GATSBY_GA_TAG}');`}
+</script>
+
 <body className={(color === "white") ? "dark-mode" : ""} />
     
 </Helmet>
