@@ -34,7 +34,7 @@ const Footer = ({menuItems,socialMediaLinks}:FooterProps) => {
         </div>
         {
             (socialMediaLinks) ?<div>
-               <div> Email &amp; Social
+               <div> Email &amp; Other Places
                 <ul className={newsocial}>
                     {
                         arraySplit(socialMediaLinks).map((e,i)=> {
