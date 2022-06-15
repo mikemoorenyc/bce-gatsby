@@ -152,7 +152,7 @@ const contentPush = () => {
     
     pageTitle={currentProject.title} activeMenu={parentPage.menuslug}
     headerDescription={HtmlStrip(currentProject.excerpt)}
-    headerImg={(featuredImage) ? featuredImage.sourceUrl : null }
+    headerImg={(featuredImage.sourceUrl)? getSrc(featuredImage.localFile) : null }
     headerLink={currentProject.link}
   >
     <div className={topSection}>

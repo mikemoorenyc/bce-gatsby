@@ -15,12 +15,14 @@ export interface HeadProps {
 }
 const Head = ({siteIcon,pageImage,siteLink,siteTitle,siteDescription,pageDescription,pageLink,pageTitle}:HeadProps) =>  {
 
+    
+
     const {color}= useContext(DarkModeContext);
 
   const headTitle = [pageTitle,siteTitle,siteDescription].filter( (e:string|undefined) => typeof e !== "undefined").join(" | "),
         headDesc = pageDescription || siteDescription,
         headLink = siteLink + (pageLink||""),
-        headImg = pageImage || siteIcon
+        headImg = siteLink +  (pageImage || siteIcon);
 
     return <Helmet htmlAttributes={{ lang: 'en' }}>
     <title>{headTitle}</title>

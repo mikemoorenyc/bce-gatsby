@@ -41,7 +41,7 @@ export default function BlogSingle({data}) {
         pageTitle={currentPost.title} 
         activeMenu={parentPage.menuslug}
         headerDescription={excerpt}
-        headerImg={(currentPost.featuredImage) ? currentPost.featuredImage.node.sourceUrl : null}
+        headerImg={(currentPost.featuredImage.node.sourceUrl) ? getSrc(currentPost.featuredImage.node.localFile) : null}
         headerLink={currentPost.link}
     >
         <ReadingSection>
