@@ -32,12 +32,12 @@ const Head = ({siteIcon,pageImage,siteLink,siteTitle,siteDescription,pageDescrip
     <meta name="description" content={headDesc} />
     <meta property="og:url" content={headLink} />
     <meta  property="og:type" content="article" />
-    <meta  property="og:title" content={headTitle}/>
+    <meta  property="og:title" content={pageTitle}/>
     <meta  property="og:image" content={headImg} />
     <meta  property="og:image:alt" content={headDesc}/>
     <meta property="og:description" content={headDesc} />
     <meta  property="twitter:url" content={headLink} />
-    <meta  property="twitter:title" content={headTitle} />
+    <meta  property="twitter:title" content={pageTitle} />
     <meta  property="twitter:description" content={headDesc} />
     <meta  property="twitter:image" content={headImg} />
     <meta property="twitter:image:alt" content={headDesc} />
