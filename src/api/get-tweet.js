@@ -4,10 +4,10 @@ header("Access-Control-Allow-Origin: *");
 
 
 require_once("twitterexchange.php"); 
-$access_token = "4332046835-uEvGrWf1gWcge1nBqkia1Dds9DYaLC8KjoQRz8W";
-$access_token_secret = "J8FsUHiHspodBnIRLbopG6bMK1nXVffHu6N0SLsU7ZvZv";
-$consumer_key = "YhBAr1xxxLkmSvjXrs1oZhOXn";
-$consumer_secret = "gXUhuCeZ9L24J6oht6rMFaOJrmp7EAiXlCURwIAbc7I9xY8z14";
+$access_token = ""
+$access_token_secret = ""
+$consumer_key = ""
+$consumer_secret = ""
 
 $settings = array(
     'oauth_access_token' => $access_token,
