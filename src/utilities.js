@@ -127,7 +127,7 @@ attrs.forEach(e => {
 
 const pwCheck = (pw,successCallback,errorCallback,databaseId,postType) => {
 
-    fetch("/api/pwcheck", {
+    fetch("/api/pwCheck", {
         method: 'POST', // or 'PUT'
         headers: {
           'Content-Type': 'application/json',
