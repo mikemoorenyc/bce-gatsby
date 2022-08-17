@@ -127,14 +127,20 @@ attrs.forEach(e => {
 
 const pwCheck = (pw,successCallback,errorCallback,databaseId,postType) => {
 
-    fetch(process.env.GATSBY_PW_CHECK_URL, {
+    fetch("/api/pwcheck", {
         method: 'POST', // or 'PUT'
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({pw:pw,databaseId:databaseId,postType:postType}),
       })
-      .then(response => response.json())
+      .then(response => {
+        console.log(response);
+        if (response.ok) {
+            return response.json(); 
+        }
+        throw new Error('Something went wrong');
+      })
       .then(data => {
           successCallback(data);
           //updateSubmitting(false);
@@ -143,6 +149,7 @@ const pwCheck = (pw,successCallback,errorCallback,databaseId,postType) => {
         //successCallback(true);
       })
       .catch((error) => {
+        console.log("ddd")
           //updateSubmitting(false)
         //updatedErrorState(true)
         console.log(error);
