@@ -7,6 +7,10 @@
     max-width: 550px;
     margin-left: auto;
     margin-right: auto;
+    a:hover {
+        background: none !important;
+        color:currentColor !important;
+    }
 }
 .top-content {
     display: flex;

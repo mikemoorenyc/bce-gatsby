@@ -62,7 +62,7 @@ export default function TwitterBlock({node}) {
                         <Svg icon={"twitter"} />
                     </a>
                 </div>
-                <div className={tweet}>{data.text}</div>
+                <div className={tweet}>{data.full_text}</div>
                 <a href={tweetURL}  rel="noreferrer noopener" target="_blank" className={`${dateStamp} ${noUnderline} ${fontSans}`}>{timeConvert(date.getHours(),date.getMinutes())} : {monthConvert(date.getMonth())} {date.getDate()} {date.getFullYear()}</a>
                 <div className={`${meta} ${fontSans}`}>
                     {[[numberWithCommas(data.favorite_count),"heart"],[numberWithCommas(data.retweet_count),"retweet"]].map((n,i) => <div key={i} className={interaction}> <span className={icon}><Svg icon={n[1]} /></span><span >{n[0]}</span>   </div>)}
@@ -103,7 +103,7 @@ export default function TwitterBlock({node}) {
                         return response.json()
                     })
                     .then(data => {
-                  
+                 console.log(data);
                         getTweetJSON(data)
                     })
                     
