@@ -7,6 +7,7 @@ import DownloadBlock from "./components/CopyArea/DownloadBlock"
 import Video from "./components/Video"
 import ButtonBlocks from "./components/CopyArea/ButtonBlocks"
 import PullQuote from "./components/CopyArea/PullQuote";
+import VisionBoard from "./components/CopyArea/VisionBoard"
 
 const HtmlStrip = function(string) {
     if(!string) {
@@ -52,7 +53,8 @@ const copyParse = function(copy) {
             ["wp-block-video",Video],
             ["wp-block-buttons", ButtonBlocks],
             ["wp-block-file",DownloadBlock],
-            ["wp-block-pullquote",PullQuote]
+            ["wp-block-pullquote",PullQuote],
+            ['wp-vision-board-container',VisionBoard]
         ]
         if(!domNode.attribs || !domNode.attribs.class) {
             return false; 

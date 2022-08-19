@@ -355,3 +355,14 @@ $reading-block: ".copyArea.reading-section";
   }  
   
 }
+.vision-board-style {
+  h4 {
+    display:flex;
+    align-items: center;
+    svg {
+      width: 1.25em;
+      height: 1.25em;
+      margin-right: 8px;
+    }
+  }
+}
