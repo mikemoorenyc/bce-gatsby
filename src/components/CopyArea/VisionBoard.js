@@ -15,7 +15,7 @@ const Section = ({secnumb, content, spanner,width="25%"}) =>{
     return <div>
         <h4><SVG icon={s[1]} /><span>{s[0]}</span></h4>
         {content}
-        <div>
+        </div>
 } 
 
 const VisionBoard = ({node}) => {
