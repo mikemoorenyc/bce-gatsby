@@ -53,7 +53,7 @@ background-size: 12.73px 12.73px;
     body {
             //color: ${(!color) ? "var(--dark-base)" : color} }
     :root {
-        --the-color : ${(!color) ? "rgba(0,0,0,0)" : color}
+        --the-color : ${(!color) ? "rgba(0,0,0,1)" : color}
     }
 `}</style>
 <noscript>{`
